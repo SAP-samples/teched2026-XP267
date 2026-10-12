@@ -2,14 +2,14 @@
 
 In this exercise, you will get oriented to the modern SAP data stack you will use throughout this session, confirm access to your lab landscape, and understand the end-to-end story you are about to build.
 
-By the end of the full set of exercises you will have built a golden inventory record that blends SAP and non-SAP data, and a Joule agent that answers inventory-risk questions on top of it.
+By the end of the full set of exercises you will have built a golden **OTIF risk** record that blends SAP and non-SAP data, and a Joule agent that answers delivery-risk questions on top of it.
 
 ## The scenario
 
-You work for a company that needs to understand inventory risk across its supply chain. The data that answers "which materials are at risk of stocking out?" is scattered:
+You work for a discrete manufacturer that needs to understand **on-time-in-full (OTIF)** delivery risk across the shopfloor. The data that answers *"which production orders are going to miss their OTIF commitment — and why — so we can act before the due date?"* is scattered:
 
-- SAP data — material master and stock levels, exposed as governed data products from SAP Business Data Cloud (BDC).
-- Non-SAP data — logistics and IoT telemetry (shipment ETAs, warehouse sensor readings) that lands as Apache Iceberg tables on Amazon S3.
+- SAP data — production orders, their operations, and work-center master data, exposed as governed data products from SAP Business Data Cloud (BDC).
+- Non-SAP data — a "Vertex" manufacturing-execution system (MES): machine/equipment master, work orders, downtime events, quality events, production counts, and OEE snapshots that land as Apache Iceberg tables on Amazon S3.
 
 You will bring these together, refine them into a trusted golden record, and ground an AI agent on the result.
 
@@ -17,10 +17,18 @@ You will bring these together, refine them into a trusted golden record, and gro
 
 | Layer | Product | Role in this session |
 | --- | --- | --- |
-| Source of SAP data | SAP Business Data Cloud (BDC) | Provides governed, business-semantic data products (not raw tables) via zero-copy sharing. |
+| Source of SAP data | SAP Business Data Cloud (BDC) | Provides governed, business-semantic S/4HANA data products (not raw tables) via zero-copy sharing. |
 | Lakehouse & transformation | Dremio | ELT engine + semantic layer. Builds the bronze → silver → gold medallion as layered SQL views, accelerated by reflections. Reads Iceberg on S3 and BDC data products together. |
-| AI / agents | Joule | Builds the agent that reasons over the golden record. |
-| Open storage | Apache Iceberg on Amazon S3 | Open table format for the non-SAP data, queried in place (no lock-in). |
+| AI / agents | Joule | Builds the agent that reasons over the golden OTIF record. |
+| Open storage | Apache Iceberg on Amazon S3 | Open table format for the non-SAP MES data, queried in place (no lock-in). |
+
+## The data you will use
+
+All data is fully synthetic. Two datasets back this session:
+
+- **`data/otif-synth-data`** — the main scenario. Its SAP S/4 side (`productionorder`, `productionorderoperation`, `workcenter`) is the governed-data-product side; its Vertex MES CSVs (`work_order`, `equipment`, `downtime_event`, `quality_event`, `production_count`, `oee_snapshot`, `ground_truth_xref`) are the non-SAP side landed as Iceberg on S3.
+- **`data/otif-medallion`** — a worked reference of the same silver → gold OTIF logic on Azure Databricks. Exercise 3 rebuilds that logic as Dremio SQL views; its [README](../../data/otif-medallion/README.md) is the authoritative description of every derived column.
+- **`data/mes_synthetic_data`** — a shopfloor OEE / capacity dataset used in Exercise 4 as supplementary context the agent can draw on.
 
 ## A note on terminology — it is not called "ETL"
 
