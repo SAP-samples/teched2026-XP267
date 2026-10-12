@@ -1,0 +1,15 @@
+date,day_index,material_id,record_type,unit_of_measure,daily_required_units,opening_horizon_inventory_units,baseline_supplier_receipts_units,proposed_recovery_receipts_units,maximum_candidate_receipts_units,cumulative_required_units,cumulative_baseline_supply_units,cumulative_proposed_recovery_receipts_units,cumulative_maximum_candidate_receipts_units,cumulative_supply_with_recovery_units,cumulative_shortfall_without_recovery_units,cumulative_shortfall_with_recovery_units,projected_ending_inventory_units,projected_backlog_units
+2026-10-01,1,MAT000-7B,derived_planning_comparison,EA,200,600,0,0,0,200,600,0,0,600,0,0,400,0
+2026-10-02,2,MAT000-7B,derived_planning_comparison,EA,225,0,0,0,80,425,600,0,80,600,0,0,175,0
+2026-10-03,3,MAT000-7B,derived_planning_comparison,EA,260,0,400,180,200,685,1000,180,280,1180,0,0,495,0
+2026-10-04,4,MAT000-7B,derived_planning_comparison,EA,285,0,0,180,200,970,1000,360,480,1360,0,0,390,0
+2026-10-05,5,MAT000-7B,derived_planning_comparison,EA,275,0,0,180,200,1245,1000,540,680,1540,245,0,295,0
+2026-10-06,6,MAT000-7B,derived_planning_comparison,EA,295,0,0,180,240,1540,1000,720,920,1720,540,0,180,0
+2026-10-07,7,MAT000-7B,derived_planning_comparison,EA,320,0,0,140,160,1860,1000,860,1080,1860,860,0,0,0
+2026-10-08,8,MAT000-7B,derived_planning_comparison,EA,200,0,600,0,200,2060,1600,860,1280,2460,460,0,400,0
+2026-10-09,9,MAT000-7B,derived_planning_comparison,EA,225,0,0,180,200,2285,1600,1040,1480,2640,685,0,355,0
+2026-10-10,10,MAT000-7B,derived_planning_comparison,EA,260,0,400,180,200,2545,2000,1220,1680,3220,545,0,675,0
+2026-10-11,11,MAT000-7B,derived_planning_comparison,EA,285,0,0,180,200,2830,2000,1400,1880,3400,830,0,570,0
+2026-10-12,12,MAT000-7B,derived_planning_comparison,EA,275,0,0,180,240,3105,2000,1580,2120,3580,1105,0,475,0
+2026-10-13,13,MAT000-7B,derived_planning_comparison,EA,295,0,0,140,200,3400,2000,1720,2320,3720,1400,0,320,0
+2026-10-14,14,MAT000-7B,derived_planning_comparison,EA,320,0,0,0,200,3720,2000,1720,2520,3720,1720,0,0,0

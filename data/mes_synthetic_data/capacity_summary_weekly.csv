@@ -1,0 +1,3 @@
+window_id,start_date,end_date,required_material_units,baseline_supply_units,incremental_material_gap_units,candidate_production_capacity_units,candidate_capacity_receivable_in_window_units,proposed_recovery_production_units,proposed_recovery_receipts_units,delivery_capacity_headroom_units,ending_projected_inventory_units,ending_uncovered_units
+W1,2026-10-01,2026-10-07,1860,1000,860,1280,1080,860,860,220,0,0
+W2,2026-10-08,2026-10-14,1860,1000,860,1440,1440,860,860,580,0,0

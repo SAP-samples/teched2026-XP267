@@ -1,0 +1,9 @@
+plant_id,line_id,operation_id,operation_name,sequence,next_operation_id,state,current_material_id,candidate_material_id,unit_of_measure,planning_good_rate_per_hour,bottleneck,window_start,window_end,opening_wip_units,received_units,passed_units,scrap_units,closing_wip_units,processing_units,queued_units,record_type
+SKL-PLANT-01,SKL-ACC-01,10,Precision cutting,1,20,RUNNING,SKL-ACC-LINER-01,MAT000-7B,EA,60,False,2026-10-01T08:00:00-07:00,2026-10-01T09:00:00-07:00,10,64,60,0,14,2,12,simulated_observation_with_planning_rate
+SKL-PLANT-01,SKL-ACC-01,20,Edge finishing,2,30,RUNNING,SKL-ACC-LINER-01,MAT000-7B,EA,50,False,2026-10-01T08:00:00-07:00,2026-10-01T09:00:00-07:00,16,60,54,0,22,2,20,simulated_observation_with_planning_rate
+SKL-PLANT-01,SKL-ACC-01,30,Dimensional and visual inspection,3,40,RUNNING,SKL-ACC-LINER-01,MAT000-7B,EA,40,True,2026-10-01T08:00:00-07:00,2026-10-01T09:00:00-07:00,12,54,40,1,25,2,23,simulated_observation_with_planning_rate
+SKL-PLANT-01,SKL-ACC-01,40,Pack and label,4,,RUNNING,SKL-ACC-LINER-01,MAT000-7B,EA,60,False,2026-10-01T08:00:00-07:00,2026-10-01T09:00:00-07:00,8,40,40,0,8,2,6,simulated_observation_with_planning_rate
+SKL-PLANT-01,SKL-ACC-02,10,Precision cutting,1,20,IDLE_READY,,MAT000-7B,EA,60,False,2026-10-01T08:00:00-07:00,2026-10-01T09:00:00-07:00,0,0,0,0,0,0,0,simulated_observation_with_planning_rate
+SKL-PLANT-01,SKL-ACC-02,20,Edge finishing,2,30,IDLE_READY,,MAT000-7B,EA,50,False,2026-10-01T08:00:00-07:00,2026-10-01T09:00:00-07:00,0,0,0,0,0,0,0,simulated_observation_with_planning_rate
+SKL-PLANT-01,SKL-ACC-02,30,Dimensional and visual inspection,3,40,IDLE_READY,,MAT000-7B,EA,40,True,2026-10-01T08:00:00-07:00,2026-10-01T09:00:00-07:00,0,0,0,0,0,0,0,simulated_observation_with_planning_rate
+SKL-PLANT-01,SKL-ACC-02,40,Pack and label,4,,IDLE_READY,,MAT000-7B,EA,60,False,2026-10-01T08:00:00-07:00,2026-10-01T09:00:00-07:00,0,0,0,0,0,0,0,simulated_observation_with_planning_rate
