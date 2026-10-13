@@ -1,231 +1,69 @@
-# Exercise 3 - Build the Medallion: Bronze → Silver → Gold in Dremio
+# Exercise 3 - Build a Joule Agent on the Golden Record
 
-In this exercise, you will refine the raw data into a trusted golden **OTIF risk** record. You will build the medallion as layered SQL views in Dremio and accelerate the final layer with a reflection — this is the "ELT" in the modern stack: transformation as semantics, not pipeline jobs.
+In this exercise, you will build a Joule agent grounded on the golden records from Exercise 1 — primarily the materialized **customer order-fulfillment** record. The agent lets a sales or supply-chain planner ask questions in natural language and get trustworthy, explainable answers — because it is grounded on governed, lineage-tracked data, not a black box.
 
-- Bronze (SAP data products from ex1 + MES Iceberg from ex2) — raw, as-landed.
-- Silver — one clean, typed row per production-order *operation*, enriched with anomaly signals.
-- Gold — one business-ready row per production *order*: the OTIF risk verdict.
+This is the payoff of the whole stack: context-rich AI on top of a trusted golden record.
 
-The derived-column logic below mirrors the reference implementation in [`data/otif-medallion`](../../data/otif-medallion/README.md) (there it runs as Spark SQL on Databricks; here you rebuild it as Dremio views). Every score and flag is deterministic SQL — hand-authored `CASE` statements and thresholds, **no ML model**. "Predictive" means a rule that fires early on open orders, before the due date.
+## Exercise 3.1 Create the agent and connect its data context
 
-## Exercise 3.1 Build the Silver layer (clean & conform)
+After completing these steps you will have an agent that can read the golden fulfillment record.
 
-After completing these steps you will have one flat, per-operation row that harmonizes the three SAP data products and derives anomaly signals.
+1. In Joule, open the Agent Builder and create a new agent named `Order Fulfillment Advisor`.
+<br>![Creating a new agent in Joule Agent Builder](/exercises/ex3/images/03_01_0010.png)
 
-1. Create the Silver view. It joins the Production Order header to its operations on `ProductionOrder` (inner join), then left-joins Work Center on `WorkCenterInternalID` so operations survive even without matching machine master data:
-```sql
--- Silver: one harmonized, enriched row per production-order operation
-CREATE VIEW silver.otif_production AS
-SELECT
-    po.ProductionOrder,
-    po.ProductionOrderType,
-    po.ProductionPlant,
-    po.OrderScheduledEndDate,
-    po.OrderActualEndDate,
-    op.ProductionOrderOperation,
-    op.WorkCenterInternalID,
-    wc.WorkCenterName,
-    op.OpPlannedTotalQuantity,
-    op.OpTotalConfirmedScrapQty                                   AS ActualScrapQty,
+2. Add a data context / tool that points at the Dremio `"teched_labs_sandbox"."sap_dp".v_customer_order_fulfillment` view (via the Dremio connection configured for your lab). This is the primary source the agent reasons over. Optionally, add the OTIF manufacturing record (`gold.otif_risk`) as a secondary context so the agent can also answer shopfloor production-risk questions.
 
-    -- delivery_status: is the order late?
-    CASE
-        WHEN po.OrderActualEndDate IS NULL                        THEN 'In Progress'
-        WHEN po.OrderActualEndDate > po.OrderScheduledEndDate     THEN 'Late'
-        WHEN po.OrderActualEndDate <= po.OrderScheduledEndDate    THEN 'On Time'
-        ELSE 'Unknown'
-    END                                                           AS delivery_status,
-
-    -- schedule_delay_days: how many days late the order finished
-    DATEDIFF(po.OrderActualEndDate, po.OrderScheduledEndDate)     AS schedule_delay_days,
-
-    -- actual_scrap_pct: real scrap rate for the operation (0 when planned qty not > 0)
-    CASE WHEN op.OpPlannedTotalQuantity > 0
-         THEN ROUND(op.OpTotalConfirmedScrapQty / op.OpPlannedTotalQuantity * 100, 2)
-         ELSE 0 END                                               AS actual_scrap_pct,
-
-    -- work_ratio_vs_standard: actual vs. standard work (1.0 = on standard)
-    CASE WHEN op.WorkCenterStandardWorkQty1 > 0
-         THEN ROUND(op.ConfirmedWorkQuantity1 / op.WorkCenterStandardWorkQty1, 3)
-         ELSE NULL END                                            AS work_ratio_vs_standard,
-
-    -- root_cause_tag: why the operation is bad
-    CASE
-        WHEN op.WorkCenterStandardWorkQty1 > 0
-             AND op.ConfirmedWorkQuantity1 / op.WorkCenterStandardWorkQty1 > 1.5
-            THEN 'Work Overrun'
-        WHEN op.OpPlannedTotalQuantity > 0
-             AND op.OpTotalConfirmedScrapQty / op.OpPlannedTotalQuantity > 0.30
-            THEN 'High Scrap'
-        WHEN op.WorkCenterInternalID = '10000040'
-             AND op.OpPlannedTotalQuantity > 0
-             AND op.OpTotalConfirmedScrapQty / op.OpPlannedTotalQuantity > 0.10
-            THEN 'Final Acceptance Failure'
-        ELSE 'Normal'
-    END                                                           AS root_cause_tag,
-
-    -- operation_anomaly_score: 0-100 severity blend of overrun + scrap
-    LEAST(100, CAST(
-        LEAST(50, GREATEST(0,
-            (COALESCE(op.ConfirmedWorkQuantity1 / NULLIF(op.WorkCenterStandardWorkQty1,0), 1.0) - 1.0) * 50))
-        + LEAST(50,
-            CASE WHEN op.OpPlannedTotalQuantity > 0
-                 THEN op.OpTotalConfirmedScrapQty / op.OpPlannedTotalQuantity * 100
-                 ELSE 0 END)
-        AS INT))                                                  AS operation_anomaly_score
-FROM BDC.productionorder.productionorder                 AS po
-JOIN BDC.productionorder.productionorderoperation        AS op
-    ON po.ProductionOrder = op.ProductionOrder
-LEFT JOIN BDC.workcenter.workcenter                      AS wc
-    ON op.WorkCenterInternalID = wc.WorkCenterInternalID;
-```
-<br>![Dremio showing the silver.otif_production view](/exercises/ex3/images/03_01_0010.png)
-
-2. Preview the Silver view and confirm each operation now carries `delivery_status`, `actual_scrap_pct`, `work_ratio_vs_standard`, `root_cause_tag`, and `operation_anomaly_score`:
-```sql
-SELECT ProductionOrder, ProductionOrderOperation, WorkCenterName,
-       delivery_status, actual_scrap_pct, work_ratio_vs_standard,
-       root_cause_tag, operation_anomaly_score
-FROM silver.otif_production
-ORDER BY operation_anomaly_score DESC
-LIMIT 20;
-```
-<br>![silver.otif_production preview sorted by anomaly](/exercises/ex3/images/03_01_0020.png)
-
-## Exercise 3.2 Build the Gold golden OTIF record
-
-After completing these steps you will have one business-ready view, one row per production order, that turns the worst operation signals into an OTIF risk verdict.
-
-1. Create the Gold view. It aggregates all operations of an order and keeps the *worst* signals (an order is only as healthy as its worst operation), then derives the per-order verdict:
-```sql
--- Gold: the golden OTIF risk record (one row per production order)
-CREATE VIEW gold.otif_risk AS
-WITH agg AS (
-    SELECT
-        ProductionOrder,
-        MAX(ProductionPlant)                                     AS plant,
-        MAX(delivery_status)                                     AS delivery_status,
-        MAX(schedule_delay_days)                                 AS schedule_delay_days,
-        COUNT(ProductionOrderOperation)                          AS total_operations,
-        MAX(operation_anomaly_score)                             AS max_anomaly_score,
-        ROUND(AVG(actual_scrap_pct), 2)                          AS avg_scrap_pct,
-        ROUND(MAX(actual_scrap_pct), 2)                          AS max_scrap_pct,
-        ROUND(MAX(work_ratio_vs_standard), 3)                    AS max_work_ratio,
-        SUM(ActualScrapQty)                                      AS total_scrap_qty,
-        -- which machines are driving the risk (score >= 30), sorted & de-duped
-        ARRAY_JOIN(
-            ARRAY_SORT(SET_UNION(
-                CASE WHEN operation_anomaly_score >= 30
-                     THEN ARRAY[WorkCenterName] ELSE ARRAY[] END)), ', ')
-                                                                 AS anomalous_work_centers
-    FROM silver.otif_production
-    GROUP BY ProductionOrder
-)
-SELECT
-    ProductionOrder,
-    plant,
-    delivery_status,
-    schedule_delay_days,
-    total_operations,
-    max_anomaly_score,
-    avg_scrap_pct,
-    max_scrap_pct,
-    max_work_ratio,
-    total_scrap_qty,
-    anomalous_work_centers,
-
-    -- primary_root_cause: single most-severe cause on the order (severity precedence)
-    CASE
-        WHEN max_work_ratio IS NOT NULL AND max_anomaly_score >= 50 THEN 'Work Overrun'
-        WHEN max_anomaly_score >= 40                                THEN 'High Scrap'
-        WHEN max_anomaly_score >= 15                                THEN 'Final Acceptance Failure'
-        ELSE 'Normal'
-    END                                                             AS primary_root_cause,
-
-    -- otif_risk_score: 0-100 order-level OTIF risk
-    LEAST(100, CAST(
-        LEAST(40, COALESCE(schedule_delay_days, 0) * 4)
-        + max_anomaly_score * 0.6
-        AS INT))                                                    AS otif_risk_score,
-
-    -- is_at_risk: predictive flag -- open order already showing trouble
-    CASE WHEN delivery_status = 'In Progress' AND max_anomaly_score >= 30
-         THEN TRUE ELSE FALSE END                                   AS is_at_risk,
-
-    -- risk_tier: human-readable bucket for reporting
-    CASE
-        WHEN delivery_status = 'Late'                               THEN 'Breached'
-        WHEN delivery_status = 'In Progress'
-             AND LEAST(100, LEAST(40, COALESCE(schedule_delay_days,0)*4) + max_anomaly_score*0.6) >= 40
-            THEN 'High Risk'
-        WHEN delivery_status = 'In Progress'
-             AND LEAST(100, LEAST(40, COALESCE(schedule_delay_days,0)*4) + max_anomaly_score*0.6) >= 20
-            THEN 'Medium Risk'
-        WHEN delivery_status = 'In Progress'
-             AND LEAST(100, LEAST(40, COALESCE(schedule_delay_days,0)*4) + max_anomaly_score*0.6) > 0
-            THEN 'Low Risk'
-        WHEN delivery_status = 'On Time'                            THEN 'Completed'
-        ELSE 'Normal'
-    END                                                             AS risk_tier
-FROM agg;
-```
-<br>![Query result over gold.otif_risk](/exercises/ex3/images/03_02_0010.png)
-
-2. Query the golden record and work the worst first:
-```sql
-SELECT ProductionOrder, plant, delivery_status, risk_tier,
-       otif_risk_score, primary_root_cause, anomalous_work_centers
-FROM gold.otif_risk
-WHERE is_at_risk = TRUE OR risk_tier = 'Breached'
-ORDER BY otif_risk_score DESC
-LIMIT 50;
+3. Give the agent its grounding instructions:
+```text
+You are an order-fulfillment advisor for a sales and supply-chain operation.
+Answer only from the v_customer_order_fulfillment dataset in Dremio.
+Each row is one customer + material + plant, with the customer's demand (req_qty,
+so_lines), the matched purchasing supply (po_qty, po_lines, suppliers), the
+coverage_ratio (po_qty / req_qty) and a coverage_status
+(covered / under_covered / demand_no_supply / supply_only), plus customer context
+(CustomerName, Country, Industry, CustomerClassification).
+When you flag a fulfillment gap, always cite the Customer (and CustomerName), the
+Material and Plant, the coverage_status, and the figures that drove the conclusion
+(req_qty vs po_qty, coverage_ratio). If the data does not support an answer, say so.
 ```
 
-3. **Unify the non-SAP side.** The Gold view above is built purely from SAP data products — faithful to the [reference medallion](../../data/otif-medallion/README.md), which is SAP-only. Now add the shopfloor explanation that only the non-SAP MES has: join the Vertex downtime/OEE telemetry to the SAP work centers through the `ground_truth_xref` mapping (MES `equipment_id` ↔ SAP `WorkCenterInternalID`). First build a Silver bridge that conforms the MES machine identity to the SAP key:
-```sql
--- Silver: conform non-SAP MES telemetry to the SAP work-center key
-CREATE VIEW silver.workcenter_shopfloor AS
-SELECT
-    x.WorkCenterInternalID,
-    AVG(o.oee)                              AS avg_oee,
-    AVG(o.availability)                     AS avg_availability,
-    SUM(CASE WHEN d.planned_flag = false
-             THEN d.duration_minutes ELSE 0 END) AS unplanned_downtime_minutes
-FROM s3lake.bronze.ground_truth_xref x
-LEFT JOIN s3lake.bronze.oee_snapshot    o ON o.equipment_id = x.equipment_id
-LEFT JOIN s3lake.bronze.downtime_event  d ON d.equipment_id = x.equipment_id
-GROUP BY x.WorkCenterInternalID;
+   > **Secondary context (optional):** point a second read-only tool at `gold.otif_risk` so the agent can also answer manufacturing OTIF questions (production orders, risk_tier, primary_root_cause, anomalous_work_centers). Keep it clearly separate from the fulfillment record.
+
+## Exercise 3.2 Ask the agent fulfillment questions
+
+After completing these steps you will have validated the agent end-to-end.
+
+1. Ask the agent a direct question and confirm it answers from the golden record:
+```text
+Which customers have orders that are under-covered or have no supply at all, and why?
 ```
-Then extend the Gold record so each at-risk order can point at the real machine condition behind the risk (left-join on the worst anomalous work center). This is where SAP and non-SAP meet in one row:
-```sql
--- Gold+: enrich the OTIF verdict with non-SAP shopfloor condition
-CREATE VIEW gold.otif_risk_enriched AS
-SELECT
-    g.*,
-    sf.avg_oee,
-    sf.unplanned_downtime_minutes
-FROM gold.otif_risk g
-LEFT JOIN silver.otif_production op
-    ON op.ProductionOrder = g.ProductionOrder
-   AND op.operation_anomaly_score = g.max_anomaly_score
-LEFT JOIN silver.workcenter_shopfloor sf
-    ON sf.WorkCenterInternalID = op.WorkCenterInternalID;
+<br>![Joule agent answering an under-coverage question with citations](/exercises/ex3/images/03_02_0010.png)
+
+2. Ask a question that forces it to use the customer context it inherited through the golden record:
+```text
+Rank the top 5 customers by fulfillment risk (lowest coverage_ratio first). For each,
+name the Country and Industry, the materials at risk, and whether the gap is
+'under_covered' or 'demand_no_supply'.
 ```
 
-4. Accelerate the Gold layer with a reflection so the agent (ex4) and dashboards get fast responses. In Dremio, open `gold.otif_risk_enriched`, go to Reflections, and enable a Raw Reflection.
-<br>![Enabling a raw reflection on the gold view](/exercises/ex3/images/03_02_0020.png)
+3. (Secondary / OTIF) Ask a manufacturing question to show the agent can also reason over the production record:
+```text
+Which production orders are at HIGH risk of missing OTIF right now, and why?
+```
 
-   > Why this matters (showcase point): the golden record is a view, not a copy. Change a Silver threshold and the Gold verdict updates — no pipeline to re-run. The reflection gives physical speed without giving up the single logical source of truth. (Note: `ARRAY_SORT` / `SET_UNION` syntax varies by engine — if your Dremio build differs, substitute the equivalent array-aggregation function; the reference Databricks logic uses `ARRAY_JOIN(COLLECT_SET(...))`.)
+   > Why this matters (showcase point): the agent is only as good as its grounding. Because it sits on a governed golden record with lineage back to SAP BDC data products, every answer is explainable and auditable, the opposite of an ungrounded chatbot. Change a coverage threshold in Exercise 1 and the agent immediately reasons on better data.
 
 ## Screenshots to capture (for authors)
 
-- [ ] `03_01_0010.png` — `silver.otif_production` view defined
-- [ ] `03_01_0020.png` — `silver.otif_production` preview sorted by `operation_anomaly_score`
-- [ ] `03_02_0010.png` — `gold.otif_risk` query result with risk columns
-- [ ] `03_02_0020.png` — Raw reflection enabled on the Gold view
+- [ ] `03_01_0010.png` — New agent creation in Joule Agent Builder
+- [ ] `03_01_0020.png` — Agent data context pointed at `v_customer_order_fulfillment`
+- [ ] `03_02_0010.png` — Agent answering the under-coverage question with citations
+- [ ] `03_02_0020.png` — Agent answering the ranked fulfillment-risk question with customer context
 
 ## Summary
 
-You've built a golden OTIF record that unifies SAP data products with open non-SAP lakehouse data, accelerated by a reflection. Next you will put an agent on top of it.
+You've built an AI agent that answers order-fulfillment questions from a trusted, governed golden record sourced from SAP BDC data products — with the OTIF manufacturing record available as secondary context. Every answer traces back through the Dremio golden record to governed SAP data.
 
-Continue to - [Exercise 4 - Build a Joule Agent on the Golden Record](../ex4/README.md)
+That's the session. Thank you for participating!
+
+Return to - [Overview](../../README.md)
