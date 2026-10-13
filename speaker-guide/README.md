@@ -4,23 +4,20 @@ Presenter material for the session. **Not student-facing** — don't link it fro
 
 | Guide | Exercise | ~Time |
 |---|---|---|
-| [ex0.md](ex0.md) | Getting started / the stack | 5 min |
-| [ex1.md](ex1.md) | SAP data products from BDC | 8 min |
-| [ex2.md](ex2.md) | Non-SAP MES data as Iceberg (Bronze) | 10 min |
-| [ex3.md](ex3.md) | Medallion Silver → Gold | 15 min |
-| [ex4.md](ex4.md) | Joule agent on the golden record | 10 min |
-| [ex5.md](ex5.md) | Lineage, governance, value | 7 min |
+| [ex1.md](ex1.md) | Build the golden records (fulfillment + OTIF) | 15 min |
+| [ex2.md](ex2.md) | Ontologies on the golden record (placeholder — other team) | TBD |
+| [ex3.md](ex3.md) | Joule agent on the golden record | 10 min |
 
-**Total:** ~55 min of hands-on + wrap.
+**Total:** ~25 min of hands-on (+ the ontology exercise from the other team).
 
 ## Before you present
 
-- Complete the entire [`infra/README.md`](../infra/README.md) pre-flight checklist. The single biggest live-demo risk is unstaged S3 data or an unshared BDC product — both are eliminated by staging **all data once, up front**.
-- The one-sentence spine for the whole session: *"Which production orders will miss OTIF — and why — so we can act before the due date?"* Repeat it at ex0, ex3 (gold), and ex4 (agent).
+- Complete the entire [`infra/README.md`](../infra/README.md) pre-flight checklist. The SAP data products (`customer`, `salesorderitem`, `purchaseorderitem`, plus the OTIF production tables) are pre-loaded into Dremio as `"teched_labs_sandbox"."sap_dp".*` — narrate the BDC origin, but there is **no live BDC connection** in the demo. For the OTIF secondary track, the non-SAP MES data is pre-staged on S3.
+- The one-sentence spine for the whole session: *"Which customers' orders are covered by supply — and where are the gaps?"* Repeat it at ex1 (golden record) and ex3 (agent). The OTIF manufacturing question (*"which production orders will miss OTIF, and why?"*) is the secondary track.
 - The anti-ETL message is the recurring theme: **zero-copy SAP data products + open Iceberg, unified as SQL views, not copied by pipelines.**
 
 ## The data in one breath
 
-- **SAP side** = 3 governed BDC data products (production order, operation, work center), zero-copy to Dremio.
-- **Non-SAP side** = 7 Vertex MES CSVs on S3 as Iceberg (work_order, equipment, downtime_event, quality_event, production_count, oee_snapshot, ground_truth_xref).
-- The two meet in **ex3** via `ground_truth_xref` (MES `equipment_id` ↔ SAP `WorkCenterInternalID`).
+- **Primary (Sales/CRM)** = 3 governed BDC data products — `customer`, `salesorderitem`, `purchaseorderitem` — exported and queried in Dremio as `"teched_labs_sandbox"."sap_dp".*`.
+- **Secondary (OTIF manufacturing)** = production order / operation / work center (SAP) + 7 Vertex MES CSVs on S3 as Iceberg (work_order, equipment, downtime_event, quality_event, production_count, oee_snapshot, ground_truth_xref).
+- Sales/CRM is the primary data: `salesorderitem` (demand) + `purchaseorderitem` (supply) + `customer` (context), queried in Dremio as `"teched_labs_sandbox"."sap_dp".*`. In the OTIF secondary track the SAP and non-SAP worlds meet via `ground_truth_xref` (MES `equipment_id` ↔ SAP `WorkCenterInternalID`).

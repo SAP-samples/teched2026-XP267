@@ -1,27 +1,17 @@
-# Speaker Guide — Exercise 2: Non-SAP MES Data as Iceberg (Bronze)
+# Speaker Guide — Exercise 2: Ontologies on the Golden Record
 
-**~10 min.** Student doc: [`exercises/ex2`](../exercises/ex2/README.md)
+**Timing TBD — placeholder.** Student doc: [`exercises/ex2`](../exercises/ex2/README.md)
 
-## Goal
-Turn the 7 raw Vertex MES CSVs (already staged on S3) into managed **Iceberg** bronze tables in Dremio.
+## Status
+**Authored by a separate team.** This guide is a placeholder until that content lands.
 
-## The 7 non-SAP feeds
-work_order, equipment, downtime_event, quality_event, production_count, oee_snapshot, ground_truth_xref.
-Each lives in its own `bronze/<table>/` folder — Dremio promotes a folder, not a loose file.
+## What it covers
+Building an ontology on top of the materialized `v_customer_order_fulfillment` view from Exercise 1 — the semantic bridge between the golden record (Exercise 1) and the Joule agent (Exercise 3).
 
-## Talking points
-- The data is **raw**: epoch-millis timestamps (`BIGINT`), MES-local IDs not yet aligned to SAP work centers. That's what Bronze means.
-- Students upload nothing — the files were **staged once** pre-session (anti-fragile demo). The learning is the `CREATE TABLE ... AS SELECT` that converts CSV → open Iceberg.
-- Message: SAP data products **and** open Iceberg, queried by **one engine**. The two worlds are already side-by-side.
-
-## Do live — expected results
-- `CREATE TABLE s3lake.bronze.work_order AS SELECT * FROM s3lake."bronze/work_order"` → ~200 rows.
-- `oee_snapshot` → 120 rows; `downtime_event`/`quality_event`/`production_count` → 150 each; `equipment` → 100; `ground_truth_xref` → 85.
-
-## Gotchas
-- **Folder vs file**: if a student points at the `.csv` instead of the folder, promotion/format differs. Steer them to the folder.
-- **Header row**: ensure "Extract field names" is on, or columns come back as `A, B, C...`.
-- Call out `ground_truth_xref` now — "remember this one, it's the bridge that joins non-SAP to SAP in the next exercise."
+## Hand-off facts for the ontology team
+- Input: `"teched_labs_sandbox"."sap_dp".v_customer_order_fulfillment`, materialized via a Raw Reflection in Exercise 1.
+- Grain: one row per `Customer` + `Material` + `Plant`, with demand/supply figures, `coverage_ratio`, `coverage_status`, and customer context (`CustomerName`, `Country`, `Industry`, `CustomerClassification`).
+- Downstream: Exercise 3's agent grounds on the same view.
 
 ## Transition
-"Two worlds, side by side but not yet talking. The medallion makes them one record."
+"With the fulfillment concepts modeled as an ontology, we can ground an agent that speaks the business's language."
