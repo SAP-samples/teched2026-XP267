@@ -25,7 +25,45 @@ For this hands-on lab those data products have been **exported and pre-loaded in
 
 After completing these steps you will have one business-ready view, one row per customer + material + plant, that compares what customers ordered (demand) against what purchasing secured (supply), enriched with customer context.
 
-1. Build the fulfillment view. It aggregates sales-order demand and purchase-order supply per `Material` + `Plant`, joins customer master for context, and derives a coverage ratio and a fulfillment verdict:
+Before building anything, run three quick `SELECT`s to see the raw data you're about to combine — this is where the demand, the supply, and the customer context each come from.
+
+1. **Look at sales-order demand.**
+
+   *Each row is one sales-order line — the customer (`SoldToParty`), what they want (`Material`, `Plant`), and how much (`RequestedQuantity`). Notice the quantity is stored as text, not a number.*
+
+```sql
+SELECT SoldToParty, Material, Plant, RequestedQuantity, OrderQuantity
+FROM "teched_labs_sandbox"."sap_dp".salesorderitem
+LIMIT 20;
+```
+
+   > **You should see:** one row per sales-order line. `RequestedQuantity` comes back as a **string**, and some rows carry a **unit token like `EA`** instead of a number — remember this, it's why the build below needs a guarded cast.
+
+2. **Look at purchasing supply.**
+
+   *Each row is one purchase-order line — the `Material`/`Plant` being procured, the `OrderQuantity`, and the `Supplier` who provides it.*
+
+```sql
+SELECT Material, Plant, OrderQuantity, Supplier
+FROM "teched_labs_sandbox"."sap_dp".purchaseorderitem
+LIMIT 20;
+```
+
+   > **You should see:** supply keyed by the same `Material` + `Plant` as the demand above — that pair is the join key. `OrderQuantity` is again a string with occasional unit tokens.
+
+3. **Look at the customer master.**
+
+   *One row per customer — the context columns (`CustomerName`, `Country`, `Industry`, `CustomerClassification`) you'll attach to every fulfillment row.*
+
+```sql
+SELECT Customer, CustomerName, Country, Industry, CustomerClassification
+FROM "teched_labs_sandbox"."sap_dp".customer
+LIMIT 20;
+```
+
+   > **You should see:** one row per customer. `Customer` here is the key that matches `SoldToParty` from the sales orders — that's how customer context gets joined on.
+
+4. **Build the fulfillment view.** Now combine the three: aggregate sales-order demand and purchase-order supply per `Material` + `Plant`, join the customer master for context, and derive a coverage ratio and a fulfillment verdict.
 
 ```sql
 CREATE VIEW "teched_labs_sandbox"."hands-on-test"."ex1".v_customer_order_fulfillment AS
@@ -71,7 +109,7 @@ LEFT JOIN "teched_labs_sandbox"."sap_dp".customer c ON c.Customer = d."Customer"
 > **Why the guarded cast?** The quantity columns are stored as strings and some rows carry a unit token (e.g. `EA`) instead of a number. A plain `CAST(... AS DOUBLE)` errors ("Failed to cast the string EA to double"). The `REGEXP_LIKE(..., '^-?[0-9]+(\.[0-9]+)?$')` guard casts only numeric-looking values and lets `SUM` ignore the rest — the same behavior as Databricks `try_cast`. If quantities can appear in scientific notation or with thousands separators, widen the pattern.
 <br>![Dremio showing the v_customer_order_fulfillment view](/exercises/ex1/images/01_01_0010.png)
 
-2. Preview the golden record and work the gaps first — customers whose demand is not covered by supply:
+5. Preview the golden record and work the gaps first — customers whose demand is not covered by supply:
 
 ```sql
 SELECT "Customer", "CustomerName", "Country", "Industry",
@@ -118,7 +156,37 @@ SET REFRESH EVERY '1' HOUR;
 
 This track keeps the on-time-in-full production-risk golden record so the agent in Exercise 3 can also answer shopfloor-delivery questions. The derived-column logic mirrors the reference implementation in [`data/otif-medallion`](../../data/otif-medallion/README.md) (there it runs as Spark SQL on Databricks; here you rebuild it as Dremio views). Every score and flag is deterministic SQL — hand-authored `CASE` statements and thresholds, **no ML model**. "Predictive" means a rule that fires early on open orders, before the due date.
 
-1. Build the Silver layer — one harmonized, enriched row per production-order operation:
+As before, look at the raw manufacturing data first, then build.
+
+1. **Look at production orders and their operations.**
+
+   *Each production order (`productionorder`) has one or more operations (`productionorderoperation`). Scheduled vs actual end dates drive lateness; planned vs confirmed/scrap quantities drive the anomaly signals.*
+
+```sql
+SELECT po.ProductionOrder, po.OrderScheduledEndDate, po.OrderActualEndDate,
+       op.ProductionOrderOperation, op.WorkCenterInternalID,
+       op.OpPlannedTotalQuantity, op.OpTotalConfirmedScrapQty
+FROM "teched_labs_sandbox"."sap_dp".productionorder          AS po
+JOIN "teched_labs_sandbox"."sap_dp".productionorderoperation AS op
+  ON po.ProductionOrder = op.ProductionOrder
+LIMIT 20;
+```
+
+   > **You should see:** several operation rows per production order. A **NULL `OrderActualEndDate`** means the order is still in progress — those are the open orders the risk rules fire on *before* the due date (the "predictive" part).
+
+2. **Look at the work-center master.**
+
+   *The work-center master names each machine (`WorkCenterName`) by its `WorkCenterInternalID` — the label that makes the risk record human-readable.*
+
+```sql
+SELECT WorkCenterInternalID, WorkCenterName
+FROM "teched_labs_sandbox"."sap_dp".workcenter
+LIMIT 20;
+```
+
+   > **You should see:** one row per work center. `WorkCenterInternalID` is the key the Silver view joins on to attach each machine's name.
+
+3. **Build the Silver layer** — one harmonized, enriched row per production-order operation:
 
 ```sql
 -- Silver: one harmonized, enriched row per production-order operation
@@ -187,7 +255,7 @@ LEFT JOIN "teched_labs_sandbox"."sap_dp".workcenter                 AS wc
     ON op.WorkCenterInternalID = wc.WorkCenterInternalID;
 ```
 
-2. Build the Gold golden OTIF record — one row per production order, keeping the *worst* operation signals:
+4. Build the Gold golden OTIF record — one row per production order, keeping the *worst* operation signals:
 
 ```sql
 -- Gold: the golden OTIF risk record (one row per production order)
@@ -262,7 +330,20 @@ SELECT
 FROM agg;
 ```
 
-3. Accelerate the Gold layer with a Raw Reflection too (same pattern as 1.2), so the agent gets fast responses.
+5. Preview the Gold risk record — the at-risk open orders, worst first. This is the shopfloor half of what the agent answers in Exercise 3:
+
+```sql
+SELECT ProductionOrder, risk_tier, otif_risk_score,
+       primary_root_cause, anomalous_work_centers
+FROM "teched_labs_sandbox"."hands-on-test"."ex1".otif_risk
+WHERE delivery_status = 'In Progress'
+ORDER BY otif_risk_score DESC
+LIMIT 20;
+```
+
+   > **You should see:** open production orders ranked by `otif_risk_score`, each with a `risk_tier`, a `primary_root_cause`, and the `anomalous_work_centers` driving the risk — the deterministic, explainable verdict (no ML).
+
+6. Accelerate the Gold layer with a Raw Reflection too (same pattern as 1.2), so the agent gets fast responses.
 
 > Why this matters (showcase point): change a Silver threshold and the Gold verdict updates — no pipeline to re-run. (Note: `ARRAY_SORT` / `SET_UNION` syntax varies by engine — if your Dremio build differs, substitute the equivalent array-aggregation function; the reference Databricks logic uses `ARRAY_JOIN(COLLECT_SET(...))`.)
 
