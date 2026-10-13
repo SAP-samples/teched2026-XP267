@@ -2,6 +2,8 @@
 
 In this exercise, you will refine governed SAP data into trusted **golden records** using layered SQL views in Dremio, and accelerate them with reflections — this is the "ELT" in the modern stack: transformation as semantics, not pipeline jobs.
 
+> **The data-product lens (applies across these exercises).** The view you build and materialize in your space is a **"current product truth" proxy**. The direction of travel in the **SAP Business Data Cloud Lakehouse** is that curated assets like this become **Primary Data Products** — governed, discoverable, contract-bound — which downstream consumers, and **Joule**, turn into **derived data products** on demand, from intent. The Dremio mechanics you use here — **engines** for compute, **reflections** for acceleration — persist into that story. Today you model the product truth in SQL; tomorrow you publish it as a data product.
+
 You will build two tracks:
 
 - **Primary — Customer Order Fulfillment (Sales / CRM).** A golden **customer order-fulfillment** record that blends sales demand, purchasing supply, and customer master data into one business-ready view, materialized for downstream use. This is the record Exercise 2 builds an ontology on, and Exercise 3 grounds a Joule agent on.
@@ -22,6 +24,8 @@ For this hands-on lab those data products have been **exported and pre-loaded in
 ## Exercise 1.1 Build the Customer Order Fulfillment golden record
 
 > **Where your objects land:** every view you create in this exercise is written to this exercise's folder, `"teched_labs_sandbox"."hands-on-test"."ex1"`. The source tables stay in `"teched_labs_sandbox"."sap_dp"` — you only *read* those. The `hands-on-test/ex1` folder is pre-created for the lab; if it is missing, create it in the Dremio UI first (`CREATE VIEW` will not create the parent folders).
+>
+> In the full lab each attendee builds their **own** copy in their **own space** — the golden record is *your* product truth to own and, in the data-product future, publish. This shared `ex1` folder holds the reference build.
 
 After completing these steps you will have one business-ready view, one row per customer + material + plant, that compares what customers ordered (demand) against what purchasing secured (supply), enriched with customer context.
 
@@ -150,7 +154,7 @@ ALTER DATASET "teched_labs_sandbox"."hands-on-test"."ex1".v_customer_order_fulfi
 SET REFRESH EVERY '1' HOUR;
 ```
 
-> Why this matters (showcase point): the golden record is a **view, not a copy**. Change the coverage threshold and every downstream consumer — the ontology in Exercise 2, the agent in Exercise 3 — reflects it immediately. The reflection gives physical speed without giving up the single logical source of truth. **This materialized `v_customer_order_fulfillment` is the hand-off to Exercise 2**, where another team builds an ontology on top of it.
+> Why this matters (showcase point): the golden record is a **view, not a copy**. Change the coverage threshold and every downstream consumer — the ontology in Exercise 2, the agent in Exercise 3 — reflects it immediately. The reflection gives physical speed without giving up the single logical source of truth. This is the **"current product truth" proxy** for a **Primary Data Product**: the same asset that, published in the BDC Lakehouse, Joule would turn into derived products from intent. **This materialized `v_customer_order_fulfillment` is the hand-off to Exercise 2**, where another team builds an ontology on top of it.
 
 ## Exercise 1.3 (Secondary) Build the OTIF manufacturing medallion
 
