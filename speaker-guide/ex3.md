@@ -3,7 +3,7 @@
 **~10 min.** Student doc: [`exercises/ex3`](../exercises/ex3/README.md)
 
 ## Goal
-Create the `Order Fulfillment Advisor` Joule agent grounded on `v_customer_order_fulfillment` (primary) and ask it Sales/CRM fulfillment questions. OTIF (`gold.otif_risk`) is optional secondary grounding.
+Create the `Order Fulfillment Advisor` Joule agent grounded on `v_customer_order_fulfillment` (primary) and ask it Sales/CRM fulfillment questions. OTIF (`"teched_labs_sandbox"."hands-on-test"."ex1".otif_risk`) is optional secondary grounding.
 
 ## Talking points
 - The agent is **only as good as its grounding**. It answers *only* from the governed golden record — explainable and auditable, the opposite of an ungrounded chatbot.

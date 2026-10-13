@@ -3,7 +3,7 @@
 **~15 min — the heart of the session.** Student doc: [`exercises/ex1`](../exercises/ex1/README.md)
 
 ## Goal
-Build the **primary** Sales/CRM golden record `v_customer_order_fulfillment` (customer demand vs purchasing supply, with customer context) and materialize it with a Raw Reflection. Keep the **secondary** OTIF manufacturing medallion (`silver.otif_production` → `gold.otif_risk`) as a second deterministic golden record.
+Build the **primary** Sales/CRM golden record `v_customer_order_fulfillment` (customer demand vs purchasing supply, with customer context) and materialize it with a Raw Reflection. Keep the **secondary** OTIF manufacturing medallion (`otif_production` → `otif_risk`, both created in `"teched_labs_sandbox"."hands-on-test"."ex1"`) as a second deterministic golden record.
 
 ## The narrative arc
 1. **Sourcing**: `customer`, `salesorderitem`, `purchaseorderitem` are governed **BDC data products**, exported and pre-loaded into Dremio (`"teched_labs_sandbox"."sap_dp".*`). Narrate BDC; query Dremio — **no live BDC connection** so nothing can fail live.

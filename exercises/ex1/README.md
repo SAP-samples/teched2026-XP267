@@ -21,12 +21,14 @@ For this hands-on lab those data products have been **exported and pre-loaded in
 
 ## Exercise 1.1 Build the Customer Order Fulfillment golden record
 
+> **Where your objects land:** every view you create in this exercise is written to this exercise's folder, `"teched_labs_sandbox"."hands-on-test"."ex1"`. The source tables stay in `"teched_labs_sandbox"."sap_dp"` — you only *read* those. The `hands-on-test/ex1` folder is pre-created for the lab; if it is missing, create it in the Dremio UI first (`CREATE VIEW` will not create the parent folders).
+
 After completing these steps you will have one business-ready view, one row per customer + material + plant, that compares what customers ordered (demand) against what purchasing secured (supply), enriched with customer context.
 
 1. Build the fulfillment view. It aggregates sales-order demand and purchase-order supply per `Material` + `Plant`, joins customer master for context, and derives a coverage ratio and a fulfillment verdict:
 
 ```sql
-CREATE VIEW "teched_labs_sandbox"."sap_dp".v_customer_order_fulfillment AS
+CREATE VIEW "teched_labs_sandbox"."hands-on-test"."ex1".v_customer_order_fulfillment AS
 WITH demand AS (
   SELECT SoldToParty AS "Customer", Material AS "Material", Plant AS "Plant",
          SUM(CASE WHEN REGEXP_LIKE(RequestedQuantity, '^-?[0-9]+(\.[0-9]+)?$')
@@ -75,7 +77,7 @@ LEFT JOIN "teched_labs_sandbox"."sap_dp".customer c ON c.Customer = d."Customer"
 SELECT "Customer", "CustomerName", "Country", "Industry",
        "Material", "Plant", "req_qty", "po_qty",
        "coverage_ratio", "coverage_status"
-FROM "teched_labs_sandbox"."sap_dp".v_customer_order_fulfillment
+FROM "teched_labs_sandbox"."hands-on-test"."ex1".v_customer_order_fulfillment
 WHERE "coverage_status" IN ('demand_no_supply', 'under_covered')
 ORDER BY "coverage_ratio" NULLS FIRST
 LIMIT 50;
@@ -93,7 +95,7 @@ Dremio has no `CREATE MATERIALIZED VIEW` statement — you create a regular view
 1. Enable a **Raw Reflection** on the view. In the Dremio UI, open `v_customer_order_fulfillment` → **Reflections** → toggle on **Raw Reflection**. Or via SQL:
 
 ```sql
-ALTER DATASET "teched_labs_sandbox"."sap_dp".v_customer_order_fulfillment
+ALTER DATASET "teched_labs_sandbox"."hands-on-test"."ex1".v_customer_order_fulfillment
 CREATE RAW REFLECTION cof_raw
 USING DISPLAY (
   "Customer", "CustomerName", "Country", "Industry", "CustomerClassification",
@@ -106,7 +108,7 @@ USING DISPLAY (
 2. (Optional) Set a refresh policy so the materialization stays current:
 
 ```sql
-ALTER DATASET "teched_labs_sandbox"."sap_dp".v_customer_order_fulfillment
+ALTER DATASET "teched_labs_sandbox"."hands-on-test"."ex1".v_customer_order_fulfillment
 SET REFRESH EVERY '1' HOUR;
 ```
 
@@ -120,7 +122,7 @@ This track keeps the on-time-in-full production-risk golden record so the agent 
 
 ```sql
 -- Silver: one harmonized, enriched row per production-order operation
-CREATE VIEW silver.otif_production AS
+CREATE VIEW "teched_labs_sandbox"."hands-on-test"."ex1".otif_production AS
 SELECT
     po.ProductionOrder,
     po.ProductionOrderType,
@@ -189,7 +191,7 @@ LEFT JOIN "teched_labs_sandbox"."sap_dp".workcenter                 AS wc
 
 ```sql
 -- Gold: the golden OTIF risk record (one row per production order)
-CREATE VIEW gold.otif_risk AS
+CREATE VIEW "teched_labs_sandbox"."hands-on-test"."ex1".otif_risk AS
 WITH agg AS (
     SELECT
         ProductionOrder,
@@ -208,7 +210,7 @@ WITH agg AS (
                 CASE WHEN operation_anomaly_score >= 30
                      THEN ARRAY[WorkCenterName] ELSE ARRAY[] END)), ', ')
                                                                  AS anomalous_work_centers
-    FROM silver.otif_production
+    FROM "teched_labs_sandbox"."hands-on-test"."ex1".otif_production
     GROUP BY ProductionOrder
 )
 SELECT
@@ -269,7 +271,7 @@ FROM agg;
 - [ ] `01_01_0010.png` — `v_customer_order_fulfillment` view defined
 - [ ] `01_01_0020.png` — `v_customer_order_fulfillment` preview sorted by `coverage_ratio`
 - [ ] `01_02_0010.png` — Raw reflection enabled on the fulfillment view
-- [ ] `01_03_0010.png` — `gold.otif_risk` query result (secondary OTIF track)
+- [ ] `01_03_0010.png` — `"teched_labs_sandbox"."hands-on-test"."ex1".otif_risk` query result (secondary OTIF track)
 
 > **Author note:** the SQL above has not been run against a live Dremio. Validate before the session — especially the quantity-cast guard, the quoted mixed-case identifiers, and (OTIF track) the `ARRAY_SORT`/`SET_UNION` array functions.
 

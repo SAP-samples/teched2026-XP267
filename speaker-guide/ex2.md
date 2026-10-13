@@ -9,7 +9,7 @@
 Building an ontology on top of the materialized `v_customer_order_fulfillment` view from Exercise 1 — the semantic bridge between the golden record (Exercise 1) and the Joule agent (Exercise 3).
 
 ## Hand-off facts for the ontology team
-- Input: `"teched_labs_sandbox"."sap_dp".v_customer_order_fulfillment`, materialized via a Raw Reflection in Exercise 1.
+- Input: `"teched_labs_sandbox"."hands-on-test"."ex1".v_customer_order_fulfillment`, materialized via a Raw Reflection in Exercise 1.
 - Grain: one row per `Customer` + `Material` + `Plant`, with demand/supply figures, `coverage_ratio`, `coverage_status`, and customer context (`CustomerName`, `Country`, `Industry`, `CustomerClassification`).
 - Downstream: Exercise 3's agent grounds on the same view.
 

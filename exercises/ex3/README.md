@@ -11,7 +11,7 @@ After completing these steps you will have an agent that can read the golden ful
 1. In Joule, open the Agent Builder and create a new agent named `Order Fulfillment Advisor`.
 <br>![Creating a new agent in Joule Agent Builder](/exercises/ex3/images/03_01_0010.png)
 
-2. Add a data context / tool that points at the Dremio `"teched_labs_sandbox"."sap_dp".v_customer_order_fulfillment` view (via the Dremio connection configured for your lab). This is the primary source the agent reasons over. Optionally, add the OTIF manufacturing record (`gold.otif_risk`) as a secondary context so the agent can also answer shopfloor production-risk questions.
+2. Add a data context / tool that points at the Dremio `"teched_labs_sandbox"."hands-on-test"."ex1".v_customer_order_fulfillment` view (via the Dremio connection configured for your lab). This is the primary source the agent reasons over. Optionally, add the OTIF manufacturing record (`"teched_labs_sandbox"."hands-on-test"."ex1".otif_risk`) as a secondary context so the agent can also answer shopfloor production-risk questions.
 
 3. Give the agent its grounding instructions:
 ```text
@@ -27,7 +27,7 @@ Material and Plant, the coverage_status, and the figures that drove the conclusi
 (req_qty vs po_qty, coverage_ratio). If the data does not support an answer, say so.
 ```
 
-   > **Secondary context (optional):** point a second read-only tool at `gold.otif_risk` so the agent can also answer manufacturing OTIF questions (production orders, risk_tier, primary_root_cause, anomalous_work_centers). Keep it clearly separate from the fulfillment record.
+   > **Secondary context (optional):** point a second read-only tool at `"teched_labs_sandbox"."hands-on-test"."ex1".otif_risk` so the agent can also answer manufacturing OTIF questions (production orders, risk_tier, primary_root_cause, anomalous_work_centers). Keep it clearly separate from the fulfillment record.
 
 ## Exercise 3.2 Ask the agent fulfillment questions
 

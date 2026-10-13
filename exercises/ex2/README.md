@@ -6,7 +6,7 @@ This connects the two halves of the session: **Exercise 1** produces the trusted
 
 > **Placeholder — content to be provided by the ontology team.**
 >
-> This exercise is authored by a separate team and will be added before the session. It will cover building an ontology on top of the materialized view `"teched_labs_sandbox"."sap_dp".v_customer_order_fulfillment` from Exercise 1.
+> This exercise is authored by a separate team and will be added before the session. It will cover building an ontology on top of the materialized view `"teched_labs_sandbox"."hands-on-test"."ex1".v_customer_order_fulfillment` from Exercise 1.
 
 ## What this exercise will cover (outline)
 
