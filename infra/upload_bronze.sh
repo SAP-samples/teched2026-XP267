@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #
 # upload_bronze.sh — stage the non-SAP Vertex MES CSVs into the shared S3 bucket
-# as the bronze/ layout that Exercise 2 expects.
+# as the bronze/ layout that the Exercise 1 OTIF (manufacturing) track expects.
 #
 # This is a ONE-TIME, pre-session author/lab-admin task. Students never run it;
 # they only read the data from Dremio. Run it once, up front, so all raw data is
@@ -71,5 +71,5 @@ done
 
 echo
 echo "Done. In Dremio, point your S3 source at ${DEST_ROOT%/bronze}/ and format each"
-echo "bronze/<table>/ folder as a CSV dataset (header on first line). Then Exercise 2's"
+echo "bronze/<table>/ folder as a CSV dataset (header on first line). Then the Exercise 1 OTIF track's"
 echo "CREATE TABLE ... AS SELECT converts them to managed Iceberg."

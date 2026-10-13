@@ -1,15 +1,16 @@
 # Infra Setup — Lab Provisioning (author / lab-admin)
 
-Pre-session setup for XP267. **Students do not perform these steps.** By the time the session starts, all raw non-SAP data is already staged in a **single shared S3 bucket**, the SAP data products are shared to Dremio, and students only *build* Dremio objects (ex2–ex3) and the Joule agent (ex4).
+Pre-session setup for XP267. **Students do not perform these steps.** By the time the session starts, the SAP data products are pre-loaded into Dremio and (for the OTIF secondary track) all raw non-SAP data is staged in a **single shared S3 bucket**. Students only *build* Dremio objects (ex1) and the Joule agent (ex3).
 
-> Guiding principle: **stage once, transform progressively.** Upload all raw files up front (inert bytes, zero live-demo risk); let students run the `CREATE TABLE` / `CREATE VIEW` transformations live during the session.
+> Guiding principle: **stage once, transform progressively.** Load/upload all raw data up front (inert, zero live-demo risk); let students run the `CREATE VIEW` transformations live during the session.
 
 ## What's SAP vs. non-SAP
 
 | Side | What | How it reaches Dremio |
 |---|---|---|
-| **SAP** | `productionorder.productionorder`, `productionorder.productionorderoperation`, `workcenter.workcenter` | Governed BDC data products, shared **zero-copy** to the Dremio BDC source (ex1). Nothing is uploaded to S3. |
-| **Non-SAP** | 7 Vertex MES CSVs (see below) | Uploaded **once** to the shared S3 bucket in the `bronze/` layout; read by the Dremio S3 source (ex2). |
+| **SAP — primary (Sales/CRM)** | `customer`, `salesorderitem`, `purchaseorderitem` | Governed **BDC data products**, exported and **pre-loaded into Dremio** as `"teched_labs_sandbox"."sap_dp".*`. Narrate the BDC origin; the SQL queries Dremio — **no live BDC connection** in the lab. |
+| **SAP — secondary (OTIF)** | `productionorder`, `productionorderoperation`, `workcenter` | Same pattern: BDC data products, available in Dremio under `"teched_labs_sandbox"."sap_dp".*`. Nothing uploaded to S3. |
+| **Non-SAP (OTIF track)** | 7 Vertex MES CSVs (see below) | Uploaded **once** to the shared S3 bucket in the `bronze/` layout; read by the Dremio S3 source. Only needed for the OTIF secondary track in ex1. |
 
 > ⚠️ `data/otif-synth-data/sap_work_center.csv` is the **SAP side** (the workcenter master) and must **not** be uploaded to S3. The upload script already excludes it.
 
@@ -23,11 +24,11 @@ From `data/otif-synth-data/`:
 - `quality_event.csv`
 - `production_count.csv`
 - `oee_snapshot.csv`
-- `ground_truth_xref.csv` — the MES `equipment_id` ↔ SAP `WorkCenterInternalID` bridge used in ex3.
+- `ground_truth_xref.csv` — the MES `equipment_id` ↔ SAP `WorkCenterInternalID` bridge used in the ex1 OTIF secondary track.
 
 ## Required S3 layout
 
-Dremio promotes a **folder** (not a loose file) as a dataset, and ex2's SQL reads `s3lake."bronze/work_order"` etc. So each feed gets its own folder:
+Dremio promotes a **folder** (not a loose file) as a dataset, and the ex1 OTIF-track SQL reads `s3lake."bronze/work_order"` etc. So each feed gets its own folder:
 
 ```
 s3://<shared-bucket>/bronze/
@@ -64,26 +65,29 @@ Optional second arg nests everything under a prefix: `./infra/upload_bronze.sh s
 
 ## Step 3 — Configure the Dremio S3 source
 
-1. In Dremio, add (or confirm) an **Amazon S3** source pointing at the shared bucket. In the exercises this source is referred to as **`s3lake`** — name it `s3lake` (or update the ex2/ex3 SQL to match your source name).
+1. In Dremio, add (or confirm) an **Amazon S3** source pointing at the shared bucket. In the exercises this source is referred to as **`s3lake`** — name it `s3lake` (or update the ex1 OTIF-track SQL to match your source name).
 2. Grant the student role read access to that source.
 3. Browse to `bronze/` and **format each `bronze/<table>/` folder as a CSV dataset** with "Extract field names" (header on first row) enabled. (Students can also do the format-on-first-query step live; pre-formatting removes a click during the demo.)
 
-> Note on types: the MES timestamps are **epoch-millis** (e.g. `1769125936076`) and will promote as `BIGINT`. That is fine for ex2/ex3 — the date math in the medallion lives on the SAP side.
+> Note on types: the MES timestamps are **epoch-millis** (e.g. `1769125936076`) and will promote as `BIGINT`. That is fine for the OTIF track — the date math in the medallion lives on the SAP side.
 
-## Step 4 — Confirm the SAP data products are shared
+## Step 4 — Confirm the SAP data products are in Dremio
 
-Confirm the three BDC data products are shared zero-copy to the Dremio **BDC** source (ex1 references them as `BDC.productionorder.productionorder`, `BDC.productionorder.productionorderoperation`, `BDC.workcenter.workcenter`). The reference medallion that defines the SAP-side logic is documented in [`data/otif-medallion`](../data/otif-medallion/README.md).
+All SAP tables are **exported BDC data products pre-loaded into Dremio** — there is **no live BDC connection** in the lab. We narrate the BDC sourcing story; the hands-on SQL queries Dremio so nothing can fail on a live share.
+
+- **Primary (Sales/CRM)**: `customer`, `salesorderitem`, `purchaseorderitem` — confirm they resolve as `"teched_labs_sandbox"."sap_dp".customer` / `.salesorderitem` / `.purchaseorderitem` and the ex1 fulfillment query returns rows.
+- **Secondary (OTIF)**: `productionorder`, `productionorderoperation`, `workcenter` — confirm they resolve under `"teched_labs_sandbox"."sap_dp".*` for the ex1 manufacturing track. The reference medallion that defines the SAP-side OTIF logic is documented in [`data/otif-medallion`](../data/otif-medallion/README.md).
 
 ## Pre-flight checklist (do before the room arrives)
 
-- [ ] Shared bucket exists; `./infra/upload_bronze.sh` run; all 7 folders present under `bronze/`.
-- [ ] Dremio `s3lake` source reads the bucket; each `bronze/<table>/` previews with correct headers.
-- [ ] BDC source shows the 3 SAP data products and the ex1 validation queries return rows.
-- [ ] A Dremio space exists for `bronze`, `silver`, `gold` objects students will create.
-- [ ] Joule Agent Builder is available to the student role, with a Dremio connection it can query.
-- [ ] (Optional) `data/mes_synthetic_data` staged wherever the ex4 supplementary agent tool will read it.
+- [ ] Primary Sales/CRM products resolve in Dremio: `"teched_labs_sandbox"."sap_dp".customer` / `.salesorderitem` / `.purchaseorderitem` preview with rows.
+- [ ] Secondary OTIF products resolve: `"teched_labs_sandbox"."sap_dp".productionorder` / `.productionorderoperation` / `.workcenter`.
+- [ ] (OTIF track) Shared bucket exists; `./infra/upload_bronze.sh` run; all 7 folders present under `bronze/`; Dremio `s3lake` source reads the bucket and each `bronze/<table>/` previews with correct headers.
+- [ ] A Dremio space exists for the `v_customer_order_fulfillment` view + its Raw Reflection, and for the `silver.*` / `gold.*` OTIF objects students will create.
+- [ ] Joule Agent Builder is available to the student role, with a Dremio connection it can query (used in ex3).
+- [ ] (Optional) `data/mes_synthetic_data` staged wherever the ex3 supplementary agent tool will read it.
 
 ## Teardown
 
-- Drop the student-created `silver.*` / `gold.*` views and `bronze.*` Iceberg tables in Dremio.
+- Drop the student-created `v_customer_order_fulfillment` view (and its Raw Reflection), the `silver.*` / `gold.*` OTIF views, and any `bronze.*` Iceberg tables in Dremio.
 - `aws s3 rm s3://teched2026-xp267-lab/bronze --recursive` to clear staged data.
