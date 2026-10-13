@@ -1,3 +1,15 @@
 
 # Local working notes — never committed
 handoff.md
+
+# IDE
+.idea/
+
+# OS cruft
+.DS_Store
+**/.DS_Store
+
+# Local data products / Postgres dev mirror — not committed
+data/data-products/
+pg-data/
+pg-dev.txt
