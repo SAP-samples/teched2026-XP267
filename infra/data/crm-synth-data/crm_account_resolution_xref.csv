@@ -1,0 +1,230 @@
+crm_account_id,sap_customer_id,account_name_clean,account_name_crm,name_match_difficulty
+ACC-00001,USCU_L10,US Large Cycles 10,US Large Cycles 10,easy
+ACC-00002,CACU_S04,CA Specialty Cycles 4,CA Specialty Cycles 4,easy
+ACC-00003,USCU_L09,US Large Cycles 9,US Large Cycles 9,easy
+ACC-00004,CACU_S05,CA Specialty Cycles 5,CA Specialty Cyales 5 Ltd.,hard
+ACC-00005,USCU_LC05,Fit@Cycles,Fit@Cycles,easy
+ACC-00006,USCU_LC04,Sintex Bikes,Sintex Bikes,easy
+ACC-00007,USCU_L02,US Large Cycles 2,US Large Cycles 2,easy
+ACC-00008,CACU_S02,CA Specialty Cycles 2,CA Specialty Cycleso2 Ltd.,hard
+ACC-00009,USCU_L03,US Large Cycles 3,US Large Cycles 3,easy
+ACC-00010,CACU_S01,CA Specialty Cycles 1,CA Specialty Cycles 1,easy
+ACC-00011,USCU_L01,US Large Cycles 1,US Large Cycles 1,easy
+ACC-00012,CACU_S03,CA Specialty Cycles 3,CA Specialty Cycles Group,hard
+ACC-00013,LACU_S02,LA Specialty Cycles 2,LASPEC-392,opaque
+ACC-00014,LACU_S01,LA Specialty Cycles 1,LA Specialty Cycles 1,easy
+ACC-00015,LACU_S05,LA Specialty Cycles 5,LA Specialty Cycles 5,easy
+ACC-00016,0001000650,EAST BIKES,EAST BIKES,easy
+ACC-00017,LACU_S03,LA Specialty Cycles 3,LA Specialty Cycles 3,easy
+ACC-00018,LACU_S04,LA Specialty Cycles 4,LA Specialty Cycles 4,easy
+ACC-00019,0001000653,south bikes,south bikes,easy
+ACC-00020,0001000652,WEST BIKES,WEST BIKES,easy
+ACC-00021,0001000651,NORTH BIKES,NOR. BIKES Co.,hard
+ACC-00022,0001000654,CENTRAL BIKES,CENTRAL BIKES,easy
+ACC-00023,USCU_S16,US Specialty Cycles 16,US Specialty Cycles 16,easy
+ACC-00024,USCU_LC01,ABC Inc.,ABC. Inc. Co.,hard
+ACC-00025,USCU_S17,US Specialty Cycles 17,US Specialty Cyclee 17 Corp.,hard
+ACC-00026,USCU_LC02,Cycles4U,Cycles4U Co.,easy
+ACC-00027,USCU_S15,US Specialty Cycles 15,US Specialty Cycles 15,easy
+ACC-00028,USCU_S14,US Specialty Cycles 14,USC1 Inc.,hard
+ACC-00029,USCU_LC03,RR Bikes,RR Bikes,easy
+ACC-00030,USCU_L06,US Large Cycles 6,US Large Cycles 6 Corp.,easy
+ACC-00031,USCU_L07,US Large Cycles 7,USLARG-396,opaque
+ACC-00032,USCU_L04,US Large Cycles 4,US Large Cycles 4,easy
+ACC-00033,USCU_L08,US Large Cycles 8,US Large Cycles 8,easy
+ACC-00034,USCU_L05,US Large Cycles 5,US Large Cycles 5,easy
+ACC-00035,USCU_S02,US Specialty Cycles 2,US Specialty Cycles 2,easy
+ACC-00036,USCU_S03,US Specialty Cycles 3,US Specialty Cycles 3,easy
+ACC-00037,USCU_S05,US Specialty Cycles 5,US Specialty Cycles 5 Corp.,easy
+ACC-00038,USCU_S01,US Specialty Cycles 1,US Specialty Cycles 1 Co.,easy
+ACC-00039,USCU_S04,US Specialty Cycles 4,US Specialty Cycles 4,easy
+ACC-00040,USCU_S06,US Specialty Cycles 6,US Specialty Cycles 6,easy
+ACC-00041,USCU_SC04,Cycles & Cycles,Cycles & Cycles LLC,easy
+ACC-00042,USCU_SC05,Race Bikes Inc.,RACEBI-232,opaque
+ACC-00043,USCU_SC01,Ketan Bikes,Ketan Xikes Co.,hard
+ACC-00044,USCU_SC03,Southern Bikes,Southern Bikes LLC,easy
+ACC-00045,USCU_S09,US Specialty Cycles 9,US Specialty Cycles 9 Corp.,easy
+ACC-00046,USCU_S10,US Specialty Cycles 10,US Specialty Cycles 10,easy
+ACC-00047,USCU_SC02,FRD Sports,FRD Sports,easy
+ACC-00048,USCU_S13,US Specialty Cycles 13,US Specialty Cycles 13,easy
+ACC-00049,USCU_S12,US Specialty Cycles 12,US Specialty Cycles Inc.,hard
+ACC-00050,USCU_S08,US Specialty Cycles 8,US Specialty Cycles 8,easy
+ACC-00051,USCU_S11,Global BikeWorld,Global BikeWorld,easy
+ACC-00052,USCU_S07,US Specialty Cycles 7,USC7 LLC,hard
+ACC-00053,USCU-L-50,ESA Sports,ES Co.,hard
+ACC-00054,USCU-L-45,Bom Café Store,Bom Café Store,easy
+ACC-00055,USCU-L-46,City Center Cafeteria,CITYCE-611,opaque
+ACC-00056,0017100001,Domestic US Customer 1,DOMEST-259,opaque
+ACC-00057,RCU1000054,Michael Haessler,MH KG,hard
+ACC-00058,RCU1000075,Carsten Monzel,Carsten Monzel,easy
+ACC-00059,RCU1000036,Nico Voeller,Nico Xoeller KG,hard
+ACC-00060,RCU1000049,Claudia Kruger,Claudia Kruger GmbH,easy
+ACC-00061,RCU1000076,Christian Neuland,Christian Neuland,easy
+ACC-00062,RCU1000009,Claudia Klaufuss,Claudia Klaufuss AG,easy
+ACC-00063,DECU-GT02,IDES AG Frankfurt,IDES AG Frankfurt,easy
+ACC-00064,RCU3000061,Marcos Stores LTD,Marcos Stores Co.,hard
+ACC-00065,RCU1000030,Alice Breuer,Alice Breuer,easy
+ACC-00066,RCU1000080,Doris Lanzer,Doris Lanzer,easy
+ACC-00067,RCU1000055,Thomas Klinski,Thomas Klinski,easy
+ACC-00068,RCU1000052,Helen Sauber,HeXen Sauber AG,hard
+ACC-00069,RCU1000020,Kirsten Schaefer,Kirsten Schaefer AG,easy
+ACC-00070,RCU1000074,Sabrina Zimmer,Sabrina Zimmer,easy
+ACC-00071,EGCU-GT10,Alchad Brakes,Alchad Brakeo Group,hard
+ACC-00072,RCU1000067,Amon Weis,AmZn Weis AG,hard
+ACC-00073,RCU1000007,Elmar Caton,Elmar Caton,easy
+ACC-00074,RCU1000064,Marco Trapp,MAR. Trapp AG,hard
+ACC-00075,CU02,Customer 02,Customer 02 Corp.,easy
+ACC-00076,RCU1000037,Juergen Lehmann,Juergen Lehmann,easy
+ACC-00077,RCU1000072,Sebastian Weidmann,Sebastian Weidmann KG,easy
+ACC-00078,RCU1000063,Veronica Griel,Zeronica Griel AG,hard
+ACC-00079,RCU1000060,Thorsten Biwer,ThorstenXBiwer AG,hard
+ACC-00080,RCU1000079,Ulrich Krause,Ulrich Krause GmbH,easy
+ACC-00081,RCU1000019,Patricia Schwaneberger,PATRIC-583,opaque
+ACC-00082,0017100003,BikeWorld Inc.,BikeWorld Inc.,easy
+ACC-00083,RCU1000042,Lucia Shaefer,aucia Shaefer KG,hard
+ACC-00084,RCU1000057,Anne Mueller,Anne Mueller,easy
+ACC-00085,RCU1000040,Klaus Herzog,Klaus Herzog,easy
+ACC-00086,RCU1000026,Regina Briel,Regina Briel,easy
+ACC-00087,RCU1000031,Udo Beims,Udo Beims,easy
+ACC-00088,RCU1000024,Thea Fiedler,Thea Fiedler KG,easy
+ACC-00089,RCU1000086,Eliza Keller,Eliza Keller KG,easy
+ACC-00090,RCU1000071,Guenter Niedrich,Guenter Niedrich,easy
+ACC-00091,RCU1000047,Julie Ganz,JULIEG-396,opaque
+ACC-00092,RCU1000085,Uwe Hartmann,Uwe Hartmann,easy
+ACC-00093,RCU1000087,Dominik Ohliger,Dominik Ohliger,easy
+ACC-00094,RCU1000006,Rudolph Bruehl,Rudolph Bruehl,easy
+ACC-00095,RCU1000066,Otto Scholl,Otto Scholl,easy
+ACC-00096,USCU-TM103,Kraftman Shops,Kraftman Shops Co.,easy
+ACC-00097,RCU1000045,Andre Leukert,Andre Leukert,easy
+ACC-00098,RCU1000056,Robert Plantinko,ROBERT-204,opaque
+ACC-00099,RCU1000083,Olivia Rieder,Olivia Rieder,easy
+ACC-00100,RCU1000065,Julius Speicher,JUL. Speicher KG,hard
+ACC-00101,USCU-TM102,Millworks Inc,oillworks Inc Inc.,hard
+ACC-00102,RCU1000032,Susan Koenig,Susan Koenig,easy
+ACC-00103,RCU1000012,Madeleine Nazarenko,Madeleine Nazarenko AG,easy
+ACC-00104,0017100002,Domestic US Customer 2,Domestic US Customer 2 Inc.,easy
+ACC-00105,RCU1000081,Jennifer Kogt,Jennifer Kogt KG,easy
+ACC-00106,RCU1000017,Markus Weigelt,Markus Weigelt,easy
+ACC-00107,CU03,Customer 03,CUS. 03 Inc.,hard
+ACC-00108,CU01,Customer 01,Castomer 01 Inc.,hard
+ACC-00109,RCU1000038,Joachim Kahn,Joachim Kahn,easy
+ACC-00110,RCU1000046,Florian Kaiser,Florian Kaiser,easy
+ACC-00111,RCU1000058,Amy Goethe,Amy Goethe GmbH,hard
+ACC-00112,RCU1000053,Peter Brechtel,Peter Brechtel GmbH,easy
+ACC-00113,RCU1000089,Heike Kraeft,HEIKEK-456,opaque
+ACC-00114,RCU1000027,Amrei Henn,Amrei Hern KG,hard
+ACC-00115,RCU1000084,Miriam Zimmermann,MiriamiZimmermann GmbH,hard
+ACC-00116,RCU1000022,Dieter Woelk,DIE. Woelk GmbH,hard
+ACC-00117,RCU1000023,Thorsten Hillenbrand,THORST-586,opaque
+ACC-00118,RCU1000050,Maria Doenig,Maria Doenig,easy
+ACC-00119,RCU1000021,Daniela Moras,Daniela Moras,easy
+ACC-00120,RCU1000035,Guido Haneke,Guido Haneke AG,easy
+ACC-00121,RCU1000090,Hans Ruths,Hans Ruths AG,easy
+ACC-00122,RCU1000016,IRINA NOGA,IRINA NOGA,easy
+ACC-00123,RCU1000034,Ursula Rosberg,UR GmbH,hard
+ACC-00124,USCU-TM105,Emory Manufacturing,Emory Manufacturing,easy
+ACC-00125,RCU1000073,Christoph Schwilk,Christoph Schwilk AG,easy
+ACC-00126,RCU1000069,Joseph Vogt,Joseph Vogt AG,easy
+ACC-00127,RCU1000001,Claudia Collins,CC AG,hard
+ACC-00128,RCU1000068,Sophie Kiefer,SOPHIE-788,opaque
+ACC-00129,RCU1000014,Lynda Seiler,Lynda Seiler,easy
+ACC-00130,RCU1000018,Ignatz Dorner,Ignatz Dorner,easy
+ACC-00131,RCU1000051,Rudiger Kohler,Rudiger Kohler GmbH,easy
+ACC-00132,USCU-TM104,Domestic US TM Customer4,Domestic US TM Customer4,easy
+ACC-00133,USCU-TM133,LJB Farms,LJB Farms,easy
+ACC-00134,RCU1000033,Bruno Meisser,Bruno Meisser,easy
+ACC-00135,RCU1000015,Friedrich Bause,Friedoich Bause KG,hard
+ACC-00136,RCU1000061,Lars Ziegler,LARSZI-623,opaque
+ACC-00137,USCU-L-87,STEEL BIKES,STE. BIKES Inc.,hard
+ACC-00138,USCU-L-89,Power Bikes,Power Bikes LLC,easy
+ACC-00139,RCU3000071,Fashion Brand Inc.,Fashion Brand Inc.,easy
+ACC-00140,USCU-TM101,Lara Brands,LARABR-719,opaque
+ACC-00141,USCU-TM106,Domestic US TM Customer6,Domestic US TM Customer6 Inc.,easy
+ACC-00142,RCU1000011,Johanna Ackermann,Johanna Ackermann,easy
+ACC-00143,RCU1000004,Wilhelm Duttenhoffer,Wilhelm Duttenhoffer,easy
+ACC-00144,USCU-L-88,Polestar,Polestar Inc.,easy
+ACC-00145,USCU-ABB01,The Apotheke,The Apoiheke Inc.,hard
+ACC-00146,DECU-GT09,Sanny Pharma GMBH,Sanny Pharma GMBH GmbH,easy
+ACC-00147,RCU1000005,Helge Alder,Helge Alder,easy
+ACC-00148,RCU1000078,Matthias Guenther,Matthias Guenther,easy
+ACC-00149,RCU1000062,Sascha Gielt,Sascha Giert KG,hard
+ACC-00150,RCU1000025,Martin Hibbert,Martin Hibbert,easy
+ACC-00151,RCU1000059,Lisa Dreyfuss,Lisa Dreyfuss,easy
+ACC-00152,RCU1000041,Werner Neumaier,WERNER-792,opaque
+ACC-00153,RCU1000088,Sabine Hoeg,SABINE-162,opaque
+ACC-00154,RCU1000028,Andreas Breuer,Andreas Breuer,easy
+ACC-00155,USCU-L-515,Twist Bikes,Twist Bikes,easy
+ACC-00156,USCU_L91,Market Media - EWM,Market Media - EWM,easy
+ACC-00157,USCU-L-83,KIA Bikes,KIA Bikes LLC,easy
+ACC-00158,RCU1000048,Sarah Fiedler,Sarah Fiedler KG,easy
+ACC-00159,RCU1000070,Volker Brehmer,Volker Brehmer GmbH,easy
+ACC-00160,USCU_L92,Market Saturn - EWM,Market Saturn - EWM,easy
+ACC-00161,USCU_L93,Market Big - EWM,Market Big - EWM,easy
+ACC-00162,RCU1000003,Nicole Benzing,Nicole Benzing,easy
+ACC-00163,RCU1000029,Jorg Breuer,Jorg Breuer,easy
+ACC-00164,RCU1000008,GINA KRAUS,GINA KRAUS,easy
+ACC-00165,RCU1000013,Lars Gaenssmantel,Lars Gaenismantel AG,hard
+ACC-00166,RCU1000043,Regina Henninger,Regina Henninger KG,easy
+ACC-00167,USCU-T-12,Neo Trading,Neo Trading,easy
+ACC-00168,RCU1000039,Jens Schreiner,JENSSC-923,opaque
+ACC-00169,LCU_01,City Of Amess,CIT. Of Amess Inc.,hard
+ACC-00170,RCU1000082,Shirley Schemel,Shirley Schemel,easy
+ACC-00171,USCU-L-513,Quantum Bikes,Quantum Bikes,easy
+ACC-00172,RCU1000044,Berndt Wagner,Berndt Wagner,easy
+ACC-00173,0017100011,Domestic US Customer us customer 11,Domestic US Customer us customer 11,easy
+ACC-00174,USCU-L-512,Rise Bikes,Rise Bikes LLC,easy
+ACC-00175,USCU-L-52,Paint & Coatings Inc.,Paint & Coatings Inc.,easy
+ACC-00176,RCU1000010,Katharina Lauterbach,Katharina Lauterbach,easy
+ACC-00177,RCU3000106,Beall's Inc.,Beall's Inc.,easy
+ACC-00178,USCU-W-52,House Painting Inc.,House Painting Inc.,easy
+ACC-00179,RCU1000002,Brigitte Bucher,Brigitte Bucher,easy
+ACC-00180,RCU3000062,Marcos Stores Baltimore,MSB Corp.,hard
+ACC-00181,0000123456,PEPPOL-XYZ,PEPPOLiXYZ KG,hard
+ACC-00182,RCU1000077,Gerald Steuer,Gerald Steuer,easy
+ACC-00183,USCU-L-196,Space Bikes,Space Bikes Inc.,easy
+ACC-00184,USCU-TM115,Gessner Inc,Gessner Inc,easy
+ACC-00185,RCU3000063,Marcos Stores Los-Angeles,MARCOS-762,opaque
+ACC-00186,USCU-L-514,Disc Bikes,Disc Bikes Co.,easy
+ACC-00187,RCU3000044,Diane Loy,Xiane Loy Co.,hard
+ACC-00188,RCU3000045,Cynthia Rockfeller,Cynthia Rockfeller,easy
+ACC-00189,USCU-L-199,Amazon Bikes,AB Corp.,hard
+ACC-00190,USCU-L-54,Alba Paints Inc.,Alba Paints Corp.,hard
+ACC-00191,USCU-W-53,Saint Peter Inc.,Saint Peter Inc.,easy
+ACC-00192,0014100001,Customer Brazil,Customer Brazil,easy
+ACC-00193,USCU-SCE06,Mission Corp.,Mission Corp.,easy
+ACC-00194,USCU-W-54,Rex Paintings Inc.,Rex Paintings Inc.,easy
+ACC-00195,USCU-TM116,Business Corporation,BUSINE-247,opaque
+ACC-00196,USCU-SCE02,A to Z Corp.,A to Z Corp.,easy
+ACC-00197,USCU-SCE03,City Corp.,City Cori. Inc.,hard
+ACC-00198,USCU-TM114,Rogers Inc,Rogers Inc,easy
+ACC-00199,USCU-L-86,Prime Bikes,PRIMEB-471,opaque
+ACC-00200,USCU-L-84,Premium Bikes,Premium Bikes Co.,easy
+ACC-00201,USCU-L-53,Wanda Coatings Inc.,WAN. Coatings Inc. Inc.,hard
+ACC-00202,EUCU-TMRO1,München-GmbH,München-ombH GmbH,hard
+ACC-00203,USCU-GTT04,DSC Corporation,DSCCOR-931,opaque
+ACC-00204,USCU_DEL,Cbont Industries,Cbont Industries,easy
+ACC-00205,USCU-GT15,Emerging Suppliers,ES Corp.,hard
+ACC-00206,USCU-L-85,Triumph Bikes,TRIUMP-404,opaque
+ACC-00207,USCU-RETAI,Velotics Retail Inc,VRI Corp.,hard
+ACC-00208,USCU-B2B-C,Rio Bikes Inc,RIO. Bikes Inc Corp.,hard
+ACC-00209,USCU-B2B-B,Power Sports,Power Sports,easy
+ACC-00210,USCU-GT08,US Customer1,USCUST-834,opaque
+ACC-00211,RCU3000067,John Doe,JohnrDoe Inc.,hard
+ACC-00212,RCU3000068,Thomas Carter,Thomas Carter,easy
+ACC-00213,RCU3000090,Alice Evans,Alice Evane LLC,hard
+ACC-00214,USCU-GTT01,DSC Corporation,DSC Corporation,easy
+ACC-00215,USCU-GTT02,New Country Square Inc.,New Country Square Inc.,easy
+ACC-00216,USCU-BSH01,Detroit customer,Detroit cuotomer LLC,hard
+ACC-00217,RCU3000070,Gracy Pitt,Gracy PitZ Co.,hard
+ACC-00218,USCU-L-877,ADV CUSTOMER 2,ADV CUSTOMER 2,easy
+ACC-00219,USCU-B2B-3,Rio Bikes Inc,Rio Bikes Inc,easy
+ACC-00220,USCU-B2B-2,Power Sports,POWERS-191,opaque
+ACC-00221,USCU-B2B-1,Arrow bikes,Arrow bikes LLC,easy
+ACC-00222,USCU-GTT05,New Port  Inc.,New Port  Inc. Co.,easy
+ACC-00223,USCU-GTT06,Food Corp. Inc.,Food Corp. Inc. Inc.,easy
+ACC-00224,RCU3000069,Clara Lee,Clara Lee,easy
+ACC-00225,CUST-112,Store,Store GmbH,easy
+ACC-00226,USCU-WEB-E,Web Shop Customer,WSC Co.,hard
+ACC-00227,RCU3000015,Annamarie Buckelew,Annamarie Buckelew Corp.,easy
+ACC-00228,USCU-WEB5,Web Shop Customer,WEBSHO-844,opaque
+ACC-00229,USCU-GTT03,Newport Inc.,Newport Inc. Corp.,easy
