@@ -8,9 +8,9 @@ In this hands-on session you build an end-to-end modern SAP data stack scenario:
 
 ## Overview
 
-The primary scenario is **customer order fulfillment** (Sales / CRM): *"which customers' orders are covered by supply, and where are the gaps?"* — built by blending `salesorderitem` (demand), `purchaseorderitem` (supply), and `customer` (context) into one golden record. A secondary manufacturing track keeps the **on-time-in-full (OTIF)** production-risk record. You unify everything with data-product-centric ELT — not classic extract-and-duplicate ETL — and put a trustworthy AI agent on top.
+The primary scenario is customer order fulfillment (Sales / CRM): *"which customers' orders are covered by supply, and where are the gaps?"* — built by blending `salesorderitem` (demand), `purchaseorderitem` (supply), and `customer` (context) into one golden record. A secondary track brings in a non-SAP CRM, resolves its accounts to governed SAP customers, and proves the churn ↔ delivery link: *"are our at-risk renewals driven by our own delivery performance?"* An on-time-in-full (OTIF) manufacturing production-risk record is kept as an optional advanced appendix. You unify everything with data-product-centric ELT — not classic extract-and-duplicate ETL — and put a trustworthy AI agent on top.
 
-> **Sourcing note:** these SAP tables are governed **BDC data products**. For the hands-on lab they are exported and pre-loaded into Dremio (queried as `"teched_labs_sandbox"."sap_dp".*`) so the session has **no live BDC connection dependency** — the sourcing story is still BDC; the SQL runs against Dremio.
+> **Sourcing note:** these SAP tables are governed BDC data products. For the hands-on lab they are exported and pre-loaded into Dremio (queried as `"teched_labs_sandbox"."sap_dp".*`) so the session has no live BDC connection dependency — the sourcing story is still BDC; the SQL runs against Dremio.
 
 The stack:
 
@@ -25,12 +25,7 @@ The stack:
 
 ## The data
 
-All data in this session is synthetic and lives under [`data/`](data/):
-
-- **`data/data-products`** — the primary Sales / CRM SAP data products exported from BDC and pre-loaded into Dremio: `customer`, `salesorderitem`, `purchaseorderitem`. Exercise 1 blends these into the golden customer order-fulfillment record (`v_customer_order_fulfillment`).
-- **`data/otif-synth-data`** — the Vertex MES ↔ SAP S/4 scenario. The SAP S/4 side (`productionorder`, `productionorderoperation`, `workcenter`) stands in for the governed BDC data products; the Vertex MES CSVs (`work_order`, `equipment`, `downtime_event`, `quality_event`, `production_count`, `oee_snapshot`) stand in for the non-SAP data landed as Iceberg on S3.
-- **`data/otif-medallion`** — a reference implementation of the same silver → gold OTIF medallion on Azure Databricks ([read its README](data/otif-medallion/README.md)). The exercises reuse its derived-column logic (`otif_risk_score`, `is_at_risk`, `risk_tier`, `primary_root_cause`, `anomalous_work_centers`), rebuilt as Dremio SQL views.
-- **`data/mes_synthetic_data`** — a shopfloor capacity/OEE dataset used as supplementary grounding and visualization context for the Joule agent (see [its README](data/mes_synthetic_data/README.md)).
+All data you need is already provisioned in Dremio for the session — you query it there, you don't download or load anything. The SAP tables resolve under `"teched_labs_sandbox"."sap_dp".*` and the non-SAP CRM under `"teched_labs_sandbox"."non_sap".*`; each exercise tells you exactly which objects to use.
 
 ## Requirements
 
@@ -43,7 +38,8 @@ All data in this session is synthetic and lives under [`data/`](data/):
 - [Exercise 1 - Build the Golden Records in Dremio](exercises/ex1/)
     - [Exercise 1.1 - Build the Customer Order Fulfillment golden record](exercises/ex1#exercise-11-build-the-customer-order-fulfillment-golden-record)
     - [Exercise 1.2 - Materialize the golden record for downstream use](exercises/ex1#exercise-12-materialize-the-golden-record-for-downstream-use)
-    - [Exercise 1.3 - (Secondary) Build the OTIF manufacturing medallion](exercises/ex1#exercise-13-secondary-build-the-otif-manufacturing-medallion)
+    - [Exercise 1.3 - (Secondary) Resolve a non-SAP CRM & prove the churn ↔ delivery link](exercises/ex1#exercise-13-secondary-resolve-a-non-sap-crm--prove-the-churn--delivery-link) — deep dive: [Exercise (CRM)](exercises/ex-crm/)
+    - [Appendix (advanced, optional) - OTIF manufacturing medallion](exercises/ex1#appendix-advanced-optional--otif-manufacturing-medallion)
 - [Exercise 2 - Ontologies on the Golden Record (coming soon)](exercises/ex2/)
 - [Exercise 3 - Build a Joule Agent on the Golden Record](exercises/ex3/)
     - [Exercise 3.1 - Create the agent and connect its data context](exercises/ex3#exercise-31-create-the-agent-and-connect-its-data-context)
