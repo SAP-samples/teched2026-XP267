@@ -1,6 +1,6 @@
-# Exercise (CRM, Advanced) - Bring a Non-SAP Source into the Lakehouse and Resolve It to SAP
+# Exercise (CRM, Extended) - Bring a Non-SAP Source into the Lakehouse and Resolve It to SAP
 
-> **Advanced deep dive — the full build behind Exercise 1.3.** Exercise 1.3 is the condensed, run-it-on-screen path; this is the line-by-line version where you write the views yourself and see why fuzzy matching needs MDM. Start here if you want the complete walkthrough.
+> **Extended deep dive — the full build behind Exercise 1.3.** Exercise 1.3 is the condensed, run-it-on-screen path; this is the line-by-line version where you write the views yourself and see why fuzzy matching needs MDM. Start here if you want the complete walkthrough.
 
 In Exercise 1 you refined *governed SAP* data into a golden record. Real businesses don't run on SAP alone. In this exercise you bring in a **non-SAP source** — a 3rd-party CRM — resolve its accounts to your SAP customers, and shape the result into an **ontology-ready product** that an agent can reason over alongside the SAP sales data.
 

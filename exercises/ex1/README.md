@@ -7,7 +7,7 @@ In this exercise, you will refine governed SAP data into trusted golden records 
 You will build two tracks:
 
 - **Primary — Customer Order Fulfillment (Sales / CRM).** A golden customer order-fulfillment record that blends sales demand, purchasing supply, and customer master data into one business-ready view, materialized for downstream use. This is the record Exercise 2 builds an ontology on, and Exercise 3 grounds a Joule agent on.
-- **Advanced — Non-SAP CRM resolution & the churn ↔ delivery link.** Bring a 3rd-party CRM export into the lakehouse, resolve its messy account names to governed SAP customers, and join your real per-customer OTIF so you can *prove* that at-risk renewals are driven by your own delivery performance — a second golden record (`v_crm_account_360`) the agent can also reason over.
+- **Secondary — Non-SAP CRM resolution & the churn ↔ delivery link.** Bring a 3rd-party CRM export into the lakehouse, resolve its messy account names to governed SAP customers, and join your real per-customer OTIF so you can *prove* that at-risk renewals are driven by your own delivery performance — a second golden record (`v_crm_account_360`) the agent can also reason over.
 
 > **Advanced / optional:** an OTIF manufacturing medallion (silver → gold production-risk record) is kept as an appendix at the end of this exercise for attendees who want a deterministic shopfloor track. It is not part of the main flow.
 
@@ -158,7 +158,7 @@ SET REFRESH EVERY '1' HOUR;
 
 > Why this matters (showcase point): the golden record is a view, not a copy. Change the coverage threshold and every downstream consumer — the ontology in Exercise 2, the agent in Exercise 3 — reflects it immediately. The reflection gives physical speed without giving up the single logical source of truth. This is the "current product truth" proxy for a Primary Data Product: the same asset that, published in the BDC Lakehouse, Joule would turn into derived products from intent. This materialized `v_customer_order_fulfillment` is the hand-off to Exercise 2, where another team builds an ontology on top of it.
 
-## Exercise 1.3 (Advanced) Resolve a non-SAP CRM & prove the churn ↔ delivery link
+## Exercise 1.3 Resolve a non-SAP CRM & prove the churn ↔ delivery link
 
 Real businesses don't run on SAP alone. Here you bring in a non-SAP source — a 3rd-party CRM export — resolve its accounts to your SAP customers, and build a second golden record that answers one cross-domain money question:
 
@@ -172,7 +172,7 @@ Three gaps stand between the two systems, and the build closes each one:
 2. **No comparable metric.** OTIF lives at the sales-order *line*; the CRM lives at the *account*. You roll SAP lines up to a per-customer OTIF truth.
 3. **The real question is cross-domain** and needs both worlds joined.
 
-> **This is a condensed walkthrough.** The full, line-by-line build — including the "see why fuzzy matching only gets you so far" detour and the MDM narrative — lives in the **advanced** companion [Exercise (CRM)](../ex-crm/README.md), with the complete validated DDL in [`crm_resolution_and_360.sql`](../ex-crm/crm_resolution_and_360.sql). Below is the short path.
+> **This is a condensed walkthrough.** The full, line-by-line build — including the "see why fuzzy matching only gets you so far" detour and the MDM narrative — lives in the **extended** companion [Exercise (CRM)](../ex-crm/README.md), with the complete validated DDL in [`crm_resolution_and_360.sql`](../ex-crm/crm_resolution_and_360.sql). Below is the short path.
 
 You build three views (same pattern as 1.1: read-only SAP + CRM sources in, golden record out, materialized by a reflection). For consistency with 1.1/1.2 the objects land in `"teched_labs_sandbox"."hands-on-test"."ex1"`; the CRM sources are shared and read-only under `"teched_labs_sandbox"."non_sap"`.
 
