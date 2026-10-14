@@ -172,7 +172,7 @@ Three gaps stand between the two systems, and the build closes each one:
 2. **No comparable metric.** OTIF lives at the sales-order *line*; the CRM lives at the *account*. You roll SAP lines up to a per-customer OTIF truth.
 3. **The real question is cross-domain** and needs both worlds joined.
 
-> **This is a condensed walkthrough.** The full, line-by-line build — including the "see why fuzzy matching only gets you so far" detour and the MDM narrative — lives in the companion [Exercise (CRM)](../ex-crm/README.md), with the complete validated DDL in [`crm_resolution_and_360.sql`](../ex-crm/crm_resolution_and_360.sql). Below is the short path.
+> **This is a condensed walkthrough.** The full, line-by-line build — including the "see why fuzzy matching only gets you so far" detour and the MDM narrative — lives in the **advanced** companion [Exercise (CRM)](../ex-crm/README.md), with the complete validated DDL in [`crm_resolution_and_360.sql`](../ex-crm/crm_resolution_and_360.sql). Below is the short path.
 
 You build three views (same pattern as 1.1: read-only SAP + CRM sources in, golden record out, materialized by a reflection). For consistency with 1.1/1.2 the objects land in `"teched_labs_sandbox"."hands-on-test"."ex1"`; the CRM sources are shared and read-only under `"teched_labs_sandbox"."non_sap"`.
 
