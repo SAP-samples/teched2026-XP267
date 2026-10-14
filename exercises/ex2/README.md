@@ -1,8 +1,8 @@
 # Exercise 2 - Ontologies on the Golden Record (coming soon)
 
-In this exercise, you will build a semantic **ontology** on top of the golden record produced in Exercise 1 — turning the materialized `v_customer_order_fulfillment` view into business concepts and relationships that the Joule agent in Exercise 3 can reason over.
+In this exercise, you will build a semantic ontology on top of the golden record produced in Exercise 1 — turning the materialized `v_customer_order_fulfillment` view into business concepts and relationships that the Joule agent in Exercise 3 can reason over.
 
-This connects the two halves of the session: **Exercise 1** produces the trusted, materialized golden record; **Exercise 3** grounds an agent on it. The ontology built here is the bridge between them — the shared vocabulary (customers, orders, materials, suppliers, coverage/fulfillment status) that makes the agent's answers precise and explainable.
+This connects the two halves of the session: Exercise 1 produces the trusted, materialized golden record; Exercise 3 grounds an agent on it. The ontology built here is the bridge between them — the shared vocabulary (customers, orders, materials, suppliers, coverage/fulfillment status) that makes the agent's answers precise and explainable.
 
 > **Placeholder — content to be provided by the ontology team.**
 >

@@ -1,15 +1,15 @@
 # Synthetic non-SAP CRM — Sales-Order / OTIF scenario
 
-A synthetic **3rd-party CRM** source for the published Sales-Order OTIF demo. It exists to be
-turned into an **ontology** and used as **agentic context** alongside the governed SAP data
+A synthetic 3rd-party CRM source for the published Sales-Order OTIF demo. It exists to be
+turned into an ontology and used as agentic context alongside the governed SAP data
 products (`customer`, `salesorderitem`) that were taken into the target environment.
 
 ## The red thread (why this is relevant, not just adjacent)
 
-Every CRM signal is derived **deterministically from each account's real published OTIF**
+Every CRM signal is derived deterministically from each account's real published OTIF
 (`_seed_customer_otif.csv`, extracted from `otif-demo-bdc.otif_demo.mv_otif_sales_fulfillment`,
 recent window 2023+). Worse OTIF → lower NPS/health, more Delivery-Delay / Short-Shipment cases,
-higher churn risk, at-risk renewals. The relationship is **planted** so an agent can *discover*
+higher churn risk, at-risk renewals. The relationship is planted so an agent can *discover*
 it; the ground-truth crosswalk is never exposed as a feature. Validated gradient (managed book,
 52 accounts ≥100 order lines):
 
@@ -20,7 +20,7 @@ it; the ground-truth crosswalk is never exposed as a feature. Validated gradient
 | fair (80–90) | 15 | 5 | 82 | 20 | 0% |
 | poor (70–80) | 22 | −22 | 79 | 20 | 100% |
 
-The long tail (177 low-volume customers) is kept as lightweight **unmanaged SMB** account rows
+The long tail (177 low-volume customers) is kept as lightweight unmanaged SMB account rows
 (`churn_risk=Unmanaged`, no cases/opps) — ontology coverage without small-sample distortion.
 
 ## Files
@@ -35,7 +35,7 @@ The long tail (177 low-volume customers) is kept as lightweight **unmanaged SMB*
 
 ## Crosswalk = BOTH (clean + fuzzy)
 
-- **Fuzzy (MDM moment):** `crm_account.account_name` is **noised** (legal suffixes `Inc./GmbH/S.A. de C.V.`,
+- **Fuzzy (MDM moment):** `crm_account.account_name` is noised (legal suffixes `Inc./GmbH/S.A. de C.V.`,
   abbreviations, initials, typos; ~70% easy / 22% hard / 8% opaque). Resolve it back to
   `sap:Customer` by name + `billing_region` — the MDM-style entity-resolution exercise.
 - **Clean:** `crm_account_resolution_xref.csv` gives the true `sap_customer_id` for a trivial join

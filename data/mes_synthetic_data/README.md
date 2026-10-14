@@ -6,9 +6,9 @@ Static, fully synthetic data for the TechEd 2026 Act 2 step in which Isabella ad
 
 ## The modeled story
 
-Morvanto needs **MAT000-7B**, the pre-cut jeans fabric component for the Smyle wristband. Skalvion has two accessory fabrication cells. One is committed to existing work; the other is currently idle and has future capacity after its existing reservations. Both are assumed qualified to cut and finish this material from approved denim laminate.
+Morvanto needs MAT000-7B, the pre-cut jeans fabric component for the Smyle wristband. Skalvion has two accessory fabrication cells. One is committed to existing work; the other is currently idle and has future capacity after its existing reservations. Both are assumed qualified to cut and finish this material from approved denim laminate.
 
-This is an explicit addition to the story: **an electronics manufacturer must actually have an accessory conversion capability to solve a fabric-component shortage**. The dataset assumes that capability, suitable tooling, staff qualifications and approved material equivalence. It does not assume that spare electronics assembly machinery can manufacture denim. No weaving, electronics assembly or complete smart-band production is modeled.
+This is an explicit addition to the story: an electronics manufacturer must actually have an accessory conversion capability to solve a fabric-component shortage. The dataset assumes that capability, suitable tooling, staff qualifications and approved material equivalence. It does not assume that spare electronics assembly machinery can manufacture denim. No weaving, electronics assembly or complete smart-band production is modeled.
 
 The material description, one-component-per-wristband relationship and first-week totals match the earlier `smyle_campaign_demo.json`. The local material number `SKL-DENIM-PC-07` maps to `MAT000-7B`; that mapping is a supplied synthetic assumption, not the output of a running Reltio or ontology service.
 
@@ -33,12 +33,12 @@ Without recovery, material availability first falls short on October 5. The prop
 
 ## Capacity and production assumptions
 
-- The candidate cell has four operations: **precision cutting → edge finishing → dimensional/visual inspection → pack and label**. The inspection operation limits planning throughput to **40 good components per hour**. Use the slowest operation's rate; do not add operation rates together.
+- The candidate cell has four operations: precision cutting → edge finishing → dimensional/visual inspection → pack and label. The inspection operation limits planning throughput to 40 good components per hour. Use the slowest operation's rate; do not add operation rates together.
 - Staffed shifts run 08:00–16:00 every calendar day, including weekends, with a 12:00–13:00 break. Only the remaining seven shift hours are counted on October 1 because the demo clock is already 09:00.
 - Existing order reservations, a one-hour target changeover on October 1, and one hour of maintenance on October 6 are deducted before new capacity is calculated. Existing jobs retain their capacity.
-- The 40-good-units/hour rate includes normal performance and quality losses and is below the simulated historical rate of approximately 45.5 good units per scheduled hour. Do **not** apply OEE or the quality yield again to this already-net rate.
-- A separate **98% planning yield** determines the raw input needed for each proposed good-output quantity. Gross starts are rounded up per lot. Ten lots require 1,758 starts to target 1,720 good components.
-- Each start uses 0.018 m² of denim laminate, including normal cutting waste. There are **60 m² uncommitted** after existing jobs. The proposed lots require **31.644 m²**; filling every available capacity slot would require **50.148 m²**. Raw material therefore supports both the proposal and the modeled capacity headroom.
+- The 40-good-units/hour rate includes normal performance and quality losses and is below the simulated historical rate of approximately 45.5 good units per scheduled hour. Do not apply OEE or the quality yield again to this already-net rate.
+- A separate 98% planning yield determines the raw input needed for each proposed good-output quantity. Gross starts are rounded up per lot. Ten lots require 1,758 starts to target 1,720 good components.
+- Each start uses 0.018 m² of denim laminate, including normal cutting waste. There are 60 m² uncommitted after existing jobs. The proposed lots require 31.644 m²; filling every available capacity slot would require 50.148 m². Raw material therefore supports both the proposal and the modeled capacity headroom.
 - Quality release and packing are included before the 16:00 departure. Morvanto receives each lot at 08:00 the next calendar day. Requirements are due by the end of the stated date.
 - Other components, final assembly and downstream logistics are assumed sufficient. This model supports a material-availability decision, not an end-to-end customer-delivery promise.
 
@@ -57,7 +57,7 @@ Without recovery, material availability first falls short on October 5. The prop
 | Proposed production lots | `recovery_proposal_response.proposed_lots` | `proposed_recovery_lots.csv` |
 | Decision/KPI summary | `material_capacity_response.decision_summary` | — |
 
-The full-resolution history has **456 rows**: seven complete shifts plus the current shift's first hour, at 15-minute intervals for two cells. There are 16 daily aggregate rows, eight pipeline nodes, 14 projection dates and ten proposed lots. Historical activity is on the comparable material `SKL-ACC-LINER-01`; **it is not completed Smyle recovery production**.
+The full-resolution history has 456 rows: seven complete shifts plus the current shift's first hour, at 15-minute intervals for two cells. There are 16 daily aggregate rows, eight pipeline nodes, 14 projection dates and ten proposed lots. Historical activity is on the comparable material `SKL-ACC-LINER-01`; it is not completed Smyle recovery production.
 
 For a compact agent reply, use the snapshot or decision summary. The suggested `get_shopfloor_timeseries` route returns the 16 daily aggregate rows by default. Keep all 456 detailed rows available to the visualization code, or return only a requested cell/date range. Avoid placing the whole fixture in every agent response.
 
@@ -94,13 +94,13 @@ OEE measures effectiveness during assigned production. It is not a measure of re
 
 ## Clock, sources and Act 3 handoff
 
-The dataset is frozen at **2026-10-01 09:00 America/Los_Angeles** to match the existing campaign fixture. Observations cover September 24 through that clock time; projections cover October 1–14. If the keynote needs different dates, shift both fixtures and every dependent timestamp together. Reading the file repeatedly returns identical data; it does not simulate streaming or update itself to the current date.
+The dataset is frozen at 2026-10-01 09:00 America/Los_Angeles to match the existing campaign fixture. Observations cover September 24 through that clock time; projections cover October 1–14. If the keynote needs different dates, shift both fixtures and every dependent timestamp together. Reading the file repeatedly returns identical data; it does not simulate streaming or update itself to the current date.
 
 Observed line states and counters represent fabricated MES data. Demand and supply represent synthetic Morvanto planning data. Qualification, reservations, raw inventory and staffing are explicit planning assumptions. Capacity, proposed lots and recovery coverage are derived arithmetic. These sources are labeled separately in the JSON so the agent need not imply the MES itself knows campaign demand or has run an AI forecast.
 
-All recovery lots are **PROPOSED_NOT_RELEASED**. No production order, transfer order or approval has been executed. Act 3 can use the same lot IDs, material mapping and decision summary to demonstrate the agent's approval/release/monitoring behavior.
+All recovery lots are PROPOSED_NOT_RELEASED. No production order, transfer order or approval has been executed. Act 3 can use the same lot IDs, material mapping and decision summary to demonstrate the agent's approval/release/monitoring behavior.
 
-The supported conclusion is: **under the stated assumptions, Skalvion can cover the 860-unit material shortfall in the first week and the modeled 860-unit gap in the next week.** The slide's broader phrase “all current and projected demand” should be scoped to this horizon. There is no modeled proof for all future Q4 demand.
+The supported conclusion is: under the stated assumptions, Skalvion can cover the 860-unit material shortfall in the first week and the modeled 860-unit gap in the next week. The slide's broader phrase “all current and projected demand” should be scoped to this horizon. There is no modeled proof for all future Q4 demand.
 
 ## Provenance and validation
 
