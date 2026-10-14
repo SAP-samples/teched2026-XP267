@@ -5,7 +5,7 @@
 #
 # This is a ONE-TIME, pre-session author/lab-admin task. Students never run it;
 # they only read the data from Dremio. Run it once, up front, so all raw data is
-# staged before the session (see infra/README.md — "stage once, transform progressively").
+# staged before the session (see data/SETUP.md — "stage once, transform progressively").
 #
 # Each feed goes into its OWN folder under bronze/ so Dremio promotes it as a
 # single dataset:  bronze/<table>/<table>.csv
@@ -35,9 +35,9 @@ else
   DEST_ROOT="${BUCKET}/bronze"
 fi
 
-# Resolve the data directory relative to this script.
+# Resolve the data directory relative to this script (this script lives in data/).
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-DATA_DIR="${SCRIPT_DIR}/../data/otif-synth-data"
+DATA_DIR="${SCRIPT_DIR}/otif-synth-data"
 
 # The seven NON-SAP (Vertex MES) feeds. sap_work_center.csv is intentionally
 # EXCLUDED — it is the SAP side (the workcenter data product), not non-SAP data.
