@@ -1,0 +1,10 @@
+apiVersion: solution.sap/v1
+kind: Solution
+
+metadata:
+  name: order-fulfillment-handson
+  version: "1.0.0"
+  description: "Order Fulfillment Advisor — a Joule agent grounded on the SAP Ontology Manager (Narwhal) knowledge graph of customers, sales orders, and material supply coverage."
+
+assets:
+  - ref: ./assets/order-fulfillment-advisor/asset.yaml

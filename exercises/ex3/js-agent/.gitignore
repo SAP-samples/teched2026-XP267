@@ -1,0 +1,6 @@
+# The IBD skill library is vendored by the jl tooling; don't track it here.
+.claude/skills/
+.claude/settings.local.json
+
+# Coding-agent MCP config — authoring-side only; participants use the jl CLI + Joule UI.
+.mcp.json
