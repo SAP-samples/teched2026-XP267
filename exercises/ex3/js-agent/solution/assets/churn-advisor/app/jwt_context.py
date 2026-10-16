@@ -1,4 +1,4 @@
-"""Per-request user-token context for the Order Fulfillment Advisor agent.
+"""Per-request user-token context for the Churn Advisor agent.
 
 The A2A server receives the end user's bearer token on each request.
 `JWTContextMiddleware` (in `main.py`) stores it here in a context variable so the

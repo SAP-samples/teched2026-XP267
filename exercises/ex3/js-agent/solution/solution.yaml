@@ -2,9 +2,9 @@ apiVersion: solution.sap/v1
 kind: Solution
 
 metadata:
-  name: order-fulfillment-handson
+  name: churn-handson
   version: "1.0.0"
-  description: "Order Fulfillment Advisor — a Joule agent grounded on the SAP BDC Ontology Manager knowledge graph of customers, sales orders, and material supply coverage."
+  description: "Churn Advisor — a Joule agent grounded on the SAP BDC Ontology Manager knowledge graph of customers, CRM account health (churn risk, NPS, renewals), and OTIF delivery performance."
 
 assets:
-  - ref: ./assets/order-fulfillment-advisor/asset.yaml
+  - ref: ./assets/churn-advisor/asset.yaml

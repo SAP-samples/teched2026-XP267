@@ -1,8 +1,8 @@
 # Exercise 3 - Build a Joule Agent on the Golden Record
 
-In this exercise you deploy a Joule Studio agent that answers order-fulfillment questions
-in plain language. The agent is grounded on the knowledge graph you built in the SAP BDC
-Ontology Manager, which sits on top of the golden records from the earlier exercises.
+In this exercise you deploy a Joule Studio agent that answers customer-churn and retention
+questions in plain language. The agent is grounded on the knowledge graph you built in the SAP
+BDC Ontology Manager, which sits on top of the golden records from the earlier exercises.
 
 You deploy it the pro-code way: use the `jl` CLI to push a prepared agent solution, then
 test it in a conversation.
@@ -19,7 +19,7 @@ test it in a conversation.
 
 ## Exercise 3.1 Deploy the agent
 
-When you finish these steps, the `Order Fulfillment Advisor` agent is running in your Joule
+When you finish these steps, the `Churn Advisor` agent is running in your Joule
 Studio landscape.
 
 ### Step 1 — Install Node.js and the `jl` CLI (one time per laptop)
@@ -103,7 +103,7 @@ before continuing.
 ### Step 4 — Add your tenant's SAP BDC Ontology Manager connection details
 
 The agent reads its connection settings directly from its source. Open
-`solution/assets/order-fulfillment-advisor/app/bdc_ontology_tools.py` and replace the
+`solution/assets/churn-advisor/app/bdc_ontology_tools.py` and replace the
 placeholder values in the `_CONFIG` dict with the values for your lab tenant:
 
 ```python
@@ -143,7 +143,7 @@ From the same `solution` directory, deploy the solution:
 jl solution deploy --wait --force
 ```
 
-<br>![Deploying the Order Fulfillment Advisor with the jl CLI](images/03_01_0010.png)
+<br>![Deploying the Churn Advisor with the jl CLI](images/03_01_0010.png)
 
 > The build runs on SAP's managed builder and can take a few minutes to fully complete. You
 > don't have to wait for it to finish — your agent usually appears in Joule Studio's "Try Your
@@ -156,14 +156,14 @@ jl solution deploy --wait --force
 
 ---
 
-## Exercise 3.2 Ask the agent fulfillment questions
+## Exercise 3.2 Ask the agent churn questions
 
 Now test the deployed agent in a conversation.
 
 ### Step 7 — Open "Try Your Agent"
 
 In Joule Studio, open **Joule Studio → Develop** and find your solution in the Solutions
-list. Under **Solution Artifacts**, select your `order-fulfillment-advisor` agent to open its
+list. Under **Solution Artifacts**, select your `churn-advisor` agent to open its
 preview panel, where you type the questions below into the chat box.
 
 <br>![The deployed agent selected in Joule Studio, with the Try Your Agent preview open](images/03_02_0000.png)
@@ -197,17 +197,16 @@ supply coverage by plant? Cite the customer, material, and plant.
 
 The answer should cite specific customers, materials, and plants pulled from the graph.
 
-<br>![Agent answering a fulfillment-coverage question with citations](images/03_02_0020.png)
+<br>![Agent answering a supply-coverage question with citations](images/03_02_0020.png)
 
 ---
 
-### Step 10 — Ask the fulfillment-risk question
+### Step 10 — Ask the churn-risk question
 
-Finally, ask the agent to reason about coverage gaps:
+Finally, ask the agent to reason across CRM health and delivery performance:
 
 ```text
-Which customers or materials look under-covered — demand without matching supply —
-and why?
+Which at-risk renewals have the worst delivery performance, and what's it costing us?
 ```
 
 > The agent answers only from the knowledge graph: it looks up the ontology, reads its
@@ -230,11 +229,12 @@ setup, see [`solution/README.md`](solution/README.md).
 - [ ] `03_01_0010.png` — `jl solution deploy` succeeding
 - [x] `03_02_0000.png` — Deployed agent selected in Joule Studio, Try Your Agent preview open
 - [ ] `03_02_0010.png` — Agent listing the ontology / entities in Try Your Agent
-- [ ] `03_02_0020.png` — Agent answering a fulfillment-coverage question with citations
+- [ ] `03_02_0020.png` — Agent answering a supply-coverage question with citations
 
 ## Summary
 
-You deployed an AI agent that answers order-fulfillment questions from the governed knowledge
+You deployed an AI agent that answers customer-churn and retention questions from the governed
+knowledge
 graph built on your golden records. Every answer is grounded in retrieved data and traces back
 through the Ontology Manager to the underlying SAP data.
 

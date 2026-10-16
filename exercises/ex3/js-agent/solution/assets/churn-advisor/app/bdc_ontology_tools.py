@@ -1,4 +1,4 @@
-"""SAP BDC Ontology Manager MCP tools for the Order Fulfillment Advisor agent.
+"""SAP BDC Ontology Manager MCP tools for the Churn Advisor agent.
 
 Exposes the SAP BDC Ontology Manager knowledge-graph tools to the agent by
 calling its MCP server over HTTP, authenticating with an XSUAA

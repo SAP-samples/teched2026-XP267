@@ -35,18 +35,18 @@ PORT = int(os.environ.get("PORT", "5000"))
 @click.option("--port", default=PORT)
 def main(host: str, port: int):
     skill = AgentSkill(
-        id="order-fulfillment-advisor",
-        name="order-fulfillment-advisor",
-        description="Answers order-fulfillment and supply-coverage questions grounded on the SAP BDC Ontology Manager knowledge graph.",
-        tags=["order", "fulfillment", "advisor"],
+        id="churn-advisor",
+        name="churn-advisor",
+        description="Answers customer-churn and retention questions grounded on the SAP BDC Ontology Manager knowledge graph.",
+        tags=["churn", "retention", "advisor"],
         examples=[
-            "Which customers have orders that are under-covered or have no supply at all, and why?",
-            "Rank the top customers by fulfillment risk and name the materials and plants at risk.",
+            "Which at-risk renewals have the worst delivery performance, and what's it costing us?",
+            "Which customers have the highest churn risk, and what are the signals?",
         ],
     )
     agent_card = AgentCard(
-        name="order-fulfillment-advisor",
-        description="An order-fulfillment advisor grounded on a governed SAP BDC Ontology Manager knowledge graph of customers, sales orders, and material supply coverage.",
+        name="churn-advisor",
+        description="A customer-churn and retention advisor grounded on a governed SAP BDC Ontology Manager knowledge graph of customers, CRM account health (churn risk, NPS, renewals), and OTIF delivery performance.",
         url=os.environ.get("AGENT_PUBLIC_URL", f"http://{host}:{port}/"),
         version="1.0.0",
         default_input_modes=["text", "text/plain"],

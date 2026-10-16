@@ -1,8 +1,9 @@
-# Order Fulfillment Advisor — Joule Studio agent on SAP BDC Ontology Manager
+# Churn Advisor — Joule Studio agent on SAP BDC Ontology Manager
 
-A pro-code Joule Studio A2A agent that answers order-fulfillment / supply-coverage
+A pro-code Joule Studio A2A agent that answers customer-churn / retention
 questions grounded on an SAP BDC Ontology Manager knowledge graph of customers,
-sales orders, and material supply coverage. This is the deployable solution behind the
+CRM account health (churn risk, NPS, renewals), and OTIF delivery performance. This is the
+deployable solution behind the
 "Build a Joule Agent on the Golden Record" workshop step.
 
 ## How it connects
@@ -17,7 +18,7 @@ The agent reaches the knowledge graph through the SAP BDC Ontology Manager MCP s
    `_CONFIG` dict in `bdc_ontology_tools.py`.
 
 ```
-Try Your Agent ──▶ order-fulfillment-advisor (Joule Studio agent)
+Try Your Agent ──▶ churn-advisor (Joule Studio agent)
                       │  app/bdc_ontology_tools.py
                       │   • XSUAA client-credentials → Bearer token
                       ▼
@@ -29,8 +30,8 @@ Try Your Agent ──▶ order-fulfillment-advisor (Joule Studio agent)
 ## Layout
 
 ```
-solution.yaml                              # solution: order-fulfillment-handson
-assets/order-fulfillment-advisor/
+solution.yaml                              # solution: churn-handson
+assets/churn-advisor/
   asset.yaml                               # type: agent, A2A, port 5000
   app/
     main.py  agent.py  agent_executor.py   # A2A server + agent
@@ -42,7 +43,7 @@ assets/order-fulfillment-advisor/
 ## Credentials
 
 Connection settings live in the `_CONFIG` dict in
-`assets/order-fulfillment-advisor/app/bdc_ontology_tools.py`. Fill in the placeholders
+`assets/churn-advisor/app/bdc_ontology_tools.py`. Fill in the placeholders
 with the values for your lab tenant.
 
 | Setting                      | Meaning                                        |
@@ -61,14 +62,15 @@ jl solution deploy --wait --force
 ```
 
 Then test in Joule Studio → Develop → "Try Your Agent": ask it to list the
-ontologies and describe their entities, then ask a supply-coverage question so it
+ontologies and describe their entities, then ask a churn-risk question (such as which
+at-risk renewals have the worst delivery performance) so it
 has to query the knowledge graph.
 
 ## Local run
 
 The agent is built with LangGraph, LiteLLM, and the SAP Cloud SDK (A2A protocol).
 To run it locally, fill in the `_CONFIG` values in
-`assets/order-fulfillment-advisor/app/bdc_ontology_tools.py`, then export your SAP AI Core
+`assets/churn-advisor/app/bdc_ontology_tools.py`, then export your SAP AI Core
 credentials:
 
 ```bash
@@ -81,7 +83,7 @@ export AICORE_BASE_URL="https://api...hana.ondemand.com"
 Create a virtual environment, install requirements, and run the agent:
 
 ```bash
-cd assets/order-fulfillment-advisor
+cd assets/churn-advisor
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt -r requirements-test.txt

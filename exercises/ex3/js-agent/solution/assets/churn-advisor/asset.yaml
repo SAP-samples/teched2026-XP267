@@ -3,14 +3,14 @@ kind: Asset
 type: agent
 
 metadata:
-  name: order-fulfillment-advisor
+  name: churn-advisor
   version: "1.0.0"
 
 provides:
   apis:
-    - name: order-fulfillment-advisor
+    - name: churn-advisor
       kind: a2a
-      ordId: customer.build:apiResource:order-fulfillment-handson.order-fulfillment-advisor:v1
+      ordId: customer.build:apiResource:churn-handson.churn-advisor:v1
 
 container:
   buildPath: .
