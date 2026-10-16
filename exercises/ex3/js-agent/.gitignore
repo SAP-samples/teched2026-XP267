@@ -4,3 +4,8 @@
 
 # Coding-agent MCP config — authoring-side only; participants use the jl CLI + Joule UI.
 .mcp.json
+
+# Local jl deploy state — pins a per-machine solution id and build artifacts.
+solution/.build
+solution/.build.*
+solution/build/

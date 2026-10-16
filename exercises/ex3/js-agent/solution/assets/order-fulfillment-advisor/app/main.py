@@ -1,9 +1,15 @@
+import os
+
+# Use LiteLLM's bundled model-cost map instead of fetching it from GitHub at
+# import time (avoids a CERTIFICATE_VERIFY_FAILED warning in the deployed
+# container). Set before any import that transitively imports litellm.
+os.environ.setdefault("LITELLM_LOCAL_MODEL_COST_MAP", "true")
+
 from sap_cloud_sdk.aicore import set_aicore_config
 
 set_aicore_config()
 
 import logging
-import os
 
 import click
 import uvicorn
@@ -31,7 +37,7 @@ def main(host: str, port: int):
     skill = AgentSkill(
         id="order-fulfillment-advisor",
         name="order-fulfillment-advisor",
-        description="Answers order-fulfillment and supply-coverage questions grounded on the SAP Ontology Manager (Narwhal) knowledge graph.",
+        description="Answers order-fulfillment and supply-coverage questions grounded on the SAP BDC Ontology Manager knowledge graph.",
         tags=["order", "fulfillment", "advisor"],
         examples=[
             "Which customers have orders that are under-covered or have no supply at all, and why?",
@@ -40,7 +46,7 @@ def main(host: str, port: int):
     )
     agent_card = AgentCard(
         name="order-fulfillment-advisor",
-        description="An order-fulfillment advisor grounded on a governed Narwhal knowledge graph of customers, sales orders, and material supply coverage.",
+        description="An order-fulfillment advisor grounded on a governed SAP BDC Ontology Manager knowledge graph of customers, sales orders, and material supply coverage.",
         url=os.environ.get("AGENT_PUBLIC_URL", f"http://{host}:{port}/"),
         version="1.0.0",
         default_input_modes=["text", "text/plain"],

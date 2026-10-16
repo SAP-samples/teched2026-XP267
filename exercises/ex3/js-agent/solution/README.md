@@ -1,29 +1,29 @@
-# Order Fulfillment Advisor — Joule Studio agent on Narwhal (SAP Ontology Manager)
+# Order Fulfillment Advisor — Joule Studio agent on SAP BDC Ontology Manager
 
 A pro-code Joule Studio A2A agent that answers order-fulfillment / supply-coverage
-questions grounded on a Narwhal (SAP Ontology Manager) knowledge graph of customers,
+questions grounded on an SAP BDC Ontology Manager knowledge graph of customers,
 sales orders, and material supply coverage. This is the deployable solution behind the
 "Build a Joule Agent on the Golden Record" workshop step.
 
 ## How it connects
 
-The agent reaches the knowledge graph through Narwhal's MCP server:
+The agent reaches the knowledge graph through the SAP BDC Ontology Manager MCP server:
 
-1. Narwhal tools. `app/narwhal_tools.py` calls Narwhal's MCP server over HTTP
+1. Ontology Manager tools. `app/bdc_ontology_tools.py` calls the MCP server over HTTP
    (JSON-RPC, SSE responses) and exposes its tools as LangChain tools:
    `list_ontologies`, `get_ontology_schema`, `execute_sparql`.
 2. XSUAA authentication. The agent mints an XSUAA client-credentials token and
    sends it as a bearer token on each MCP call. Connection settings live in the
-   `_CONFIG` dict in `narwhal_tools.py`.
+   `_CONFIG` dict in `bdc_ontology_tools.py`.
 
 ```
 Try Your Agent ──▶ order-fulfillment-advisor (Joule Studio agent)
-                      │  app/narwhal_tools.py
+                      │  app/bdc_ontology_tools.py
                       │   • XSUAA client-credentials → Bearer token
                       ▼
-             POST <NARWHAL_MCP_BASE>/mcp/   (JSON-RPC: tools/call)
+             POST <BDC_ONTOLOGY_MCP_BASE>/mcp/   (JSON-RPC: tools/call)
                       ▼
-             Narwhal MCP ──▶ SPARQL over the governed knowledge graph
+             BDC Ontology Manager MCP ──▶ SPARQL over the governed knowledge graph
 ```
 
 ## Layout
@@ -34,7 +34,7 @@ assets/order-fulfillment-advisor/
   asset.yaml                               # type: agent, A2A, port 5000
   app/
     main.py  agent.py  agent_executor.py   # A2A server + agent
-    narwhal_tools.py                        # Narwhal MCP tools + XSUAA auth
+    bdc_ontology_tools.py                   # BDC Ontology Manager MCP tools + XSUAA auth
     jwt_context.py                          # per-request user-token helpers
   prebuilt_tests/                           # structure + server tests
 ```
@@ -42,16 +42,16 @@ assets/order-fulfillment-advisor/
 ## Credentials
 
 Connection settings live in the `_CONFIG` dict in
-`assets/order-fulfillment-advisor/app/narwhal_tools.py`. Fill in the placeholders
+`assets/order-fulfillment-advisor/app/bdc_ontology_tools.py`. Fill in the placeholders
 with the values for your lab tenant.
 
-| Setting                 | Meaning                                        |
-| ----------------------- | ---------------------------------------------- |
-| `NARWHAL_MCP_BASE`      | Narwhal MCP host                               |
-| `NARWHAL_TOKEN_URL`     | XSUAA token endpoint (`…/oauth/token`)         |
-| `NARWHAL_CLIENT_ID`     | OAuth client id                                |
-| `NARWHAL_CLIENT_SECRET` | OAuth client secret                            |
-| `NARWHAL_MCP_PATH`      | MCP mount path (default `mcp`)                 |
+| Setting                      | Meaning                                        |
+| ---------------------------- | ---------------------------------------------- |
+| `BDC_ONTOLOGY_MCP_BASE`      | Ontology Manager MCP host                      |
+| `BDC_ONTOLOGY_TOKEN_URL`     | XSUAA token endpoint (`…/oauth/token`)         |
+| `BDC_ONTOLOGY_CLIENT_ID`     | OAuth client id                                |
+| `BDC_ONTOLOGY_CLIENT_SECRET` | OAuth client secret                            |
+| `BDC_ONTOLOGY_MCP_PATH`      | MCP mount path (default `mcp`)                 |
 
 ## Deploy & test
 
@@ -68,7 +68,7 @@ has to query the knowledge graph.
 
 The agent is built with LangGraph, LiteLLM, and the SAP Cloud SDK (A2A protocol).
 To run it locally, fill in the `_CONFIG` values in
-`assets/order-fulfillment-advisor/app/narwhal_tools.py`, then export your SAP AI Core
+`assets/order-fulfillment-advisor/app/bdc_ontology_tools.py`, then export your SAP AI Core
 credentials:
 
 ```bash

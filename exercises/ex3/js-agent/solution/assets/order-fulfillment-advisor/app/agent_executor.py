@@ -14,7 +14,7 @@ from a2a.utils import new_agent_text_message, new_task
 from a2a.utils.errors import ServerError
 
 from agent import SampleAgent
-from narwhal_tools import get_mcp_tools
+from bdc_ontology_tools import get_mcp_tools
 
 logger = logging.getLogger(__name__)
 
@@ -26,8 +26,8 @@ class AgentExecutor(A2AAgentExecutor):
     async def execute(self, context: RequestContext, event_queue: EventQueue) -> None:
         """Execute the agent and stream results back via A2A protocol.
 
-        Loads the Narwhal MCP tools before each execution, then streams the
-        agent's response as A2A task updates.
+        Loads the SAP BDC Ontology Manager MCP tools before each execution, then
+        streams the agent's response as A2A task updates.
 
         Args:
             context: Request context containing user input and task info
@@ -43,17 +43,17 @@ class AgentExecutor(A2AAgentExecutor):
             task = new_task(context.message)
             await event_queue.enqueue_event(task)
 
-        # Load MCP tools backed by the Narwhal MCP server (direct, client-credentials)
+        # Load MCP tools backed by the SAP BDC Ontology Manager MCP server (direct, client-credentials)
         tools = []
         try:
             tools = await get_mcp_tools()
             if not tools:
-                logger.warning("No Narwhal MCP tools returned")
+                logger.warning("No SAP BDC Ontology Manager MCP tools returned")
             else:
                 tool_names = [t.name for t in tools]
-                logger.info("Loaded %d Narwhal MCP tool(s): %s", len(tools), tool_names)
+                logger.info("Loaded %d SAP BDC Ontology Manager MCP tool(s): %s", len(tools), tool_names)
         except Exception as e:
-            logger.error(f"Failed to load Narwhal MCP tools: {e}")
+            logger.error(f"Failed to load SAP BDC Ontology Manager MCP tools: {e}")
 
         updater = TaskUpdater(event_queue, task.id, task.context_id)
 
