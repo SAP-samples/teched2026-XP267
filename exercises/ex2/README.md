@@ -122,6 +122,7 @@ Click **+ Create Ontology** (top right).
 The Create Ontology wizard opens. It has seven steps shown in the progress bar at the top:
 **1 Name & Description → 2 Data Source → 3 Select Tables → 4 Assign Concepts → 5 Assign Attributes → 6 Assign Relationships → 7 Review and Create**
 
+![Create Ontology wizard — Name & Description step with ontology name filled in](images/02_02_0020.jpg)
 ---
 
 ### Step 10 — Name & Description 
@@ -136,8 +137,9 @@ Fill in the ontology name and choose the data source type:
 
 Click **Next**.
 
-![Create Ontology wizard — Name & Description step with ontology name filled in](images/02_02_0020.jpg)
 
+
+![Create Ontology wizard — Name & Description step with ontology name filled in](images/02_02_0025.jpg)
 ---
 
 ### Step 11 — Data Source 
@@ -294,11 +296,15 @@ Verify the summary shows **8 concepts** and **8 relationships**, then click **Cr
 
 ### Step 19 — Ontology created: explore the virtual graph
 
-After creation, Ontology Manager opens the ontology's detail page. The centre panel renders the **Virtual Ontology** — an interactive graph showing all concepts as coloured nodes connected by labelled edges.
+After creation, the new ontolofy appears in the Ontology Hub.
+
+![Ontology Hub listing the new ontology](images/02_02_0101.jpg)
+
+Click the newly created ontology to open it. The Ontology Manager opens the ontology's detail page. The centre panel renders the **Virtual Ontology** — an interactive graph showing all concepts as coloured nodes connected by labelled edges.
 
 - Click any node to see its properties, source table, and attributes in the **Properties** panel on the right.
 - The left panel lists all concepts with their attribute and relationship counts.
-- Use the **Generate KG** button to materialize the knowledge graph, or **Preview KG** to query it first.
+- Use the **Preview KG** to query the ontology.
 
 ![Ontology detail page showing the virtual ontology graph with all 8 concepts and 8 relationships](images/02_02_0110.jpg)
 
@@ -319,13 +325,7 @@ The results table at the bottom shows live data resolved from Dremio through the
 
 ---
 
-### Step 21 — Ontology Hub: confirm the ontology is active
-
-Return to **Ontology Hub** (left navigation). Your new ontology appears as a card marked as shown and **Active**.
-
-This ontology is now ready for Exercise 3 — the Joule agent will ground on it to answer natural-language questions across the CRM and SAP domains.
-
-![Ontology Hub showing Customer_Churn_Ontology card as Active v1.0.0](images/02_02_0130.jpg)
+Congratulations! Your newly ceated ontology is now ready for Exercise 3 — the Joule agent will ground on it to answer natural-language questions across the CRM and SAP domains.
 
 ---
 
