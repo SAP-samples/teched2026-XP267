@@ -2,7 +2,7 @@
 
 In this exercise, you will build a semantic ontology on top of the materialized views produced in Exercise 1, bringing together non-SAP CRM data and SAP data, adding relationships and semantics that the Joule agent in Exercise 3 can reason over.
 
-This connects the two halves of the session: Exercise 1 produces the trusted, materialized golden record; Exercise 3 grounds an agent on it. The ontology built here is the bridge between them — the shared vocabulary (customers, orders, CRM accounts, fulfillment status) that makes the agent's answers precise and explainable.
+This connects the two halves of the session: Exercise 1 produces the trusted, materialized golden record; Exercise 3 grounds an agent on it. The ontology built here is the bridge between them — the shared vocabulary (customers, CRM accounts, churn risk, OTIF delivery performance) that makes the agent's answers precise and explainable.
 
 ## What this exercise covers
 
@@ -119,12 +119,12 @@ The Ontology Hub is where you create and manage all ontologies. Any previously c
 
 Click **+ Create Ontology** (top right).
 
-![Create Ontology](images/02_02_0020.jpg)
+The Create Ontology wizard opens. It has seven steps shown in the progress bar at the top:
+**1 Name & Description → 2 Data Source → 3 Select Tables → 4 Assign Concepts → 5 Assign Attributes → 6 Assign Relationships → 7 Review and Create**
 
 ---
 
-### Step 10 — Name & Description 
-
+### Step 10 — Name & Description (step 1 of 7)
 
 Fill in the ontology name and choose the data source type:
 
@@ -136,11 +136,11 @@ Fill in the ontology name and choose the data source type:
 
 Click **Next**.
 
-![Create Ontology wizard — Name & Description step with ontology name filled in](images/02_02_0025.jpg)
+![Create Ontology wizard — Name & Description step with ontology name filled in](images/02_02_0020.jpg)
 
 ---
 
-### Step 11 — Data Source 
+### Step 11 — Data Source (step 2 of 7)
 
 Select the Dremio connection you just created (`xp267-001-Dremio`). It will be marked **connected** and shows 58 tables available. The connection syncs automatically when selected.
 
@@ -150,7 +150,7 @@ Click **Next**.
 
 ---
 
-### Step 12 — Select Tables : SAP data-product tables
+### Step 12 — Select Tables (step 3 of 7): SAP data-product tables
 
 In the **Schema Source** panel, type `teched` to filter the schemas. Select **`teched_labs_sandbox.sap_dp`** — the schema containing the governed SAP data products.
 
@@ -164,7 +164,7 @@ Both appear in the **Selected tables** panel on the right (count shows 2).
 
 ---
 
-### Step 13 — Select Tables : non-SAP CRM tables
+### Step 13 — Select Tables (step 3 of 7): non-SAP CRM tables
 
 Now select **`teched_labs_sandbox.non_sap`** in the Schema Source panel.
 
@@ -181,7 +181,7 @@ The Selected tables count rises to 7.
 
 ---
 
-### Step 14 — Select Tables : add the golden view
+### Step 14 — Select Tables (step 3 of 7): add the golden view
 
 Select **`<your space>`** (eg `xp267-001` depending on your setup) in the Schema Source panel, then check:
 - `v_crm_account_resolved`
@@ -195,11 +195,11 @@ Click **Next**.
  ( Image to be updated once we have individual spaces created ) 
 
 
-![Select Tables step — <your space> v_crm_account_resolved and v_customer_otif checked, 9 total selected](images/02_02_0065.jpg)
+![Select Tables step — <your space> v_crm_account_resolved and v_customer_otif checked, 9 total selected](images/02_02_0060TBC.jpg)
 
 ---
 
-### Step 15 — Assign Concepts : auto-generate
+### Step 15 — Assign Concepts (step 4 of 7): auto-generate
 
 In the Assign Concepts step, each selected table needs a semantic concept name. Click **Auto Generate Concepts** to let the system propose names based on the table names.
 
@@ -217,7 +217,7 @@ Review the generated names. The mapping should look like this:
 | `teched_labs_sandbox.non_sap.crm_contact` | `CrmContact` |
 | `teched_labs_sandbox.non_sap.crm_opportunity` | `CrmOpportunity` |
 | `...v_crm_account_resolved` | `VCrmAccountResolved` |
-| `...v_customer_otif` | `VCustomerOrderFulfillment` |
+| `...v_customer_otif` | `VCustomerOtif` |
 
 
 
@@ -227,7 +227,7 @@ Review the generated names. The mapping should look like this:
 
 ---
 
-### Step 16 — Assign Attributes  
+### Step 16 — Assign Attributes (step 5 of 7)
 
 For each concept, select its **Primary Attribute** (the unique identifier column) and optionally add attributes to expose.
 
@@ -240,40 +240,26 @@ The attributes panel shows the column name on the left and the semantic property
 
 ![Assign Attributes step — Customers concept selected, Customer set as primary attribute, attributes listed](images/02_02_0080.jpg)
 
-Use the table below as a reference when setting each concept's Primary Attribute:
-
-| Concept | Source table | Primary Attribute (IRI key) |
-|---|---|---|
-| `Customers` | `sap_dp.customer` | `Customer` |
-| `Salesorderitems` | `sap_dp.salesorderitem` | `SalesOrder` + `SalesOrderItem` (composite) |
-| `CrmAccount` | `non_sap.crm_account` | `CRMAccountID` |
-| `CrmAccountResolutionXref` | `non_sap.crm_account_resolution_xref` | `CRMAccountID` |
-| `CrmCase` | `non_sap.crm_case` | `case_id` |
-| `CrmContact` | `non_sap.crm_contact` | `contact_id` |
-| `CrmOpportunity` | `non_sap.crm_opportunity` | `opportunity_id` |
-| `VCrmAccountResolved` | `v_crm_account_resolved` | `CRMAccountID` |
-| `VCustomerOrderFulfillment` | `v_customer_otif` | `Customer` |
-
 Click **Next** once all concepts have a Primary Attribute set.
 
 ---
 
-### Step 17 — Assign Relationships  
+### Step 17 — Assign Relationships (step 6 of 7)
 
 Define the named relationships that link concepts across the two data domains. Click **+ Add Relationship** for each concept that has connections to other concepts.
 
 Add the following relationships (visible in the summary screenshot):
 
-| Source Concept | Relationship Name | Target Concept | Source Attribute | Target Attribute |
-|---|---|---|---|---|
-| `CrmAccount` | `hasCase` | `CrmCase` | `CRMAccountID` | `CRMAccountID` |
-| `CrmAccount` | `hasContact` | `CrmContact` | `CRMAccountID` | `CRMAccountID` |
-| `CrmAccount` | `hasOpportunity` | `CrmOpportunity` | `CRMAccountID` | `CRMAccountID` |
-| `CrmAccount` | `resolvedBy` | `CrmAccountResolutionXref` | `CRMAccountID` | `CRMAccountID` |
-| `CrmAccountResolutionXref` | `resolvesTo` | `Customers` | `SAPCustomerID` | `Customer` |
-| `Customers` | `hasOTIF` | `VCustomerOrderFulfillment` | `Customer` | `Customer` |
-| `Customers` | `placesOrder` | `Salesorderitems` | `Customer` | `SoldToParty` |
-| `CrmCase` | `referencesOrder` | `Salesorderitems` | `related_sales_order` | `SalesOrder` |
+| Source Concept | Relationship Name | Target Concept | Join attributes |
+|---|---|---|---|
+| `Customers` | `hasOTIF` | `VCustomerOtif` | `Customer` → `Customer` |
+| `Customers` | `placesOrder` | `Salesorderitems` | `Customer` → `Customer` |
+| `CrmAccount` | `hasCase` | `CrmCase` | *(account key)* |
+| `CrmAccount` | `hasContact` | `CrmContact` | *(account key)* |
+| `CrmAccount` | `hasOpportunity` | `CrmOpportunity` | *(account key)* |
+| `CrmCase` | `referencesOrder` | `Salesorderitems` | *(order key)* |
+| `VCrmAccountResolved` | `resolvesTo` | `Customers` | *(customer key)* |
+| `CrmAccount` | `resolvedBy` | `VCrmAccountResolved` | *(account key)* |
 
 For each relationship, set the **Source Concept**, type the **Relationship Name**, pick the **Target Concept**, then map the **Source Attribute** and **Target Attribute** join columns.
 
@@ -285,7 +271,7 @@ Click **Next**.
 
 ---
 
-### Step 18 — Review and Create 
+### Step 18 — Review and Create (step 7 of 7)
 
 The final step shows a summary of the ontology: its name, all concepts as coloured dots, and every relationship as a row showing Source → Relationship → Target.
 
@@ -337,4 +323,4 @@ This ontology is now ready for Exercise 3 — the Joule agent will ground on it 
 You connected SAP BDC Ontology Manager to Dremio, then built a 9-table, 8-concept, 8-relationship ontology that bridges SAP customer/order data with non-SAP CRM data via the `v_customer_otif` golden record from Exercise 1. The knowledge graph is now active and queryable — the semantic foundation Exercise 3's Joule agent will reason over.
 
 
-Continue to - [Exercise 3 - Build a Joule Agent on the Golden Record](../ex3/README.md)
+Continue to - [Exercise 3 - Build a Joule Agent on the Golden Record](../ex3/)

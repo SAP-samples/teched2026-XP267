@@ -8,7 +8,7 @@ Pre-session setup for XP267. Students do not perform these steps. By the time th
 
 | Side | What | How it reaches Dremio |
 |---|---|---|
-| **SAP — primary (Sales/CRM)** | `customer`, `salesorderitem`, `purchaseorderitem` | Governed **BDC data products**, exported and **pre-loaded into Dremio** as `"teched_labs_sandbox"."sap_dp".*`. Narrate the BDC origin; the SQL queries Dremio — **no live BDC connection** in the lab. |
+| **SAP — primary (Sales/CRM)** | `customer`, `salesorderitem` | Governed **BDC data products**, exported and **pre-loaded into Dremio** as `"teched_labs_sandbox"."sap_dp".*`. Narrate the BDC origin; the SQL queries Dremio — **no live BDC connection** in the lab. |
 | **SAP — secondary (OTIF)** | `productionorder`, `productionorderoperation`, `workcenter` | Same pattern: BDC data products, available in Dremio under `"teched_labs_sandbox"."sap_dp".*`. Nothing uploaded to S3. |
 | **Non-SAP (OTIF track)** | 7 Vertex MES CSVs (see below) | Uploaded **once** to the shared S3 bucket in the `bronze/` layout; read by the Dremio S3 source. Only needed for the OTIF secondary track in ex1. |
 
@@ -73,21 +73,21 @@ Optional second arg nests everything under a prefix: `./data/upload_bronze.sh s3
 
 ## Step 4 — Confirm the SAP data products are in Dremio
 
-All SAP tables are exported BDC data products pre-loaded into Dremio — there is no live BDC connection in the lab. We narrate the BDC sourcing story; the hands-on SQL queries Dremio so nothing can fail on a live share.
+All SAP tables are exported BDC data products pre-loaded into Dremio — there is no live BDC connection in the lab.
 
-- **Primary (Sales/CRM)**: `customer`, `salesorderitem`, `purchaseorderitem` — confirm they resolve as `"teched_labs_sandbox"."sap_dp".customer` / `.salesorderitem` / `.purchaseorderitem` and the ex1 fulfillment query returns rows.
+- **Primary (Sales/CRM)**: `customer`, `salesorderitem` — confirm they resolve as `"teched_labs_sandbox"."sap_dp".customer` / `.salesorderitem` and the ex1 `v_customer_otif` rollup returns rows.
 - **Secondary (OTIF)**: `productionorder`, `productionorderoperation`, `workcenter` — confirm they resolve under `"teched_labs_sandbox"."sap_dp".*` for the ex1 manufacturing track. The reference medallion that defines the SAP-side OTIF logic is documented in [`data/otif-medallion`](./otif-medallion/README.md).
 
 ## Pre-flight checklist (do before the room arrives)
 
-- [ ] Primary Sales/CRM products resolve in Dremio: `"teched_labs_sandbox"."sap_dp".customer` / `.salesorderitem` / `.purchaseorderitem` preview with rows.
+- [ ] Primary Sales/CRM products resolve in Dremio: `"teched_labs_sandbox"."sap_dp".customer` / `.salesorderitem` preview with rows.
 - [ ] Secondary OTIF products resolve: `"teched_labs_sandbox"."sap_dp".productionorder` / `.productionorderoperation` / `.workcenter`.
 - [ ] (OTIF track) Shared bucket exists; `./data/upload_bronze.sh` run; all 7 folders present under `bronze/`; Dremio `s3lake` source reads the bucket and each `bronze/<table>/` previews with correct headers.
-- [ ] A Dremio space exists for the `v_customer_order_fulfillment` view + its Raw Reflection, and for the `silver.*` / `gold.*` OTIF objects students will create.
+- [ ] A Dremio space exists for the CRM 360 views (`v_customer_otif`, `v_crm_account_resolved`, `v_crm_account_360`) + their Raw Reflections, and for the `silver.*` / `gold.*` OTIF appendix objects students will create.
 - [ ] Joule Agent Builder is available to the student role, with a Dremio connection it can query (used in ex3).
 - [ ] (Optional) `data/mes_synthetic_data` staged wherever the ex3 supplementary agent tool will read it.
 
 ## Teardown
 
-- Drop the student-created `v_customer_order_fulfillment` view (and its Raw Reflection), the `silver.*` / `gold.*` OTIF views, and any `bronze.*` Iceberg tables in Dremio.
+- Drop the student-created CRM 360 views (`v_customer_otif`, `v_crm_account_resolved`, `v_crm_account_360`) and their Raw Reflections, the `silver.*` / `gold.*` OTIF appendix views, and any `bronze.*` Iceberg tables in Dremio.
 - `aws s3 rm s3://teched2026-xp267-lab/bronze --recursive` to clear staged data.

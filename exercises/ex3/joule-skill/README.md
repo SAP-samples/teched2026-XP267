@@ -116,7 +116,7 @@ customer-churn and delivery data.
 
 Now test the skill in a conversation. These questions use the **`Customer_Churn_Ontology`** —
 the governed knowledge graph that links your CRM accounts (churn risk, renewals, NPS) to your
-real SAP delivery performance (OTIF), the churn ↔ delivery link you proved in Exercise 1.3.
+real SAP delivery performance (OTIF), the churn ↔ delivery link you proved in Exercise 1.
 
 ### Step 6 — Start an Agentic Thinking conversation
 
