@@ -13,9 +13,9 @@ For this exercise you work with two datasets, SAP and non-SAP:
 - **SAP** data products under `"teched_labs_sandbox"."sap_dp"` — `customer`, `salesorderitem`, governed SAP S/4HANA data products from SAP Business Data Cloud (BDC): meaningful field names, business semantics, a defined contract.
 - **Non-SAP** CRM export under `"teched_labs_sandbox"."non_sap"` — read-only.
 
-> **Where your objects land:** every view you create lands in this exercise's folder, `"teched_labs_sandbox"."hands-on-test"."ex1"`. Source tables stay in `sap_dp` / `non_sap` — you only *read* those. The folder is pre-created; if missing, create it in the Dremio UI first (`CREATE VIEW` won't create parent folders).
+> **Where your objects land:** everyone shares one Dremio instance, so every view you create lands in **your own space** — written as `"<your_space>"` throughout (e.g. `xp267-001`, your assigned station number). Source tables stay in the shared `sap_dp` / `non_sap` schemas — you only *read* those. Before you start, replace `<your_space>` in each block with your space name.
 
-> **Run each block on screen.** Every SQL block below is complete and runnable against `"teched_labs_sandbox"."hands-on-test"."ex1"` — execute it and the result matches the screenshot beneath it.
+> **Run each block on screen.** Every SQL block below is complete and runnable once you substitute your space name — execute it and the result matches the screenshot beneath it.
 
 ## Section 1.1 Resolve a non-SAP CRM to SAP customers
 
@@ -57,7 +57,7 @@ GROUP BY category, status ORDER BY n DESC;
 Roll `salesorderitem` up per `SoldToParty` into the per-customer OTIF metric, windowed to where committed dates are populated.
 
 ```sql
-CREATE OR REPLACE VIEW "teched_labs_sandbox"."hands-on-test"."ex1".v_customer_otif AS
+CREATE OR REPLACE VIEW "<your_space>".v_customer_otif AS
 SELECT
   SoldToParty AS "Customer",
   COUNT(*) AS lines,
@@ -83,7 +83,7 @@ GROUP BY SoldToParty;
 The Account → Customer crosswalk. A few regex rules (upper-case, punctuation → space, strip legal suffixes) auto-resolve the *easy* names; everything harder defers to the golden crosswalk `crm_account_resolution_xref`, with `match_method` recording the winning path.
 
 ```sql
-CREATE OR REPLACE VIEW "teched_labs_sandbox"."hands-on-test"."ex1".v_crm_account_resolved AS
+CREATE OR REPLACE VIEW "<your_space>".v_crm_account_resolved AS
 WITH cust_norm AS (
   SELECT
     REGEXP_REPLACE(REGEXP_REPLACE(TRIM(REGEXP_REPLACE(UPPER(CustomerName),'[^A-Z0-9]+',' ')),
@@ -134,7 +134,7 @@ Join CRM and SAP into one ontology-ready product, materialize it, and confirm th
 Join CRM account → resolved customer (`v_crm_account_resolved`) → `v_customer_otif` → case counts, with the guarded cast on text columns.
 
 ```sql
-CREATE OR REPLACE VIEW "teched_labs_sandbox"."hands-on-test"."ex1".v_crm_account_360 AS
+CREATE OR REPLACE VIEW "<your_space>".v_crm_account_360 AS
 WITH cases AS (
   SELECT crm_account_id,
          SUM(CASE WHEN status='Open' THEN 1 ELSE 0 END) AS open_cases,
@@ -156,9 +156,9 @@ SELECT
   COALESCE(ca.delivery_delay_cases,0) AS delivery_delay_cases,
   COALESCE(ca.short_shipment_cases,0) AS short_shipment_cases
 FROM "teched_labs_sandbox"."non_sap".crm_account a
-JOIN "teched_labs_sandbox"."hands-on-test"."ex1".v_crm_account_resolved r ON r.crm_account_id = a.crm_account_id
+JOIN "<your_space>".v_crm_account_resolved r ON r.crm_account_id = a.crm_account_id
 LEFT JOIN "teched_labs_sandbox"."sap_dp".customer cu ON cu.Customer = r.sap_customer_id
-LEFT JOIN "teched_labs_sandbox"."hands-on-test"."ex1".v_customer_otif o ON o."Customer" = r.sap_customer_id
+LEFT JOIN "<your_space>".v_customer_otif o ON o."Customer" = r.sap_customer_id
 LEFT JOIN cases ca ON ca.crm_account_id = a.crm_account_id
 WHERE a.churn_risk <> 'Unmanaged';
 ```
@@ -172,12 +172,12 @@ WHERE a.churn_risk <> 'Unmanaged';
 Dremio has no `CREATE MATERIALIZED VIEW` — you keep the view and enable a **Raw Reflection**, the physically stored, auto-maintained copy Dremio transparently substitutes to accelerate queries. Enable one on **`v_customer_otif`** (Exercise 2's required input) and on **`v_crm_account_360`**:
 
 ```sql
-ALTER DATASET "teched_labs_sandbox"."hands-on-test"."ex1".v_customer_otif
+ALTER DATASET "<your_space>".v_customer_otif
 CREATE RAW REFLECTION otif_raw USING DISPLAY (
   "Customer", lines, committed_lines, pct_on_time, pct_in_full, otif_pct, late, short
 );
 
-ALTER DATASET "teched_labs_sandbox"."hands-on-test"."ex1".v_crm_account_360
+ALTER DATASET "<your_space>".v_crm_account_360
 CREATE RAW REFLECTION crm360_raw USING DISPLAY (
   crm_account_id, account_name, segment, churn_risk, annual_contract_value, renewal_date,
   sap_customer_id, match_method, CustomerName, Country, Industry,
@@ -198,7 +198,7 @@ Delivery performance by churn tier.
 ```sql
 SELECT churn_risk, COUNT(*) accounts, ROUND(AVG(otif_pct),1) avg_otif,
        ROUND(AVG(nps),1) avg_nps, ROUND(AVG(open_cases),1) avg_open_cases
-FROM "teched_labs_sandbox"."hands-on-test"."ex1".v_crm_account_360
+FROM "<your_space>".v_crm_account_360
 GROUP BY churn_risk ORDER BY avg_otif;
 ```
 
@@ -215,7 +215,7 @@ At-risk, high-value renewals, each with how it was resolved.
 ```sql
 SELECT account_name, sap_customer_id, otif_pct, late_lines, open_cases,
        annual_contract_value, renewal_date, match_method
-FROM "teched_labs_sandbox"."hands-on-test"."ex1".v_crm_account_360
+FROM "<your_space>".v_crm_account_360
 WHERE churn_risk='At Risk' ORDER BY otif_pct ASC LIMIT 10;
 ```
 

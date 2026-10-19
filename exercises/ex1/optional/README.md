@@ -4,7 +4,7 @@ A deterministic shopfloor **production-risk** golden record (silver → gold), r
 
 This is optional secondary context the Exercise 3 agent can use for manufacturing questions. It is **not part of the main flow**, and it is the most likely live-failure point in the lab (the `ARRAY_SORT`/`SET_UNION` array functions — see the closing note).
 
-**Prerequisite:** [Exercise 1](../README.md) completed. Views build into the same folder, `"teched_labs_sandbox"."hands-on-test"."ex1"`.
+**Prerequisite:** [Exercise 1](../README.md) completed. Views build into your own space, `"<your_space>"` (e.g. `xp267-001`) — the same space you used in Exercise 1. Replace `<your_space>` in each block with your space name.
 
 ## Steps
 
@@ -46,7 +46,7 @@ One harmonized, enriched row per production-order operation.
 
 ```sql
 -- Silver: one harmonized, enriched row per production-order operation
-CREATE VIEW "teched_labs_sandbox"."hands-on-test"."ex1".otif_production AS
+CREATE VIEW "<your_space>".otif_production AS
 SELECT
     po.ProductionOrder,
     po.ProductionOrderType,
@@ -119,7 +119,7 @@ One row per production order, keeping the *worst* operation signals.
 
 ```sql
 -- Gold: the golden OTIF risk record (one row per production order)
-CREATE VIEW "teched_labs_sandbox"."hands-on-test"."ex1".otif_risk AS
+CREATE VIEW "<your_space>".otif_risk AS
 WITH agg AS (
     SELECT
         ProductionOrder,
@@ -138,7 +138,7 @@ WITH agg AS (
                 CASE WHEN operation_anomaly_score >= 30
                      THEN ARRAY[WorkCenterName] ELSE ARRAY[] END)), ', ')
                                                                  AS anomalous_work_centers
-    FROM "teched_labs_sandbox"."hands-on-test"."ex1".otif_production
+    FROM "<your_space>".otif_production
     GROUP BY ProductionOrder
 )
 SELECT
@@ -199,7 +199,7 @@ The at-risk open orders, worst first — the shopfloor half of what the agent an
 ```sql
 SELECT ProductionOrder, risk_tier, otif_risk_score,
        primary_root_cause, anomalous_work_centers
-FROM "teched_labs_sandbox"."hands-on-test"."ex1".otif_risk
+FROM "<your_space>".otif_risk
 WHERE delivery_status = 'In Progress'
 ORDER BY otif_risk_score DESC
 LIMIT 20;
