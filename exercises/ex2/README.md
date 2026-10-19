@@ -168,14 +168,13 @@ Both appear in the **Selected tables** panel on the right (count shows 2).
 
 Now select **`teched_labs_sandbox.non_sap`** in the Schema Source panel.
 
-Check all five CRM tables:
+Check the four CRM tables:
 - `crm_account`
-- `crm_account_resolution_xref`
 - `crm_case`
 - `crm_contact`
 - `crm_opportunity`
 
-The Selected tables count rises to 7.
+The Selected tables count rises to 6.
 
 ![Select Tables step — non_sap schema selected with all five CRM tables checked, 7 total selected](images/02_02_0050.jpg)
 
@@ -187,7 +186,7 @@ Select **`<your space>`** (eg `xp267-001` depending on your setup) in the Schema
 - `v_crm_account_resolved`
 - `v_customer_otif`
 
-The Selected tables count rises to 9.
+The Selected tables count rises to 8.
 
 > `v_customer_otif` is the materialized golden record from Exercise 1 — this is the key hand-off between exercises.
 
@@ -212,7 +211,6 @@ Review the generated names. The mapping should look like this:
 | `teched_labs_sandbox.sap_dp.customer` | `Customers` |
 | `teched_labs_sandbox.sap_dp.salesorderitem` | `Salesorderitems` |
 | `teched_labs_sandbox.non_sap.crm_account` | `CrmAccount` |
-| `teched_labs_sandbox.non_sap.crm_account_resolution_xref` | `CrmAccountResolutionXref` |
 | `teched_labs_sandbox.non_sap.crm_case` | `CrmCase` |
 | `teched_labs_sandbox.non_sap.crm_contact` | `CrmContact` |
 | `teched_labs_sandbox.non_sap.crm_opportunity` | `CrmOpportunity` |
@@ -240,6 +238,19 @@ The attributes panel shows the column name on the left and the semantic property
 
 ![Assign Attributes step — Customers concept selected, Customer set as primary attribute, attributes listed](images/02_02_0080.jpg)
 
+Use the table below as a reference when setting each concept's Primary Attribute:
+
+| Concept | Source table | Primary Attribute (IRI key) |
+|---|---|---|
+| `Customers` | `sap_dp.customer` | `Customer` |
+| `Salesorderitems` | `sap_dp.salesorderitem` | `SalesOrder` + `SalesOrderItem` (composite) |
+| `CrmAccount` | `non_sap.crm_account` | `CRMAccountID` |
+| `CrmCase` | `non_sap.crm_case` | `case_id` |
+| `CrmContact` | `non_sap.crm_contact` | `contact_id` |
+| `CrmOpportunity` | `non_sap.crm_opportunity` | `opportunity_id` |
+| `VCrmAccountResolved` | `v_crm_account_resolved` | `CRMAccountID` |
+| `VCustomerOrderFulfillment` | `v_customer_otif` | `Customer` |
+
 Click **Next** once all concepts have a Primary Attribute set.
 
 ---
@@ -250,16 +261,16 @@ Define the named relationships that link concepts across the two data domains. C
 
 Add the following relationships (visible in the summary screenshot):
 
-| Source Concept | Relationship Name | Target Concept | Join attributes |
-|---|---|---|---|
-| `Customers` | `hasOTIF` | `VCustomerOtif` | `Customer` → `Customer` |
-| `Customers` | `placesOrder` | `Salesorderitems` | `Customer` → `Customer` |
-| `CrmAccount` | `hasCase` | `CrmCase` | *(account key)* |
-| `CrmAccount` | `hasContact` | `CrmContact` | *(account key)* |
-| `CrmAccount` | `hasOpportunity` | `CrmOpportunity` | *(account key)* |
-| `CrmCase` | `referencesOrder` | `Salesorderitems` | *(order key)* |
-| `VCrmAccountResolved` | `resolvesTo` | `Customers` | *(customer key)* |
-| `CrmAccount` | `resolvedBy` | `VCrmAccountResolved` | *(account key)* |
+| Source Concept | Relationship Name | Target Concept | Source Attribute | Target Attribute |
+|---|---|---|---|---|
+| `CrmAccount` | `hasCase` | `CrmCase` | `CRMAccountID` | `CRMAccountID` |
+| `CrmAccount` | `hasContact` | `CrmContact` | `CRMAccountID` | `CRMAccountID` |
+| `CrmAccount` | `hasOpportunity` | `CrmOpportunity` | `CRMAccountID` | `CRMAccountID` |
+| `CrmAccount` | `resolvedBy` | `VCrmAccountResolved` | `CRMAccountID` | `CRMAccountID` |
+| `VCrmAccountResolved` | `resolvesTo` | `Customers` | `SAPCustomerID` | `Customer` |
+| `Customers` | `hasOTIF` | `VCustomerOrderFulfillment` | `Customer` | `Customer` |
+| `Customers` | `placesOrder` | `Salesorderitems` | `Customer` | `SoldToParty` |
+| `CrmCase` | `referencesOrder` | `Salesorderitems` | `related_sales_order` | `SalesOrder` |
 
 For each relationship, set the **Source Concept**, type the **Relationship Name**, pick the **Target Concept**, then map the **Source Attribute** and **Target Attribute** join columns.
 
@@ -320,7 +331,7 @@ This ontology is now ready for Exercise 3 — the Joule agent will ground on it 
 
 ## Summary
 
-You connected SAP BDC Ontology Manager to Dremio, then built a 9-table, 8-concept, 8-relationship ontology that bridges SAP customer/order data with non-SAP CRM data via the `v_customer_otif` golden record from Exercise 1. The knowledge graph is now active and queryable — the semantic foundation Exercise 3's Joule agent will reason over.
+You connected SAP BDC Ontology Manager to Dremio, then built an 8-table, 8-concept, 8-relationship ontology that bridges SAP customer/order data with non-SAP CRM data via the `v_customer_otif` golden record from Exercise 1. The knowledge graph is now active and queryable — the semantic foundation Exercise 3's Joule agent will reason over.
 
 
 Continue to - [Exercise 3 - Build a Joule Agent on the Golden Record](../ex3/)
