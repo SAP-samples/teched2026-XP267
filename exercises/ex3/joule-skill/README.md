@@ -41,7 +41,7 @@ ontology-manager-skill/
   the ontology, cache its schema, write SPARQL from that schema, and never answer from memory. It
   also lists the MCP tools the skill can call. Read the top of it to see the grounding contract.
 - **`.sap-connectivity.json`** declares a single connector pointing at a BTP **destination**
-  (`ONTOLOGY_MANAGER_PROCODE_MCP`). This is the one line that wires the skill to your tenant's
+  (`ONTOLOGY_MANAGER_TECHED_HANDSON_1`). This is the one line that wires the skill to your tenant's
   Ontology Manager — and the reason you never paste a credential.
 - **`scripts/ask_ontology_manager.py`** is a small helper that posts a request to the Ontology Manager and
   returns the result. You don't edit it; `SKILL.md` tells Joule when to run it.
@@ -55,6 +55,11 @@ ontology-manager-skill/
 ### Step 2 — Open Explore Skills
 
 Open **Joule** in your browser and sign in: [https://747391938.eu10.sapdas.cloud.sap/](https://747391938.eu10.sapdas.cloud.sap/)
+
+> On a brand-new account, Joule Work opens a short onboarding wizard (a welcome splash, then a
+> few feature-tour cards). It's not part of this exercise — click **Skip** (or step through it
+> with **Next**) to reach the main Joule Work screen.
+
 In the bottom-left of the navigation bar, click your **user ID** (your name / initials). In the
 popup menu, click **Explore Skills**.
 
@@ -92,9 +97,13 @@ fill in automatically from the folder's `SKILL.md`. Then click **Import**.
 
 ### Step 5 — Enable the skill
 
-Back in the gallery, find the imported **ontology-manager-skill** card (marked **Custom**) and
-toggle it **on**. Once it shows as active, Joule will reach for it whenever you ask about
-ontologies, the knowledge graph, or customer-churn and delivery data.
+Back in the gallery (the **All Skills** tab), find the imported **ontology-manager-skill** card
+(marked **Custom**). Click the **toggle** at the top-right of that card to switch it **on** — it's
+the small switch next to the card's `•••` menu, and it starts greyed out / off. Once it shows as
+active, Joule will reach for it whenever you ask about ontologies, the knowledge graph, or
+customer-churn and delivery data.
+
+![The ontology-manager-skill card with its enable toggle highlighted](images/03_01_0015.png)
 
 > No connection details to fill in. The skill carries its own `.sap-connectivity.json`, and the
 > Joule runtime binds it to your tenant's Ontology Manager destination for you. If the skill is
@@ -179,7 +188,7 @@ happen in the conversation:
 The skill is three files: `SKILL.md` (the instructions Joule follows — pin the ontology, cache
 the schema, write SPARQL, never answer from memory), `scripts/ask_ontology_manager.py` (a thin client that
 POSTs JSON-RPC to the Ontology Manager MCP server), and `.sap-connectivity.json` (which declares
-a `destination` connector, `ONTOLOGY_MANAGER_PROCODE_MCP`).
+a `destination` connector, `ONTOLOGY_MANAGER_TECHED_HANDSON_1`).
 
 ```
 Joule Work conversation ──▶ ontology-manager-skill
@@ -206,6 +215,7 @@ actions).
 - [x] `03_01_0000.png` — Joule Work user menu with Explore Skills
 - [x] `03_01_0005.png` — Explore Skills gallery (ontology-manager-skill shown as Custom / active)
 - [x] `03_01_0010.png` — Import Skill dialog with name/description pre-filled from SKILL.md
+- [x] `03_01_0015.png` — ontology-manager-skill card with the enable toggle highlighted
 - [ ] `03_02_0000.png` — New Conversation with the skill listing the Customer_Churn_Ontology / entities
 - [ ] `03_02_0010.png` — Joule ranking at-risk renewals by delivery performance with citations
 

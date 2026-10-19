@@ -6,7 +6,7 @@
       "connection-strategy": {
         "type": "destination",
         "protocol": "HTTP",
-        "destination": "ONTOLOGY_MANAGER_PROCODE_MCP"
+        "destination": "ONTOLOGY_MANAGER_TECHED_HANDSON_1"
       },
       "guardrails": {
         "GET": {
