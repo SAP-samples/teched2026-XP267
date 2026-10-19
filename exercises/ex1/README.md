@@ -34,21 +34,29 @@ Build two views, one per gap:
 
 ### Step 1 — Preview what you're connecting
 
-Preview the CRM accounts (messy names, a `churn_risk`, a `renewal_date`, no SAP key) and cases (dominated by delivery complaints):
+Preview the CRM accounts — messy names, a `churn_risk`, a `renewal_date`, no SAP key:
 
 ```sql
 SELECT crm_account_id, account_name, segment, churn_risk, nps, renewal_date
 FROM "teched_labs_sandbox"."non_sap".crm_account
 LIMIT 20;
+```
 
+> **You should see** names that are clean (`US Large Cycles 5`), suffixed (`USC1 Inc.`), or mistyped (`CA Specialty Cyales 5 Ltd.`), with no SAP customer number. Every CRM value imports as text (`nps` comes back as `'-21'`), so a guarded cast applies later.
+
+![crm_account preview — messy names, churn_risk, no SAP key](images/select_crm_account.png)
+
+Then preview the cases — dominated by delivery complaints:
+
+```sql
 SELECT category, status, COUNT(*) n
 FROM "teched_labs_sandbox"."non_sap".crm_case
 GROUP BY category, status ORDER BY n DESC;
 ```
 
-> **You should see** names that are clean (`US Large Cycles 5`), suffixed (`USC1 Inc.`), or mistyped (`CA Specialty Cyales 5 Ltd.`), with no SAP customer number; cases dominated by Delivery Delay and Short Shipment. Every CRM value imports as text (`nps` comes back as `'-21'`), so a guarded cast applies later.
+> **You should see** cases dominated by Delivery Delay and Short Shipment — the delivery signal the OTIF rollup will explain.
 
-![CRM raw previews: crm_account and crm_case](images/01_01_0010.png)
+![crm_case preview — cases by category and status](images/select_crm_case.png)
 
 ---
 
@@ -75,6 +83,8 @@ GROUP BY SoldToParty;
 ```
 
 > **Quoted mixed-case aliases** (`"Customer"`) preserve the Databricks-style names; once quoted, later references are case-sensitive.
+
+![v_customer_otif created — per-customer OTIF rollup](images/v_customer_otif.png)
 
 ---
 
@@ -117,7 +127,7 @@ LEFT JOIN fuzzy f ON f.crm_account_id = x.crm_account_id;
 
 > **`match_method` is the honest MDM boundary.** The regex is a proxy: it resolves clean names on its own (`fuzzy_auto`) and lets you *see* where fuzzy matching breaks down. Everything harder (`mdm_resolved`, `ambiguous_needs_mdm`) is what only a real master-data management (MDM) solution could settle — entity resolution, survivorship, stewardship, a maintained golden crosswalk. Here `crm_account_resolution_xref` stands in for that MDM output.
 
-![v_customer_otif and v_crm_account_resolved defined, showing match_method](images/01_01_0020.png)
+![v_crm_account_resolved created — the Account → Customer crosswalk with match_method](images/v_crm_account_resolved.png)
 
 ---
 
@@ -165,18 +175,26 @@ WHERE a.churn_risk <> 'Unmanaged';
 
 > **Why the guarded cast?** Metric columns import as strings, and some rows carry a unit token (e.g. `EA`) instead of a number — a plain `CAST` errors. The `REGEXP_LIKE(..., '^-?[0-9]+$')` guard casts only numeric-looking values — the same behavior as Databricks `try_cast`.
 
+![v_crm_account_360 created — CRM + resolved SAP customer + OTIF + case counts](images/v_crm_account_360.png)
+
 ---
 
 ### Step 2 — Materialize the hand-off views
 
-Dremio has no `CREATE MATERIALIZED VIEW` — you keep the view and enable a **Raw Reflection**, the physically stored, auto-maintained copy Dremio transparently substitutes to accelerate queries. Enable one on **`v_customer_otif`** (Exercise 2's required input) and on **`v_crm_account_360`**:
+Dremio has no `CREATE MATERIALIZED VIEW` — you keep the view and enable a **Raw Reflection**, the physically stored, auto-maintained copy Dremio transparently substitutes to accelerate queries. Enable one on **`v_customer_otif`** (Exercise 2's required input):
 
 ```sql
 ALTER DATASET "<your_space>".v_customer_otif
 CREATE RAW REFLECTION otif_raw USING DISPLAY (
   "Customer", lines, committed_lines, pct_on_time, pct_in_full, otif_pct, late, short
 );
+```
 
+![Raw Reflection enabled on v_customer_otif](images/v_customer_otif_reflection.png)
+
+Then enable one on **`v_crm_account_360`**:
+
+```sql
 ALTER DATASET "<your_space>".v_crm_account_360
 CREATE RAW REFLECTION crm360_raw USING DISPLAY (
   crm_account_id, account_name, segment, churn_risk, annual_contract_value, renewal_date,
@@ -187,7 +205,7 @@ CREATE RAW REFLECTION crm360_raw USING DISPLAY (
 
 > **The golden record is a view, not a copy.** Change a threshold and every downstream consumer — the ontology in Exercise 2, the agent in Exercise 3 — reflects it immediately, no pipeline re-run. The reflection gives physical speed without giving up the single logical source of truth.
 
-![Raw Reflection enabled on v_customer_otif and v_crm_account_360](images/01_02_0010.png)
+![Raw Reflection enabled on v_crm_account_360](images/v_crm_account_360_reflection.png)
 
 ---
 
@@ -204,7 +222,7 @@ GROUP BY churn_risk ORDER BY avg_otif;
 
 > **You should see** a clean gradient — At Risk ≈ 79% OTIF / NPS −21 / ~13 open cases; Watch ≈ 82% / +11 / ~6; Healthy ≈ 93% / +25 / ~2. The churn signal tracks SAP delivery — discovered by the join, not assumed.
 
-![OTIF by churn tier — the gradient](images/01_02_0020.png)
+![OTIF by churn tier — the gradient](images/churn_risk_confirmation.png)
 
 ---
 
@@ -221,7 +239,7 @@ WHERE churn_risk='At Risk' ORDER BY otif_pct ASC LIMIT 10;
 
 > **You should see** high-value at-risk renewals, each with low OTIF, many late lines and open delivery cases — some resolved by `fuzzy_auto`, others only by `mdm_resolved`. This materialized `v_crm_account_360`, with `v_customer_otif` and `v_crm_account_resolved`, is the hand-off to Exercises 2 and 3.
 
-![At-risk, high-value renewals — the money query](images/01_02_0030.png)
+![At-risk, high-value renewals — the money query](images/at_risk_renewals.png)
 
 ## Summary
 
