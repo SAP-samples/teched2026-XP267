@@ -245,7 +245,7 @@ Use the table below as a reference when setting each concept's Primary Attribute
 | Concept | Source table | Primary Attribute (IRI key) |
 |---|---|---|
 | `Customers` | `sap_dp.customer` | `Customer` |
-| `Salesorderitems` | `sap_dp.salesorderitem` | `SalesOrder` |
+| `Salesorderitems` | `sap_dp.salesorderitem` | `SalesOrder` + `SalesOrderItem` (composite) |
 | `CrmAccount` | `non_sap.crm_account` | `CRMAccountID` |
 | `CrmAccountResolutionXref` | `non_sap.crm_account_resolution_xref` | `CRMAccountID` |
 | `CrmCase` | `non_sap.crm_case` | `case_id` |
@@ -253,8 +253,6 @@ Use the table below as a reference when setting each concept's Primary Attribute
 | `CrmOpportunity` | `non_sap.crm_opportunity` | `opportunity_id` |
 | `VCrmAccountResolved` | `v_crm_account_resolved` | `CRMAccountID` |
 | `VCustomerOrderFulfillment` | `v_customer_otif` | `Customer` |
-
-> **Note on `Salesorderitems`:** the source table has a composite key (`SalesOrder` + `SalesOrderItem`). Select `SalesOrder` as the Primary Attribute here.
 
 Click **Next** once all concepts have a Primary Attribute set.
 
@@ -268,14 +266,14 @@ Add the following relationships (visible in the summary screenshot):
 
 | Source Concept | Relationship Name | Target Concept | Source Attribute | Target Attribute |
 |---|---|---|---|---|
-| `Customers` | `hasOTIF` | `VCustomerOrderFulfillment` | `Customer` | `Customer` |
-| `Customers` | `placesOrder` | `Salesorderitems` | `Customer` | `SoldToParty` |
 | `CrmAccount` | `hasCase` | `CrmCase` | `CRMAccountID` | `CRMAccountID` |
 | `CrmAccount` | `hasContact` | `CrmContact` | `CRMAccountID` | `CRMAccountID` |
 | `CrmAccount` | `hasOpportunity` | `CrmOpportunity` | `CRMAccountID` | `CRMAccountID` |
-| `CrmCase` | `referencesOrder` | `Salesorderitems` | `related_sales_order` | `SalesOrder` |
-| `CrmAccountResolutionXref` | `resolvesTo` | `Customers` | `SAPCustomerID` | `Customer` |
 | `CrmAccount` | `resolvedBy` | `CrmAccountResolutionXref` | `CRMAccountID` | `CRMAccountID` |
+| `CrmAccountResolutionXref` | `resolvesTo` | `Customers` | `SAPCustomerID` | `Customer` |
+| `Customers` | `hasOTIF` | `VCustomerOrderFulfillment` | `Customer` | `Customer` |
+| `Customers` | `placesOrder` | `Salesorderitems` | `Customer` | `SoldToParty` |
+| `CrmCase` | `referencesOrder` | `Salesorderitems` | `related_sales_order` | `SalesOrder` |
 
 For each relationship, set the **Source Concept**, type the **Relationship Name**, pick the **Target Concept**, then map the **Source Attribute** and **Target Attribute** join columns.
 
