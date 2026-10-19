@@ -217,7 +217,7 @@ Enable a Raw Reflection on `otif_risk` (same mechanic as the main flow) so the a
 
 ---
 
-> **Live-failure caveat:** `ARRAY_SORT` / `SET_UNION` syntax varies by engine. If your Dremio build differs, substitute the equivalent array-aggregation function — the reference Databricks logic uses `ARRAY_JOIN(COLLECT_SET(...))`.
+> **Live-failure caveat:** `ARRAY_SORT` / `SET_UNION` syntax varies by engine. If your Dremio build differs, substitute the equivalent array-aggregation function (for example `ARRAY_JOIN(COLLECT_SET(...))`).
 
 > **Author note:** this OTIF SQL has **not** been run against a live Dremio — validate before the session, especially the `ARRAY_SORT`/`SET_UNION` array functions.
 

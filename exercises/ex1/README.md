@@ -11,9 +11,9 @@ Refine governed SAP data into trusted golden records using layered SQL views in 
 For this exercise you work with two datasets, SAP and non-SAP:
 
 - **SAP** data products under `"teched_labs_sandbox"."sap_dp"` — `customer`, `salesorderitem`, governed SAP S/4HANA data products from SAP Business Data Cloud (BDC): meaningful field names, business semantics, a defined contract.
-- **Non-SAP** CRM export under `"teched_labs_sandbox"."non_sap"` — read-only.
+- **Non-SAP** CRM data under `"teched_labs_sandbox"."non_sap"`.
 
-> **Where your objects land:** everyone shares one Dremio instance, so every view you create lands in **your own space** — written as `"<your_space>"` throughout (e.g. `xp267-001`, your assigned station number). Source tables stay in the shared `sap_dp` / `non_sap` schemas — you only *read* those. Before you start, replace `<your_space>` in each block with your space name.
+> **Where your objects land:** everyone shares one Dremio instance, so every view you create lands in **your own space** — written as `"<your_space>"` throughout (e.g. `user-##`, your assigned station number). Source tables stay in the shared `sap_dp` / `non_sap` schemas — you only *read* those. Before you start, replace `<your_space>` in each block with your space name.
 
 > **Run each block on screen.** Every SQL block below is complete and runnable once you substitute your space name — execute it and the result matches the screenshot beneath it.
 
@@ -21,7 +21,7 @@ For this exercise you work with two datasets, SAP and non-SAP:
 
 **Goal:** resolve non-SAP CRM accounts to SAP customers, then answer one cross-domain question:
 
-> *"Are our at-risk renewals being driven by our own delivery performance?"*
+> *"Do our delivery delays explain our churn risk?"*
 
 CRM owns the relationship (accounts, cases, renewals); SAP owns the transaction (actual delivery). Joining CRM churn signals to SAP delivery (OTIF) surfaces the link between them.
 
@@ -82,7 +82,7 @@ WHERE RequestedDeliveryDate >= '2023-01-01'
 GROUP BY SoldToParty;
 ```
 
-> **Quoted mixed-case aliases** (`"Customer"`) preserve the Databricks-style names; once quoted, later references are case-sensitive.
+> **Quoted mixed-case aliases** (`"Customer"`) preserve the mixed-case names; once quoted, later references are case-sensitive.
 
 ![v_customer_otif created — per-customer OTIF rollup](images/v_customer_otif.png)
 
@@ -125,7 +125,7 @@ FROM "teched_labs_sandbox"."non_sap".crm_account_resolution_xref x
 LEFT JOIN fuzzy f ON f.crm_account_id = x.crm_account_id;
 ```
 
-> **`match_method` is the honest MDM boundary.** The regex is a proxy: it resolves clean names on its own (`fuzzy_auto`) and lets you *see* where fuzzy matching breaks down. Everything harder (`mdm_resolved`, `ambiguous_needs_mdm`) is what only a real master-data management (MDM) solution could settle — entity resolution, survivorship, stewardship, a maintained golden crosswalk. Here `crm_account_resolution_xref` stands in for that MDM output.
+> `match_method` is the MDM boundary. The regex is a proxy: it resolves clean names on its own (`fuzzy_auto`) and lets you *see* where fuzzy matching breaks down. Everything harder (`mdm_resolved`, `ambiguous_needs_mdm`) is what only a real master-data management (MDM) solution could settle — entity resolution, survivorship, stewardship, a maintained golden crosswalk. Here `crm_account_resolution_xref` stands in for that MDM output.
 
 ![v_crm_account_resolved created — the Account → Customer crosswalk with match_method](images/v_crm_account_resolved.png)
 
@@ -133,15 +133,17 @@ LEFT JOIN fuzzy f ON f.crm_account_id = x.crm_account_id;
 
 ## Section 1.2 Build & materialize the CRM 360 golden record
 
-Join CRM and SAP into one ontology-ready product, materialize it, and confirm the link.
+Join CRM and SAP into one golden account record, materialize it, and confirm the link. This section stays within Exercise 1 — it demonstrates Dremio's semantic layer (views composed on views), the guarded cast, and reflection acceleration, then proves the churn ↔ delivery link on screen.
 
 | View | What it is |
 |---|---|
-| `v_crm_account_360` | The **ontology-ready golden account product**: CRM + resolved SAP customer + OTIF + case counts. The one you materialize. |
+| `v_crm_account_360` | The **golden account record**: CRM + resolved SAP customer + OTIF + case counts, composed from the two views above. Used here to demonstrate layered views, the guarded cast, and reflections — not consumed by later exercises. |
 
 ### Step 1 — Build `v_crm_account_360`
 
 Join CRM account → resolved customer (`v_crm_account_resolved`) → `v_customer_otif` → case counts, with the guarded cast on text columns.
+
+> **Dremio capability — layered views (semantic layer).** This view composes *on top of* the two views you just built plus source tables; Dremio resolves the whole stack at query time, no copies. Change a lower view and this one updates automatically.
 
 ```sql
 CREATE OR REPLACE VIEW "<your_space>".v_crm_account_360 AS
@@ -173,7 +175,7 @@ LEFT JOIN cases ca ON ca.crm_account_id = a.crm_account_id
 WHERE a.churn_risk <> 'Unmanaged';
 ```
 
-> **Why the guarded cast?** Metric columns import as strings, and some rows carry a unit token (e.g. `EA`) instead of a number — a plain `CAST` errors. The `REGEXP_LIKE(..., '^-?[0-9]+$')` guard casts only numeric-looking values — the same behavior as Databricks `try_cast`.
+> **Dremio capability — guarded cast.** Metric columns import as strings, and some rows carry a unit token (e.g. `EA`) instead of a number — a plain `CAST` errors. The `REGEXP_LIKE(..., '^-?[0-9]+$')` guard casts only numeric-looking values — a safe, error-free cast.
 
 ![v_crm_account_360 created — CRM + resolved SAP customer + OTIF + case counts](images/v_crm_account_360.png)
 
@@ -203,7 +205,7 @@ CREATE RAW REFLECTION crm360_raw USING DISPLAY (
 );
 ```
 
-> **The golden record is a view, not a copy.** Change a threshold and every downstream consumer — the ontology in Exercise 2, the agent in Exercise 3 — reflects it immediately, no pipeline re-run. The reflection gives physical speed without giving up the single logical source of truth.
+> **Dremio capability — Raw Reflection acceleration.** There's no `CREATE MATERIALIZED VIEW`; you enable a reflection and Dremio transparently substitutes the physically-stored copy to speed up queries. The view stays the single source of truth — change a threshold and every query reflects it immediately, no pipeline re-run.
 
 ![Raw Reflection enabled on v_crm_account_360](images/v_crm_account_360_reflection.png)
 
@@ -220,7 +222,7 @@ FROM "<your_space>".v_crm_account_360
 GROUP BY churn_risk ORDER BY avg_otif;
 ```
 
-> **You should see** a clean gradient — At Risk ≈ 79% OTIF / NPS −21 / ~13 open cases; Watch ≈ 82% / +11 / ~6; Healthy ≈ 93% / +25 / ~2. The churn signal tracks SAP delivery — discovered by the join, not assumed.
+You should see a clean gradient — At Risk ≈ 79% OTIF / NPS −21 / ~13 open cases; Watch ≈ 82% / +11 / ~6; Healthy ≈ 93% / +25 / ~2. The churn signal tracks SAP delivery.
 
 ![OTIF by churn tier — the gradient](images/churn_risk_confirmation.png)
 
@@ -237,12 +239,12 @@ FROM "<your_space>".v_crm_account_360
 WHERE churn_risk='At Risk' ORDER BY otif_pct ASC LIMIT 10;
 ```
 
-> **You should see** high-value at-risk renewals, each with low OTIF, many late lines and open delivery cases — some resolved by `fuzzy_auto`, others only by `mdm_resolved`. This materialized `v_crm_account_360`, with `v_customer_otif` and `v_crm_account_resolved`, is the hand-off to Exercises 2 and 3.
+> **You should see** high-value at-risk renewals, each with low OTIF, many late lines and open delivery cases — some resolved by `fuzzy_auto`, others only by `mdm_resolved`. One query over the layered, reflection-accelerated view turns the golden record into a prioritized at-risk renewal list.
 
 ![At-risk, high-value renewals — the money query](images/at_risk_renewals.png)
 
 ## Summary
 
-You resolved a non-SAP CRM to governed SAP customers and built a CRM 360 golden record that confirms the churn ↔ delivery link: `v_customer_otif`, `v_crm_account_resolved`, and the materialized `v_crm_account_360` — Dremio views accelerated by reflections, sourced from SAP BDC data products. Exercise 2 builds its ontology on `v_customer_otif` and `v_crm_account_resolved`; Exercise 3's agent reasons over that ontology, with `v_crm_account_360` behind it. An optional [OTIF manufacturing medallion](optional/README.md) adds a deterministic shopfloor track for Exercise 3's secondary agent context.
+You resolved a non-SAP CRM to governed SAP customers and built a CRM 360 golden record that confirms the churn ↔ delivery link: `v_customer_otif`, `v_crm_account_resolved`, and the materialized `v_crm_account_360` — Dremio views accelerated by reflections, sourced from SAP BDC data products. `v_crm_account_360` demonstrates Dremio's semantic layer on screen (layered views, the guarded cast, reflection acceleration) and is the payoff of this exercise. The hand-off to Exercise 2 is `v_customer_otif` and `v_crm_account_resolved` — the two views its ontology is built on; Exercise 3's agent then reasons over that ontology. An optional [OTIF manufacturing medallion](optional/README.md) adds a deterministic shopfloor track for Exercise 3's secondary agent context.
 
 Continue to - [Exercise 2 - Ontologies on the Golden Record](../ex2/README.md)
