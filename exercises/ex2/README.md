@@ -124,7 +124,7 @@ The Create Ontology wizard opens. It has seven steps shown in the progress bar a
 
 ---
 
-### Step 10 — Name & Description (step 1 of 7)
+### Step 10 — Name & Description 
 
 Fill in the ontology name and choose the data source type:
 
@@ -140,7 +140,7 @@ Click **Next**.
 
 ---
 
-### Step 11 — Data Source (step 2 of 7)
+### Step 11 — Data Source 
 
 Select the Dremio connection you just created (`xp267-001-Dremio`). It will be marked **connected** and shows 58 tables available. The connection syncs automatically when selected.
 
@@ -150,7 +150,7 @@ Click **Next**.
 
 ---
 
-### Step 12 — Select Tables (step 3 of 7): SAP data-product tables
+### Step 12 — Select Tables : SAP data-product tables
 
 In the **Schema Source** panel, type `teched` to filter the schemas. Select **`teched_labs_sandbox.sap_dp`** — the schema containing the governed SAP data products.
 
@@ -164,7 +164,7 @@ Both appear in the **Selected tables** panel on the right (count shows 2).
 
 ---
 
-### Step 13 — Select Tables (step 3 of 7): non-SAP CRM tables
+### Step 13 — Select Tables : non-SAP CRM tables
 
 Now select **`teched_labs_sandbox.non_sap`** in the Schema Source panel.
 
@@ -180,7 +180,7 @@ The Selected tables count rises to 6.
 
 ---
 
-### Step 14 — Select Tables (step 3 of 7): add the golden view
+### Step 14 — Select Tables : add the golden view
 
 Select **`<your space>`** (eg `xp267-001` depending on your setup) in the Schema Source panel, then check:
 - `v_crm_account_resolved`
@@ -194,11 +194,11 @@ Click **Next**.
  ( Image to be updated once we have individual spaces created ) 
 
 
-![Select Tables step — <your space> v_crm_account_resolved and v_customer_otif checked, 9 total selected](images/02_02_0060TBC.jpg)
+![Select Tables step — <your space> v_crm_account_resolved and v_customer_otif checked, 9 total selected](images/02_02_0065.jpg)
 
 ---
 
-### Step 15 — Assign Concepts (step 4 of 7): auto-generate
+### Step 15 — Assign Concepts : auto-generate
 
 In the Assign Concepts step, each selected table needs a semantic concept name. Click **Auto Generate Concepts** to let the system propose names based on the table names.
 
@@ -225,7 +225,7 @@ Review the generated names. The mapping should look like this:
 
 ---
 
-### Step 16 — Assign Attributes (step 5 of 7)
+### Step 16 — Assign Attributes 
 
 For each concept, select its **Primary Attribute** (the unique identifier column) and optionally add attributes to expose.
 
@@ -255,7 +255,7 @@ Click **Next** once all concepts have a Primary Attribute set.
 
 ---
 
-### Step 17 — Assign Relationships (step 6 of 7)
+### Step 17 — Assign Relationships
 
 Define the named relationships that link concepts across the two data domains. Click **+ Add Relationship** for each concept that has connections to other concepts.
 
@@ -282,7 +282,7 @@ Click **Next**.
 
 ---
 
-### Step 18 — Review and Create (step 7 of 7)
+### Step 18 — Review and Create 
 
 The final step shows a summary of the ontology: its name, all concepts as coloured dots, and every relationship as a row showing Source → Relationship → Target.
 
