@@ -118,24 +118,54 @@ Now test the skill in a conversation. These questions use the **`Customer_Churn_
 the governed knowledge graph that links your CRM accounts (churn risk, renewals, NPS) to your
 real SAP delivery performance (OTIF), the churn ↔ delivery link you proved in Exercise 1.3.
 
-Open a **New Conversation** in Joule Work and type the questions below into the chat box.
+### Step 6 — Start an Agentic Thinking conversation
 
-### Step 6 — Check that it reads from the governed data
+Click **New** to open a conversation. **Before you type anything**, click the **`+`** at the
+bottom-left of the chat box and choose **Agentic Thinking** (*"Empowers Joule to take initiative
+autonomously"*). Custom skills only run in an **Agentic Thinking** conversation — in a normal
+conversation Joule can't reach the skill and will reply that the assistant is *"not available in
+my current configuration,"* answering from general knowledge instead.
 
-First confirm Joule looks up the ontology before it answers. Paste this question:
+![The New Conversation + menu with Agentic Thinking selected](images/03_01_0020.png)
+
+> You set this per conversation, before the first message. If you forget and Joule falls back to
+> its training data, start a **new** conversation and select Agentic Thinking first.
+
+---
+
+### Step 7 — Connect the skill to the ontology
+
+Start with a short message that points the skill at the ontology:
+
+```text
+@ontology-manager-skill use the Customer_Churn_Ontology to answer my questions.
+```
+
+Joule should confirm it's connected to the **Customer_Churn_Ontology** (you may see the ontology
+name and its class count). On this first turn the skill pins the ontology and caches its schema,
+then waits for your question.
+
+> Lead with the explicit `@ontology-manager-skill` mention so Joule routes to the skill rather than
+> inferring the topic. If it can't find the skill, re-check Step 5 (exactly one ontology skill
+> active) and Step 6 (Agentic Thinking selected).
+
+---
+
+### Step 8 — Check that it reads from the governed data
+
+Confirm Joule looks up the ontology before it answers. Paste this question:
 
 ```text
 What data can you help me with? Use the Customer_Churn_Ontology — list it, then
 describe what entities and attributes are available.
 ```
 
-Joule should load the skill, list the ontology, and describe its entities — rather than answer
-from general knowledge. On its first turn the skill pins the ontology and caches its schema, so
-you may see it confirm the ontology name and class count before you ask anything else.
+Joule should list the ontology and describe its entities — rather than answer from general
+knowledge.
 
 ---
 
-### Step 7 — Ask it to query the knowledge graph for real rows
+### Step 9 — Ask it to query the knowledge graph for real rows
 
 Ask a question that forces the skill to run a SPARQL query against the knowledge graph:
 
@@ -149,7 +179,7 @@ graph.
 
 ---
 
-### Step 8 — Ask the churn-risk question
+### Step 10 — Ask the churn-risk question
 
 Finally, ask Joule to connect delivery performance to the money at stake:
 
@@ -175,13 +205,13 @@ happen in the conversation:
 
 1. **It grounds itself once, up front.** On the first turn it looks up the ontology, pins its
    UUID, and caches the schema — then stops and waits for your question. (This is the "ontology
-   name and class count" confirmation you saw in Step 6.)
+   name and class count" confirmation you saw in Step 7.)
 2. **It writes SPARQL from the real schema.** It reads the cached RDF/XML schema and builds each
    query from the actual class and property names in your ontology — it never invents field
    names.
 3. **It never answers from memory.** Every value in an answer must come back from a live
    `execute_sparql` result. If the data doesn't support an answer, the skill says so instead of
-   guessing — which is why the churn-risk answer in Step 8 traces back to real rows.
+   guessing — which is why the churn-risk answer in Step 10 traces back to real rows.
 
 ## How it connects (for the curious)
 
@@ -216,6 +246,7 @@ actions).
 - [x] `03_01_0005.png` — Explore Skills gallery (ontology-manager-skill shown as Custom / active)
 - [x] `03_01_0010.png` — Import Skill dialog with name/description pre-filled from SKILL.md
 - [x] `03_01_0015.png` — ontology-manager-skill card with the enable toggle highlighted
+- [x] `03_01_0020.png` — New Conversation `+` menu with Agentic Thinking selected
 - [ ] `03_02_0000.png` — New Conversation with the skill listing the Customer_Churn_Ontology / entities
 - [ ] `03_02_0010.png` — Joule ranking at-risk renewals by delivery performance with citations
 
