@@ -38,9 +38,9 @@ All data you need is already provisioned in Dremio for the session — you query
     - [Exercise 1.2 - Build & materialize the CRM 360 golden record](exercises/ex1#exercise-12-build--materialize-the-crm-360-golden-record)
     - [Optional (Advanced) - OTIF manufacturing medallion](exercises/ex1/optional/)
 - [Exercise 2 - Ontologies on the Golden Record (coming soon)](exercises/ex2/)
-- [Exercise 3 - Build a Joule Agent on the Golden Record](exercises/ex3/)
-    - [Exercise 3.1 - Create the agent and connect its data context](exercises/ex3#exercise-31-create-the-agent-and-connect-its-data-context)
-    - [Exercise 3.2 - Ask the agent churn & delivery questions](exercises/ex3#exercise-32-ask-the-agent-churn-questions)
+- [Exercise 3 - Build a Joule Skill on the Golden Record](exercises/ex3/)
+    - [Exercise 3.1 - Import and enable the skill](exercises/ex3#exercise-31-import-and-enable-the-skill)
+    - [Exercise 3.2 - Ask the skill churn & delivery questions](exercises/ex3#exercise-32-ask-the-skill-churn--delivery-questions)
 
 ## Contributing
 Please read the [CONTRIBUTING.md](./CONTRIBUTING.md) to understand the contribution guidelines.

@@ -1,6 +1,6 @@
 # Speaker Guide — Exercise 3: Joule Agent on the Golden Record
 
-**~10 min.** Student docs: [`exercises/ex3/joule-skill`](../exercises/ex3/joule-skill/README.md) (Joule skill) and [`exercises/ex3/js-agent`](../exercises/ex3/js-agent/README.md) (coded agent).
+**~10 min.** Student docs: [`exercises/ex3`](../exercises/ex3/README.md) (Joule skill on the golden record).
 
 ## Goal
 Ground a Joule agent/skill (the `churn-advisor`) on the `Customer_Churn_Ontology` built in Exercise 2 and ask it churn & delivery questions. The agent reasons over the ontology (via `list_ontologies` / `get_ontology_schema` / `execute_sparql`), which sits on the CRM 360 golden records (`v_customer_otif` + `v_crm_account_resolved`) from Exercise 1. OTIF manufacturing (`otif_risk`) is optional secondary context.
