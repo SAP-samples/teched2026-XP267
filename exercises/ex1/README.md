@@ -205,6 +205,8 @@ CREATE RAW REFLECTION crm360_raw USING DISPLAY (
 );
 ```
 
+![Raw Reflection enabled on v_crm_account_360](images/v_crm_account_360_reflection.png)
+
 Then enable one on **`v_crm_account_resolved`** (Account → Customer crosswalk):
 
 ```sql
@@ -214,11 +216,9 @@ CREATE RAW REFLECTION resolved_raw USING DISPLAY (
 );
 ```
 
-> **Dremio capability — Raw Reflection acceleration.** There's no `CREATE MATERIALIZED VIEW`; you enable a reflection and Dremio transparently substitutes the physically-stored copy to speed up queries. The view stays the single source of truth — change a threshold and every query reflects it immediately, no pipeline re-run.
-
-![Raw Reflection enabled on v_crm_account_360](images/v_crm_account_360_reflection.png)
-
 ![Raw Reflection enabled on v_crm_account_resolved](images/v_crm_account_resolved_reflection.png)
+
+> **Dremio capability — Raw Reflection acceleration.** There's no `CREATE MATERIALIZED VIEW`; you enable a reflection and Dremio transparently substitutes the physically-stored copy to speed up queries. The view stays the single source of truth — change a threshold and every query reflects it immediately, no pipeline re-run.
 
 ---
 
