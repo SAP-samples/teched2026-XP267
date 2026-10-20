@@ -12,14 +12,14 @@ Build the primary golden records: resolve a non-SAP CRM to governed SAP customer
 4. **OTIF (optional, advanced)**: the manufacturing risk medallion, deterministic SQL, no ML — now a separate add-on doc at [`exercises/ex1/optional`](../exercises/ex1/optional/README.md); only if time permits, and the most likely live-failure point.
 
 ## Must-say points
-- **The `EA` gotcha**: metric/quantity columns are strings and some rows hold a unit token (`EA`), so a plain `CAST` errors. The `REGEXP_LIKE` guard = Databricks `try_cast`. Say it — it's the most likely live failure in the OTIF rollup.
-- **Quoted mixed-case aliases** preserve the Databricks-style names (`"Customer"`); once quoted, queries are case-sensitive.
+- **The `EA` gotcha**: metric/quantity columns are strings and some rows hold a unit token (`EA`), so a plain `CAST` errors. The `REGEXP_LIKE` guard casts only numeric-looking values. Say it — it's the most likely live failure in the OTIF rollup.
+- **Quoted mixed-case aliases** preserve the mixed-case names (`"Customer"`); once quoted, queries are case-sensitive.
 - **View, not copy**: change a threshold → every downstream consumer updates. No pipeline re-run.
 - **The link is discovered, not assumed**: the churn ↔ delivery gradient falls out of *joining* CRM churn signals to SAP OTIF — we never label it in the data.
 - **`match_method` is the honest MDM boundary**: `fuzzy_auto` is what a few regex resolved on their own; `mdm_resolved` / `ambiguous_needs_mdm` are what only a real MDM (golden crosswalk) could settle.
 
 ## Gotchas (rehearse these)
-- The OTIF optional add-on ([`exercises/ex1/optional`](../exercises/ex1/optional/README.md)) is not yet validated on live Dremio — check the OTIF `ARRAY_SORT`/`SET_UNION` array funcs (Databricks ref uses `ARRAY_JOIN(COLLECT_SET(...))`). The CRM (1.1/1.2) SQL *was* validated live 2026-10-13.
+- The OTIF optional add-on ([`exercises/ex1/optional`](../exercises/ex1/optional/README.md)) is validated live — all six steps run on the lab Dremio. String-aggregation is the one build-specific spot: `SET_UNION` is 2-arg and `COLLECT_SET` is unavailable there, so the doc uses `LISTAGG(DISTINCT …) WITHIN GROUP (ORDER BY …)`. Quantity columns import as text, so the medallion casts to `DOUBLE` before arithmetic. The CRM (1.1/1.2) SQL *was* validated live 2026-10-13.
 - Reflection DDL / refresh-policy syntax varies by Dremio build — have the UI path ready as a fallback.
 
 ## Transition

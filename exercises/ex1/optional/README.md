@@ -2,7 +2,7 @@
 
 A deterministic shopfloor **production-risk** golden record (silver → gold), rebuilt as Dremio views. Every score and flag is hand-authored `CASE` logic and thresholds — no ML. "Predictive" means a rule that fires early on open orders, before the due date.
 
-This is optional secondary context the Exercise 3 agent can use for manufacturing questions. It is **not part of the main flow**, and it is the most likely live-failure point in the lab (the `ARRAY_SORT`/`SET_UNION` array functions — see the closing note).
+This is optional secondary context the Exercise 3 agent can use for manufacturing questions. It is **not part of the main flow**. All six steps are validated against live Dremio; the string-aggregation choice that keeps it portable across builds is noted at the end.
 
 **Prerequisite:** [Exercise 1](../README.md) completed. Views build into your own space, `"<your_space>"` (e.g. `user-##`) — the same space you used in Exercise 1. Replace `<your_space>` in each block with your space name.
 
@@ -24,19 +24,23 @@ LIMIT 20;
 
 > **You should see** several operation rows per order; a NULL `OrderActualEndDate` marks an open order — the ones the risk rules fire on *before* the due date.
 
+![Production orders and operations preview](images/step1_preview_productionorders_and_operation.png)
+
 ---
 
 ### Step 2 — Preview the work-center master
 
-The work-center master names each machine (`WorkCenterName`) by its `WorkCenterInternalID` — the label that makes the risk record human-readable.
+The work-center master names each machine (`WorkCenter`) by its `WorkCenterInternalID` — the label that makes the risk record human-readable.
 
 ```sql
-SELECT WorkCenterInternalID, WorkCenterName
+SELECT WorkCenterInternalID, WorkCenter
 FROM "teched_labs_sandbox"."sap_dp".workcenter
 LIMIT 20;
 ```
 
 > **You should see** one row per work center; `WorkCenterInternalID` is the key the Silver view joins on.
+
+![Work-center master preview](images/step2_preview_workcenter.png)
 
 ---
 
@@ -55,7 +59,7 @@ SELECT
     po.OrderActualEndDate,
     op.ProductionOrderOperation,
     op.WorkCenterInternalID,
-    wc.WorkCenterName,
+    wc.WorkCenter,
     op.OpPlannedTotalQuantity,
     op.OpTotalConfirmedScrapQty                                   AS ActualScrapQty,
 
@@ -71,26 +75,27 @@ SELECT
     DATEDIFF(po.OrderActualEndDate, po.OrderScheduledEndDate)     AS schedule_delay_days,
 
     -- actual_scrap_pct: real scrap rate for the operation (0 when planned qty not > 0)
-    CASE WHEN op.OpPlannedTotalQuantity > 0
-         THEN ROUND(op.OpTotalConfirmedScrapQty / op.OpPlannedTotalQuantity * 100, 2)
+    -- quantity columns import as text (e.g. '100.000'), so cast to DOUBLE before arithmetic
+    CASE WHEN CAST(op.OpPlannedTotalQuantity AS DOUBLE) > 0
+         THEN ROUND(CAST(op.OpTotalConfirmedScrapQty AS DOUBLE) / CAST(op.OpPlannedTotalQuantity AS DOUBLE) * 100, 2)
          ELSE 0 END                                               AS actual_scrap_pct,
 
     -- work_ratio_vs_standard: actual vs. standard work (1.0 = on standard)
-    CASE WHEN op.WorkCenterStandardWorkQty1 > 0
-         THEN ROUND(op.ConfirmedWorkQuantity1 / op.WorkCenterStandardWorkQty1, 3)
+    CASE WHEN CAST(op.WorkCenterStandardWorkQty1 AS DOUBLE) > 0
+         THEN ROUND(CAST(op.ConfirmedWorkQuantity1 AS DOUBLE) / CAST(op.WorkCenterStandardWorkQty1 AS DOUBLE), 3)
          ELSE NULL END                                            AS work_ratio_vs_standard,
 
     -- root_cause_tag: why the operation is bad
     CASE
-        WHEN op.WorkCenterStandardWorkQty1 > 0
-             AND op.ConfirmedWorkQuantity1 / op.WorkCenterStandardWorkQty1 > 1.5
+        WHEN CAST(op.WorkCenterStandardWorkQty1 AS DOUBLE) > 0
+             AND CAST(op.ConfirmedWorkQuantity1 AS DOUBLE) / CAST(op.WorkCenterStandardWorkQty1 AS DOUBLE) > 1.5
             THEN 'Work Overrun'
-        WHEN op.OpPlannedTotalQuantity > 0
-             AND op.OpTotalConfirmedScrapQty / op.OpPlannedTotalQuantity > 0.30
+        WHEN CAST(op.OpPlannedTotalQuantity AS DOUBLE) > 0
+             AND CAST(op.OpTotalConfirmedScrapQty AS DOUBLE) / CAST(op.OpPlannedTotalQuantity AS DOUBLE) > 0.30
             THEN 'High Scrap'
         WHEN op.WorkCenterInternalID = '10000040'
-             AND op.OpPlannedTotalQuantity > 0
-             AND op.OpTotalConfirmedScrapQty / op.OpPlannedTotalQuantity > 0.10
+             AND CAST(op.OpPlannedTotalQuantity AS DOUBLE) > 0
+             AND CAST(op.OpTotalConfirmedScrapQty AS DOUBLE) / CAST(op.OpPlannedTotalQuantity AS DOUBLE) > 0.10
             THEN 'Final Acceptance Failure'
         ELSE 'Normal'
     END                                                           AS root_cause_tag,
@@ -98,10 +103,10 @@ SELECT
     -- operation_anomaly_score: 0-100 severity blend of overrun + scrap
     LEAST(100, CAST(
         LEAST(50, GREATEST(0,
-            (COALESCE(op.ConfirmedWorkQuantity1 / NULLIF(op.WorkCenterStandardWorkQty1,0), 1.0) - 1.0) * 50))
+            (COALESCE(CAST(op.ConfirmedWorkQuantity1 AS DOUBLE) / NULLIF(CAST(op.WorkCenterStandardWorkQty1 AS DOUBLE),0), 1.0) - 1.0) * 50))
         + LEAST(50,
-            CASE WHEN op.OpPlannedTotalQuantity > 0
-                 THEN op.OpTotalConfirmedScrapQty / op.OpPlannedTotalQuantity * 100
+            CASE WHEN CAST(op.OpPlannedTotalQuantity AS DOUBLE) > 0
+                 THEN CAST(op.OpTotalConfirmedScrapQty AS DOUBLE) / CAST(op.OpPlannedTotalQuantity AS DOUBLE) * 100
                  ELSE 0 END)
         AS INT))                                                  AS operation_anomaly_score
 FROM "teched_labs_sandbox"."sap_dp".productionorder                 AS po
@@ -110,6 +115,8 @@ JOIN "teched_labs_sandbox"."sap_dp".productionorderoperation        AS op
 LEFT JOIN "teched_labs_sandbox"."sap_dp".workcenter                 AS wc
     ON op.WorkCenterInternalID = wc.WorkCenterInternalID;
 ```
+
+![Silver view otif_production created](images/step3_create_otif_production_view.png)
 
 ---
 
@@ -131,12 +138,13 @@ WITH agg AS (
         ROUND(AVG(actual_scrap_pct), 2)                          AS avg_scrap_pct,
         ROUND(MAX(actual_scrap_pct), 2)                          AS max_scrap_pct,
         ROUND(MAX(work_ratio_vs_standard), 3)                    AS max_work_ratio,
-        SUM(ActualScrapQty)                                      AS total_scrap_qty,
+        SUM(CAST(ActualScrapQty AS DOUBLE))                      AS total_scrap_qty,
         -- which machines are driving the risk (score >= 30), sorted & de-duped
-        ARRAY_JOIN(
-            ARRAY_SORT(SET_UNION(
-                CASE WHEN operation_anomaly_score >= 30
-                     THEN ARRAY[WorkCenterName] ELSE ARRAY[] END)), ', ')
+        -- LISTAGG(DISTINCT ...) skips NULLs, so non-anomalous operations contribute nothing
+        LISTAGG(DISTINCT
+            CASE WHEN operation_anomaly_score >= 30 THEN WorkCenter END, ', ')
+            WITHIN GROUP (ORDER BY
+                CASE WHEN operation_anomaly_score >= 30 THEN WorkCenter END)
                                                                  AS anomalous_work_centers
     FROM "<your_space>".otif_production
     GROUP BY ProductionOrder
@@ -190,6 +198,8 @@ SELECT
 FROM agg;
 ```
 
+![Gold view otif_risk created](images/step4_create_otif_risk_view.png)
+
 ---
 
 ### Step 5 — Preview the Gold risk record
@@ -207,7 +217,7 @@ LIMIT 20;
 
 > **You should see** open orders ranked by `otif_risk_score`, each with a `risk_tier`, a `primary_root_cause`, and the `anomalous_work_centers` driving the risk — a deterministic, explainable verdict (no ML). Change a Silver threshold and the Gold verdict updates — no pipeline to re-run.
 
-![otif_risk query result — at-risk open orders, worst first](images/01_0A_0010.png)
+![otif_risk query result — at-risk open orders, worst first](images/step5_preview_otif_risk_view.png)
 
 ---
 
@@ -215,10 +225,19 @@ LIMIT 20;
 
 Enable a Raw Reflection on `otif_risk` (same mechanic as the main flow) so the agent gets fast responses.
 
+```sql
+ALTER DATASET "<your_space>".otif_risk
+CREATE RAW REFLECTION otif_risk_raw USING DISPLAY (
+  ProductionOrder, plant, delivery_status, schedule_delay_days, total_operations,
+  max_anomaly_score, avg_scrap_pct, max_scrap_pct, max_work_ratio, total_scrap_qty,
+  anomalous_work_centers, primary_root_cause, otif_risk_score, is_at_risk, risk_tier
+);
+```
+
+![Raw Reflection enabled on otif_risk](images/step6_otif_risk_raw_reflection.png)
+
 ---
 
-> **Live-failure caveat:** `ARRAY_SORT` / `SET_UNION` syntax varies by engine. If your Dremio build differs, substitute the equivalent array-aggregation function (for example `ARRAY_JOIN(COLLECT_SET(...))`).
-
-> **Author note:** this OTIF SQL has **not** been run against a live Dremio — validate before the session, especially the `ARRAY_SORT`/`SET_UNION` array functions.
+> **String-aggregation note:** the anomalous-work-center list uses `LISTAGG(DISTINCT … , ', ') WITHIN GROUP (ORDER BY …)`. Array helpers vary by Dremio build — on this one `SET_UNION` takes two arrays (not an aggregate) and `COLLECT_SET` is unavailable, so `LISTAGG` is the portable choice. If your build lacks `LISTAGG`, build the list with a `DISTINCT` subquery instead.
 
 ← Back to [Exercise 1](../README.md)
