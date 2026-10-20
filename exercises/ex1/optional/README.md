@@ -4,7 +4,7 @@ A deterministic shopfloor **production-risk** golden record (silver → gold), r
 
 This is optional secondary context the Exercise 3 agent can use for manufacturing questions. It is **not part of the main flow**, and it is the most likely live-failure point in the lab (the `ARRAY_SORT`/`SET_UNION` array functions — see the closing note).
 
-**Prerequisite:** [Exercise 1](../README.md) completed. Views build into your own space, `"<your_space>"` (e.g. `xp267-001`) — the same space you used in Exercise 1. Replace `<your_space>` in each block with your space name.
+**Prerequisite:** [Exercise 1](../README.md) completed. Views build into your own space, `"<your_space>"` (e.g. `user-##`) — the same space you used in Exercise 1. Replace `<your_space>` in each block with your space name.
 
 ## Steps
 

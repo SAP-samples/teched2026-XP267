@@ -205,9 +205,20 @@ CREATE RAW REFLECTION crm360_raw USING DISPLAY (
 );
 ```
 
+Then enable one on **`v_crm_account_resolved`** (Account → Customer crosswalk):
+
+```sql
+ALTER DATASET "<your_space>".v_crm_account_resolved
+CREATE RAW REFLECTION resolved_raw USING DISPLAY (
+  crm_account_id, sap_customer_id, name_match_difficulty, fuzzy_sap_id, match_method
+);
+```
+
 > **Dremio capability — Raw Reflection acceleration.** There's no `CREATE MATERIALIZED VIEW`; you enable a reflection and Dremio transparently substitutes the physically-stored copy to speed up queries. The view stays the single source of truth — change a threshold and every query reflects it immediately, no pipeline re-run.
 
 ![Raw Reflection enabled on v_crm_account_360](images/v_crm_account_360_reflection.png)
+
+![Raw Reflection enabled on v_crm_account_resolved](images/v_crm_account_resolved_reflection.png)
 
 ---
 
@@ -245,6 +256,6 @@ WHERE churn_risk='At Risk' ORDER BY otif_pct ASC LIMIT 10;
 
 ## Summary
 
-You resolved a non-SAP CRM to governed SAP customers and built a CRM 360 golden record that confirms the churn ↔ delivery link: `v_customer_otif`, `v_crm_account_resolved`, and the materialized `v_crm_account_360` — Dremio views accelerated by reflections, sourced from SAP BDC data products. `v_crm_account_360` demonstrates Dremio's semantic layer on screen (layered views, the guarded cast, reflection acceleration) and is the payoff of this exercise. The hand-off to Exercise 2 is `v_customer_otif` and `v_crm_account_resolved` — the two views its ontology is built on; Exercise 3's agent then reasons over that ontology. An optional [OTIF manufacturing medallion](optional/README.md) adds a deterministic shopfloor track for Exercise 3's secondary agent context.
+You resolved a non-SAP CRM to governed SAP customers and built a CRM 360 golden record that confirms the churn ↔ delivery link: `v_customer_otif`, `v_crm_account_resolved`, and `v_crm_account_360` — Dremio views accelerated by Raw Reflections, sourced from SAP BDC data products. `v_crm_account_360` demonstrates Dremio's semantic layer on screen (layered views, the guarded cast, reflection acceleration) and is the payoff of this exercise. The hand-off to Exercise 2 is `v_customer_otif` and `v_crm_account_resolved` — the two views its ontology is built on; Exercise 3's agent then reasons over that ontology. An optional [OTIF manufacturing medallion](optional/README.md) adds a deterministic shopfloor track for Exercise 3's secondary agent context.
 
 Continue to - [Exercise 2 - Ontologies on the Golden Record](../ex2/README.md)
