@@ -238,6 +238,4 @@ CREATE RAW REFLECTION otif_risk_raw USING DISPLAY (
 
 ---
 
-> **String-aggregation note:** the anomalous-work-center list uses `LISTAGG(DISTINCT … , ', ') WITHIN GROUP (ORDER BY …)`. Array helpers vary by Dremio build — on this one `SET_UNION` takes two arrays (not an aggregate) and `COLLECT_SET` is unavailable, so `LISTAGG` is the portable choice. If your build lacks `LISTAGG`, build the list with a `DISTINCT` subquery instead.
-
 ← Back to [Exercise 1](../README.md)
