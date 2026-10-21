@@ -240,16 +240,6 @@ golden-record views. The MCP tools the skill uses are `list_ontologies`, `get_on
 and `execute_sparql` (plus `list_business_actions` / `execute_business_action` for triggering
 actions).
 
-## Screenshots to capture (for authors)
-
-- [x] `03_01_0000.png` — Joule Work user menu with Explore Skills
-- [x] `03_01_0005.png` — Explore Skills gallery (ontology-manager-skill shown as Custom / active)
-- [x] `03_01_0010.png` — Import Skill dialog with name/description pre-filled from SKILL.md
-- [x] `03_01_0015.png` — ontology-manager-skill card with the enable toggle highlighted
-- [x] `03_01_0020.png` — New Conversation `+` menu with Agentic Thinking selected
-- [ ] `03_02_0000.png` — New Conversation with the skill listing the Customer_Churn_Ontology / entities
-- [ ] `03_02_0010.png` — Joule ranking at-risk renewals by delivery performance with citations
-
 ## Summary
 
 You grounded Joule on the governed knowledge graph built on your golden records — without
