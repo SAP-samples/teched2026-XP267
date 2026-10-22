@@ -1,0 +1,1980 @@
+@prefix : <http://sap-ontology.com/customer#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://sap-ontology.com/customer> a owl:Ontology ;
+    rdfs:label "Customer_Churn_Ontology" .
+
+:AccountName a owl:DatatypeProperty ;
+    rdfs:label "AccountName" ;
+    rdfs:domain :CrmAccount ;
+    rdfs:range xsd:string .
+
+:AccountingExchangeRate a owl:DatatypeProperty ;
+    rdfs:label "AccountingExchangeRate" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:AdditionalCustomerGroup1 a owl:DatatypeProperty ;
+    rdfs:label "AdditionalCustomerGroup1" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:AdditionalCustomerGroup2 a owl:DatatypeProperty ;
+    rdfs:label "AdditionalCustomerGroup2" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:AdditionalCustomerGroup3 a owl:DatatypeProperty ;
+    rdfs:label "AdditionalCustomerGroup3" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:AdditionalCustomerGroup4 a owl:DatatypeProperty ;
+    rdfs:label "AdditionalCustomerGroup4" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:AdditionalCustomerGroup5 a owl:DatatypeProperty ;
+    rdfs:label "AdditionalCustomerGroup5" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:AdditionalMaterialGroup1 a owl:DatatypeProperty ;
+    rdfs:label "AdditionalMaterialGroup1" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:AdditionalMaterialGroup2 a owl:DatatypeProperty ;
+    rdfs:label "AdditionalMaterialGroup2" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:AdditionalMaterialGroup3 a owl:DatatypeProperty ;
+    rdfs:label "AdditionalMaterialGroup3" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:AdditionalMaterialGroup4 a owl:DatatypeProperty ;
+    rdfs:label "AdditionalMaterialGroup4" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:AdditionalMaterialGroup5 a owl:DatatypeProperty ;
+    rdfs:label "AdditionalMaterialGroup5" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:AdditionalValueDays a owl:DatatypeProperty ;
+    rdfs:label "AdditionalValueDays" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:AddressID a owl:DatatypeProperty ;
+    rdfs:label "AddressID" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:AddressSearchTerm1 a owl:DatatypeProperty ;
+    rdfs:label "AddressSearchTerm1" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:AddressSearchTerm2 a owl:DatatypeProperty ;
+    rdfs:label "AddressSearchTerm2" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:AlternativeBasedConfirmationSubs a owl:DatatypeProperty ;
+    rdfs:label "AlternativeBasedConfirmationSubs" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:AlternativePayeeAllowed a owl:DatatypeProperty ;
+    rdfs:label "AlternativePayeeAllowed" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:AlternativePayerAccount a owl:DatatypeProperty ;
+    rdfs:label "AlternativePayerAccount" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:Amount a owl:DatatypeProperty ;
+    rdfs:label "Amount" ;
+    rdfs:domain :CrmOpportunity ;
+    rdfs:range xsd:string .
+
+:AnnualContractValue a owl:DatatypeProperty ;
+    rdfs:label "AnnualContractValue" ;
+    rdfs:domain :CrmAccount ;
+    rdfs:range xsd:string .
+
+:AuthorizationGroup a owl:DatatypeProperty ;
+    rdfs:label "AuthorizationGroup" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:BOMExplosionDate a owl:DatatypeProperty ;
+    rdfs:label "BOMExplosionDate" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:BaseUnit a owl:DatatypeProperty ;
+    rdfs:label "BaseUnit" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:Batch a owl:DatatypeProperty ;
+    rdfs:label "Batch" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:BillToParty a owl:DatatypeProperty ;
+    rdfs:label "BillToParty" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:BillingBlockStatus a owl:DatatypeProperty ;
+    rdfs:label "BillingBlockStatus" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:BillingCountry a owl:DatatypeProperty ;
+    rdfs:label "BillingCountry" ;
+    rdfs:domain :CrmAccount ;
+    rdfs:range xsd:string .
+
+:BillingDocumentDate a owl:DatatypeProperty ;
+    rdfs:label "BillingDocumentDate" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:BillingIsBlockedForCustomer a owl:DatatypeProperty ;
+    rdfs:label "BillingIsBlockedForCustomer" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:BillingPlan a owl:DatatypeProperty ;
+    rdfs:label "BillingPlan" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:BillingRegion a owl:DatatypeProperty ;
+    rdfs:label "BillingRegion" ;
+    rdfs:domain :CrmAccount ;
+    rdfs:range xsd:string .
+
+:BrazilSUFRAMACode a owl:DatatypeProperty ;
+    rdfs:label "BrazilSUFRAMACode" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:BusinessArea a owl:DatatypeProperty ;
+    rdfs:label "BusinessArea" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:BusinessPartnerCityName a owl:DatatypeProperty ;
+    rdfs:label "BusinessPartnerCityName" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:BusinessPartnerCustomerFullName a owl:DatatypeProperty ;
+    rdfs:label "BusinessPartnerCustomerFullName" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:BusinessPartnerCustomerName a owl:DatatypeProperty ;
+    rdfs:label "BusinessPartnerCustomerName" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:BusinessPartnerFormOfAddress a owl:DatatypeProperty ;
+    rdfs:label "BusinessPartnerFormOfAddress" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:BusinessPartnerName1 a owl:DatatypeProperty ;
+    rdfs:label "BusinessPartnerName1" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:BusinessPartnerName2 a owl:DatatypeProperty ;
+    rdfs:label "BusinessPartnerName2" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:BusinessPartnerName3 a owl:DatatypeProperty ;
+    rdfs:label "BusinessPartnerName3" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:BusinessPartnerName4 a owl:DatatypeProperty ;
+    rdfs:label "BusinessPartnerName4" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:BusinessPartnerStreetName a owl:DatatypeProperty ;
+    rdfs:label "BusinessPartnerStreetName" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:BusinessPurposeCompleted a owl:DatatypeProperty ;
+    rdfs:label "BusinessPurposeCompleted" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:BusinessSolutionOrder a owl:DatatypeProperty ;
+    rdfs:label "BusinessSolutionOrder" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:BusinessSolutionOrderBundleItem a owl:DatatypeProperty ;
+    rdfs:label "BusinessSolutionOrderBundleItem" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:BusinessSolutionOrderItem a owl:DatatypeProperty ;
+    rdfs:label "BusinessSolutionOrderItem" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:BusinessType a owl:DatatypeProperty ;
+    rdfs:label "BusinessType" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:CRMAccountID a owl:DatatypeProperty ;
+    rdfs:label "CRMAccountID" ;
+    rdfs:domain [ a owl:Class ;
+            owl:unionOf ( :CrmAccount :CrmCase :CrmContact :CrmOpportunity ) ] ;
+    rdfs:range xsd:string .
+
+:CappedNetAmount a owl:DatatypeProperty ;
+    rdfs:label "CappedNetAmount" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:CappedNetAmountAlertThreshold a owl:DatatypeProperty ;
+    rdfs:label "CappedNetAmountAlertThreshold" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:CaseID a owl:DatatypeProperty ;
+    rdfs:label "CaseID" ;
+    rdfs:domain :CrmCase ;
+    rdfs:range xsd:string .
+
+:Category a owl:DatatypeProperty ;
+    rdfs:label "Category" ;
+    rdfs:domain :CrmCase ;
+    rdfs:range xsd:string .
+
+:ChemicalComplianceStatus a owl:DatatypeProperty ;
+    rdfs:label "ChemicalComplianceStatus" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:ChurnRisk a owl:DatatypeProperty ;
+    rdfs:label "ChurnRisk" ;
+    rdfs:domain :CrmAccount ;
+    rdfs:range xsd:string .
+
+:CityCode a owl:DatatypeProperty ;
+    rdfs:label "CityCode" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:CityName a owl:DatatypeProperty ;
+    rdfs:label "CityName" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:CloseDate a owl:DatatypeProperty ;
+    rdfs:label "CloseDate" ;
+    rdfs:domain :CrmOpportunity ;
+    rdfs:range xsd:string .
+
+:CollaborativeBillingSupported a owl:DatatypeProperty ;
+    rdfs:label "CollaborativeBillingSupported" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:CommittedDeliveryCreationDate a owl:DatatypeProperty ;
+    rdfs:label "CommittedDeliveryCreationDate" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:CommittedDeliveryDate a owl:DatatypeProperty ;
+    rdfs:label "CommittedDeliveryDate" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:CommittedDeliveryQuantityinOrder a owl:DatatypeProperty ;
+    rdfs:label "CommittedDeliveryQuantityinOrder" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:CommittedOrderLines a owl:DatatypeProperty ;
+    rdfs:label "CommittedOrderLines" ;
+    rdfs:domain :VCustomerOtif ;
+    rdfs:range xsd:integer .
+
+:CompetitorIndicator a owl:DatatypeProperty ;
+    rdfs:label "CompetitorIndicator" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:ConfirmedDeliveryQuantityinBaseU a owl:DatatypeProperty ;
+    rdfs:label "ConfirmedDeliveryQuantityinBaseU" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:ConfirmedDeliveryQuantityinOrder a owl:DatatypeProperty ;
+    rdfs:label "ConfirmedDeliveryQuantityinOrder" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:ConsumerIndicator a owl:DatatypeProperty ;
+    rdfs:label "ConsumerIndicator" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:ConsumptionPosting a owl:DatatypeProperty ;
+    rdfs:label "ConsumptionPosting" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:ContactID a owl:DatatypeProperty ;
+    rdfs:label "ContactID" ;
+    rdfs:domain :CrmContact ;
+    rdfs:range xsd:string .
+
+:ContractAccount a owl:DatatypeProperty ;
+    rdfs:label "ContractAccount" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:ControllingArea a owl:DatatypeProperty ;
+    rdfs:label "ControllingArea" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:ControllingObject a owl:DatatypeProperty ;
+    rdfs:label "ControllingObject" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:CorrespondenceExternalReference a owl:DatatypeProperty ;
+    rdfs:label "CorrespondenceExternalReference" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:CorrespondenceExternalReferenceB a owl:DatatypeProperty ;
+    rdfs:label "CorrespondenceExternalReferenceB" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:CostAmount a owl:DatatypeProperty ;
+    rdfs:label "CostAmount" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:Country a owl:DatatypeProperty ;
+    rdfs:label "Country" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:County a owl:DatatypeProperty ;
+    rdfs:label "County" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:CreatedByUser a owl:DatatypeProperty ;
+    rdfs:label "CreatedByUser" ;
+    rdfs:domain [ a owl:Class ;
+            owl:unionOf ( :Customers :Salesorderitems ) ] ;
+    rdfs:range xsd:string .
+
+:CreationDate a owl:DatatypeProperty ;
+    rdfs:label "CreationDate" ;
+    rdfs:domain [ a owl:Class ;
+            owl:unionOf ( :Customers :Salesorderitems ) ] ;
+    rdfs:range xsd:string .
+
+:CreationTime a owl:DatatypeProperty ;
+    rdfs:label "CreationTime" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:CustomAttribute01 a owl:DatatypeProperty ;
+    rdfs:label "CustomAttribute01" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:CustomAttribute02 a owl:DatatypeProperty ;
+    rdfs:label "CustomAttribute02" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:CustomAttribute03 a owl:DatatypeProperty ;
+    rdfs:label "CustomAttribute03" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:CustomAttribute04 a owl:DatatypeProperty ;
+    rdfs:label "CustomAttribute04" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:CustomAttribute05 a owl:DatatypeProperty ;
+    rdfs:label "CustomAttribute05" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:CustomAttribute06 a owl:DatatypeProperty ;
+    rdfs:label "CustomAttribute06" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:CustomAttribute07 a owl:DatatypeProperty ;
+    rdfs:label "CustomAttribute07" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:CustomAttribute08 a owl:DatatypeProperty ;
+    rdfs:label "CustomAttribute08" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:CustomAttribute09 a owl:DatatypeProperty ;
+    rdfs:label "CustomAttribute09" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:CustomAttribute10 a owl:DatatypeProperty ;
+    rdfs:label "CustomAttribute10" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:Customer a owl:DatatypeProperty ;
+    rdfs:label "Customer" ;
+    rdfs:domain [ a owl:Class ;
+            owl:unionOf ( :Customers :VCustomerOtif ) ] ;
+    rdfs:range xsd:string .
+
+:CustomerAccountAssignmentGroup a owl:DatatypeProperty ;
+    rdfs:label "CustomerAccountAssignmentGroup" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:CustomerAccountGroup a owl:DatatypeProperty ;
+    rdfs:label "CustomerAccountGroup" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:CustomerClassification a owl:DatatypeProperty ;
+    rdfs:label "CustomerClassification" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:CustomerConditionGroup1 a owl:DatatypeProperty ;
+    rdfs:label "CustomerConditionGroup1" ;
+    rdfs:domain [ a owl:Class ;
+            owl:unionOf ( :Customers :Salesorderitems ) ] ;
+    rdfs:range xsd:string .
+
+:CustomerConditionGroup2 a owl:DatatypeProperty ;
+    rdfs:label "CustomerConditionGroup2" ;
+    rdfs:domain [ a owl:Class ;
+            owl:unionOf ( :Customers :Salesorderitems ) ] ;
+    rdfs:range xsd:string .
+
+:CustomerConditionGroup3 a owl:DatatypeProperty ;
+    rdfs:label "CustomerConditionGroup3" ;
+    rdfs:domain [ a owl:Class ;
+            owl:unionOf ( :Customers :Salesorderitems ) ] ;
+    rdfs:range xsd:string .
+
+:CustomerConditionGroup4 a owl:DatatypeProperty ;
+    rdfs:label "CustomerConditionGroup4" ;
+    rdfs:domain [ a owl:Class ;
+            owl:unionOf ( :Customers :Salesorderitems ) ] ;
+    rdfs:range xsd:string .
+
+:CustomerConditionGroup5 a owl:DatatypeProperty ;
+    rdfs:label "CustomerConditionGroup5" ;
+    rdfs:domain [ a owl:Class ;
+            owl:unionOf ( :Customers :Salesorderitems ) ] ;
+    rdfs:range xsd:string .
+
+:CustomerCorporateGroup a owl:DatatypeProperty ;
+    rdfs:label "CustomerCorporateGroup" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:CustomerFullName a owl:DatatypeProperty ;
+    rdfs:label "CustomerFullName" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:CustomerGroup a owl:DatatypeProperty ;
+    rdfs:label "CustomerGroup" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:CustomerHasUnloadingPoint a owl:DatatypeProperty ;
+    rdfs:label "CustomerHasUnloadingPoint" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:CustomerName a owl:DatatypeProperty ;
+    rdfs:label "CustomerName" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:CustomerPaymentTerms a owl:DatatypeProperty ;
+    rdfs:label "CustomerPaymentTerms" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:CustomerPriceGroup a owl:DatatypeProperty ;
+    rdfs:label "CustomerPriceGroup" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:CustomerPurchaseOrderDate a owl:DatatypeProperty ;
+    rdfs:label "CustomerPurchaseOrderDate" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:CustomerSuccessManagerOwner a owl:DatatypeProperty ;
+    rdfs:label "CustomerSuccessManagerOwner" ;
+    rdfs:domain :CrmAccount ;
+    rdfs:range xsd:string .
+
+:CustomerWorkingTimeCalendar a owl:DatatypeProperty ;
+    rdfs:label "CustomerWorkingTimeCalendar" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:DangerousGoodsStatus a owl:DatatypeProperty ;
+    rdfs:label "DangerousGoodsStatus" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:DataController1 a owl:DatatypeProperty ;
+    rdfs:label "DataController1" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:DataController10 a owl:DatatypeProperty ;
+    rdfs:label "DataController10" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:DataController2 a owl:DatatypeProperty ;
+    rdfs:label "DataController2" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:DataController3 a owl:DatatypeProperty ;
+    rdfs:label "DataController3" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:DataController4 a owl:DatatypeProperty ;
+    rdfs:label "DataController4" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:DataController5 a owl:DatatypeProperty ;
+    rdfs:label "DataController5" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:DataController6 a owl:DatatypeProperty ;
+    rdfs:label "DataController6" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:DataController7 a owl:DatatypeProperty ;
+    rdfs:label "DataController7" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:DataController8 a owl:DatatypeProperty ;
+    rdfs:label "DataController8" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:DataController9 a owl:DatatypeProperty ;
+    rdfs:label "DataController9" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:DataControllerSet a owl:DatatypeProperty ;
+    rdfs:label "DataControllerSet" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:DataMediumExchangeIndicator a owl:DatatypeProperty ;
+    rdfs:label "DataMediumExchangeIndicator" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:DeletionIndicator a owl:DatatypeProperty ;
+    rdfs:label "DeletionIndicator" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:DeliveryBlockStatus a owl:DatatypeProperty ;
+    rdfs:label "DeliveryBlockStatus" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:DeliveryConfirmationStatus a owl:DatatypeProperty ;
+    rdfs:label "DeliveryConfirmationStatus" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:DeliveryDateQuantityFixed a owl:DatatypeProperty ;
+    rdfs:label "DeliveryDateQuantityFixed" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:DeliveryDateRule a owl:DatatypeProperty ;
+    rdfs:label "DeliveryDateRule" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:DeliveryDateTypeRule a owl:DatatypeProperty ;
+    rdfs:label "DeliveryDateTypeRule" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:DeliveryGroup a owl:DatatypeProperty ;
+    rdfs:label "DeliveryGroup" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:DeliveryIsBlocked a owl:DatatypeProperty ;
+    rdfs:label "DeliveryIsBlocked" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:DeliveryPriority a owl:DatatypeProperty ;
+    rdfs:label "DeliveryPriority" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:DeliveryStatus a owl:DatatypeProperty ;
+    rdfs:label "DeliveryStatus" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:DistributionChannel a owl:DatatypeProperty ;
+    rdfs:label "DistributionChannel" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:DistrictName a owl:DatatypeProperty ;
+    rdfs:label "DistrictName" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:Division a owl:DatatypeProperty ;
+    rdfs:label "Division" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:DownPaymentProcessingVariant a owl:DatatypeProperty ;
+    rdfs:label "DownPaymentProcessingVariant" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:EmailAddress a owl:DatatypeProperty ;
+    rdfs:label "EmailAddress" ;
+    rdfs:domain :CrmContact ;
+    rdfs:range xsd:string .
+
+:ExchangeRateDate a owl:DatatypeProperty ;
+    rdfs:label "ExchangeRateDate" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:ExpressTrainStationName a owl:DatatypeProperty ;
+    rdfs:label "ExpressTrainStationName" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:ExternalItemID a owl:DatatypeProperty ;
+    rdfs:label "ExternalItemID" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:FashionCancelDate a owl:DatatypeProperty ;
+    rdfs:label "FashionCancelDate" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:FaxNumber a owl:DatatypeProperty ;
+    rdfs:label "FaxNumber" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:FiscalAddress a owl:DatatypeProperty ;
+    rdfs:label "FiscalAddress" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:FiscalPeriod a owl:DatatypeProperty ;
+    rdfs:label "FiscalPeriod" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:FiscalYear a owl:DatatypeProperty ;
+    rdfs:label "FiscalYear" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:FixedValueDate a owl:DatatypeProperty ;
+    rdfs:label "FixedValueDate" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:ForecastCategory a owl:DatatypeProperty ;
+    rdfs:label "ForecastCategory" ;
+    rdfs:domain :CrmOpportunity ;
+    rdfs:range xsd:string .
+
+:FullName a owl:DatatypeProperty ;
+    rdfs:label "FullName" ;
+    rdfs:domain :CrmContact ;
+    rdfs:range xsd:string .
+
+:HealthScore a owl:DatatypeProperty ;
+    rdfs:label "HealthScore" ;
+    rdfs:domain :CrmAccount ;
+    rdfs:range xsd:string .
+
+:HigherLevelItem a owl:DatatypeProperty ;
+    rdfs:label "HigherLevelItem" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:HigherLevelItemUsage a owl:DatatypeProperty ;
+    rdfs:label "HigherLevelItemUsage" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:ICMSTaxpayerType a owl:DatatypeProperty ;
+    rdfs:label "ICMSTaxpayerType" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:IncotermsClassification a owl:DatatypeProperty ;
+    rdfs:label "IncotermsClassification" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:IncotermsLocation1 a owl:DatatypeProperty ;
+    rdfs:label "IncotermsLocation1" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:IncotermsLocation2 a owl:DatatypeProperty ;
+    rdfs:label "IncotermsLocation2" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:IncotermsTransferLocation a owl:DatatypeProperty ;
+    rdfs:label "IncotermsTransferLocation" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:IncotermsVersion a owl:DatatypeProperty ;
+    rdfs:label "IncotermsVersion" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:Industry a owl:DatatypeProperty ;
+    rdfs:label "Industry" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:IndustryCode1 a owl:DatatypeProperty ;
+    rdfs:label "IndustryCode1" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:IndustryCode2 a owl:DatatypeProperty ;
+    rdfs:label "IndustryCode2" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:IndustryCode3 a owl:DatatypeProperty ;
+    rdfs:label "IndustryCode3" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:IndustryCode4 a owl:DatatypeProperty ;
+    rdfs:label "IndustryCode4" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:IndustryCode5 a owl:DatatypeProperty ;
+    rdfs:label "IndustryCode5" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:IndustryType a owl:DatatypeProperty ;
+    rdfs:label "IndustryType" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:InternationalArticleNumber a owl:DatatypeProperty ;
+    rdfs:label "InternationalArticleNumber" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:InternationalLocationNumber1 a owl:DatatypeProperty ;
+    rdfs:label "InternationalLocationNumber1" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:InternationalLocationNumber2 a owl:DatatypeProperty ;
+    rdfs:label "InternationalLocationNumber2" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:InternationalLocationNumber3 a owl:DatatypeProperty ;
+    rdfs:label "InternationalLocationNumber3" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:InventorySpecialStockType a owl:DatatypeProperty ;
+    rdfs:label "InventorySpecialStockType" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:IsOneTimeAccount a owl:DatatypeProperty ;
+    rdfs:label "IsOneTimeAccount" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:IsReturnsItem a owl:DatatypeProperty ;
+    rdfs:label "IsReturnsItem" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:ItemBillingBlockReason a owl:DatatypeProperty ;
+    rdfs:label "ItemBillingBlockReason" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:ItemBillingIncompletionStatus a owl:DatatypeProperty ;
+    rdfs:label "ItemBillingIncompletionStatus" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:ItemBillingRelevant a owl:DatatypeProperty ;
+    rdfs:label "ItemBillingRelevant" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:ItemDeliveryIncompletionStatus a owl:DatatypeProperty ;
+    rdfs:label "ItemDeliveryIncompletionStatus" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:ItemDeliveryRelevant a owl:DatatypeProperty ;
+    rdfs:label "ItemDeliveryRelevant" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:ItemGeneralIncompletionStatus a owl:DatatypeProperty ;
+    rdfs:label "ItemGeneralIncompletionStatus" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:ItemGrossWeight a owl:DatatypeProperty ;
+    rdfs:label "ItemGrossWeight" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:ItemNetWeight a owl:DatatypeProperty ;
+    rdfs:label "ItemNetWeight" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:ItemVolume a owl:DatatypeProperty ;
+    rdfs:label "ItemVolume" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:ItemVolumeUnit a owl:DatatypeProperty ;
+    rdfs:label "ItemVolumeUnit" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:ItemWeightUnit a owl:DatatypeProperty ;
+    rdfs:label "ItemWeightUnit" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:Language a owl:DatatypeProperty ;
+    rdfs:label "Language" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:LastChangeDate a owl:DatatypeProperty ;
+    rdfs:label "LastChangeDate" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:LateDeliveries a owl:DatatypeProperty ;
+    rdfs:label "LateDeliveries" ;
+    rdfs:domain :VCustomerOtif ;
+    rdfs:range xsd:integer .
+
+:MRPArea a owl:DatatypeProperty ;
+    rdfs:label "MRPArea" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:Material a owl:DatatypeProperty ;
+    rdfs:label "Material" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:MaterialAccountAssignmentGroup a owl:DatatypeProperty ;
+    rdfs:label "MaterialAccountAssignmentGroup" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:MaterialByCustomer a owl:DatatypeProperty ;
+    rdfs:label "MaterialByCustomer" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:MaterialGroup a owl:DatatypeProperty ;
+    rdfs:label "MaterialGroup" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:MaterialPricingGroup a owl:DatatypeProperty ;
+    rdfs:label "MaterialPricingGroup" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:MaterialSubstitutionReason a owl:DatatypeProperty ;
+    rdfs:label "MaterialSubstitutionReason" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:MaxNumberofPartialDeliveries a owl:DatatypeProperty ;
+    rdfs:label "MaxNumberofPartialDeliveries" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:MinDeliveryQuantityBaseUnit a owl:DatatypeProperty ;
+    rdfs:label "MinDeliveryQuantityBaseUnit" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:NetAmount a owl:DatatypeProperty ;
+    rdfs:label "NetAmount" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:NetPriceAmount a owl:DatatypeProperty ;
+    rdfs:label "NetPriceAmount" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:NetPriceQuantity a owl:DatatypeProperty ;
+    rdfs:label "NetPriceQuantity" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:NetPriceQuantityUnit a owl:DatatypeProperty ;
+    rdfs:label "NetPriceQuantityUnit" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:NetPromoterScore a owl:DatatypeProperty ;
+    rdfs:label "NetPromoterScore" ;
+    rdfs:domain :CrmAccount ;
+    rdfs:range xsd:string .
+
+:NielsenRegion a owl:DatatypeProperty ;
+    rdfs:label "NielsenRegion" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:OTIFPercentage a owl:DatatypeProperty ;
+    rdfs:label "OTIFPercentage" ;
+    rdfs:domain :VCustomerOtif ;
+    rdfs:range xsd:double .
+
+:OmniChannelSalesPromotion a owl:DatatypeProperty ;
+    rdfs:label "OmniChannelSalesPromotion" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:OmniChannelSalesPromotionRule a owl:DatatypeProperty ;
+    rdfs:label "OmniChannelSalesPromotionRule" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:OpenDeliveryLeadingUnitCode a owl:DatatypeProperty ;
+    rdfs:label "OpenDeliveryLeadingUnitCode" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:OpenedDate a owl:DatatypeProperty ;
+    rdfs:label "OpenedDate" ;
+    rdfs:domain :CrmCase ;
+    rdfs:range xsd:string .
+
+:OpportunityID a owl:DatatypeProperty ;
+    rdfs:label "OpportunityID" ;
+    rdfs:domain :CrmOpportunity ;
+    rdfs:range xsd:string .
+
+:OpportunityType a owl:DatatypeProperty ;
+    rdfs:label "OpportunityType" ;
+    rdfs:domain :CrmOpportunity ;
+    rdfs:range xsd:string .
+
+:OrderCombinationAllowed a owl:DatatypeProperty ;
+    rdfs:label "OrderCombinationAllowed" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:OrderID a owl:DatatypeProperty ;
+    rdfs:label "OrderID" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:OrderIsBlockedForCustomer a owl:DatatypeProperty ;
+    rdfs:label "OrderIsBlockedForCustomer" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:OrderLines a owl:DatatypeProperty ;
+    rdfs:label "OrderLines" ;
+    rdfs:domain :VCustomerOtif ;
+    rdfs:range xsd:integer .
+
+:OrderQuantity a owl:DatatypeProperty ;
+    rdfs:label "OrderQuantity" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:OrderQuantityUnit a owl:DatatypeProperty ;
+    rdfs:label "OrderQuantityUnit" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:OrderRelatedBillingStatus a owl:DatatypeProperty ;
+    rdfs:label "OrderRelatedBillingStatus" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:OrderToBaseQuantityDenominator a owl:DatatypeProperty ;
+    rdfs:label "OrderToBaseQuantityDenominator" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:OrderToBaseQuantityNumerator a owl:DatatypeProperty ;
+    rdfs:label "OrderToBaseQuantityNumerator" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:OrganizationBusinessPartnerName1 a owl:DatatypeProperty ;
+    rdfs:label "OrganizationBusinessPartnerName1" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:OrganizationBusinessPartnerName2 a owl:DatatypeProperty ;
+    rdfs:label "OrganizationBusinessPartnerName2" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:OrganizationDivision a owl:DatatypeProperty ;
+    rdfs:label "OrganizationDivision" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:OriginSDDocument a owl:DatatypeProperty ;
+    rdfs:label "OriginSDDocument" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:OriginSDDocumentItem a owl:DatatypeProperty ;
+    rdfs:label "OriginSDDocumentItem" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:OriginalPlant a owl:DatatypeProperty ;
+    rdfs:label "OriginalPlant" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:OriginallyRequestedMaterial a owl:DatatypeProperty ;
+    rdfs:label "OriginallyRequestedMaterial" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:OverallTradeComplianceLegalContr a owl:DatatypeProperty ;
+    rdfs:label "OverallTradeComplianceLegalContr" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:OverdeliveryToleranceLimit a owl:DatatypeProperty ;
+    rdfs:label "OverdeliveryToleranceLimit" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:POBoxDeviatingCityName a owl:DatatypeProperty ;
+    rdfs:label "POBoxDeviatingCityName" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:PartialDeliveryAllowed a owl:DatatypeProperty ;
+    rdfs:label "PartialDeliveryAllowed" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:PartnerIsNaturalPerson a owl:DatatypeProperty ;
+    rdfs:label "PartnerIsNaturalPerson" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:PayerParty a owl:DatatypeProperty ;
+    rdfs:label "PayerParty" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:PaymentBlockedforCustomer a owl:DatatypeProperty ;
+    rdfs:label "PaymentBlockedforCustomer" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:PaymentMethod a owl:DatatypeProperty ;
+    rdfs:label "PaymentMethod" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:PaymentReason a owl:DatatypeProperty ;
+    rdfs:label "PaymentReason" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:PercentInFull a owl:DatatypeProperty ;
+    rdfs:label "PercentInFull" ;
+    rdfs:domain :VCustomerOtif ;
+    rdfs:range xsd:double .
+
+:PercentOnTime a owl:DatatypeProperty ;
+    rdfs:label "PercentOnTime" ;
+    rdfs:domain :VCustomerOtif ;
+    rdfs:range xsd:double .
+
+:Plant a owl:DatatypeProperty ;
+    rdfs:label "Plant" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:PostalCode a owl:DatatypeProperty ;
+    rdfs:label "PostalCode" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:PostingIsBlocked a owl:DatatypeProperty ;
+    rdfs:label "PostingIsBlocked" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:PriceDeterminationExchangeRate a owl:DatatypeProperty ;
+    rdfs:label "PriceDeterminationExchangeRate" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:PricingDate a owl:DatatypeProperty ;
+    rdfs:label "PricingDate" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:PricingIncompletionStatus a owl:DatatypeProperty ;
+    rdfs:label "PricingIncompletionStatus" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:PricingReferenceMaterial a owl:DatatypeProperty ;
+    rdfs:label "PricingReferenceMaterial" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:Priority a owl:DatatypeProperty ;
+    rdfs:label "Priority" ;
+    rdfs:domain :CrmCase ;
+    rdfs:range xsd:string .
+
+:Product a owl:DatatypeProperty ;
+    rdfs:label "Product" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:ProductCatalog a owl:DatatypeProperty ;
+    rdfs:label "ProductCatalog" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:ProductCharacteristic1 a owl:DatatypeProperty ;
+    rdfs:label "ProductCharacteristic1" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:ProductCharacteristic2 a owl:DatatypeProperty ;
+    rdfs:label "ProductCharacteristic2" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:ProductCharacteristic3 a owl:DatatypeProperty ;
+    rdfs:label "ProductCharacteristic3" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:ProductCollection a owl:DatatypeProperty ;
+    rdfs:label "ProductCollection" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:ProductConfiguration a owl:DatatypeProperty ;
+    rdfs:label "ProductConfiguration" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:ProductGroup a owl:DatatypeProperty ;
+    rdfs:label "ProductGroup" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:ProductHierarchyNode a owl:DatatypeProperty ;
+    rdfs:label "ProductHierarchyNode" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:ProductSeason a owl:DatatypeProperty ;
+    rdfs:label "ProductSeason" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:ProductSeasonYear a owl:DatatypeProperty ;
+    rdfs:label "ProductSeasonYear" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:ProductTaxClassification1 a owl:DatatypeProperty ;
+    rdfs:label "ProductTaxClassification1" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:ProductTaxClassification2 a owl:DatatypeProperty ;
+    rdfs:label "ProductTaxClassification2" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:ProductTaxClassification3 a owl:DatatypeProperty ;
+    rdfs:label "ProductTaxClassification3" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:ProductTaxClassification4 a owl:DatatypeProperty ;
+    rdfs:label "ProductTaxClassification4" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:ProductTaxClassification5 a owl:DatatypeProperty ;
+    rdfs:label "ProductTaxClassification5" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:ProductTaxClassification6 a owl:DatatypeProperty ;
+    rdfs:label "ProductTaxClassification6" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:ProductTaxClassification7 a owl:DatatypeProperty ;
+    rdfs:label "ProductTaxClassification7" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:ProductTaxClassification8 a owl:DatatypeProperty ;
+    rdfs:label "ProductTaxClassification8" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:ProductTaxClassification9 a owl:DatatypeProperty ;
+    rdfs:label "ProductTaxClassification9" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:ProductTheme a owl:DatatypeProperty ;
+    rdfs:label "ProductTheme" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:ProfitCenter a owl:DatatypeProperty ;
+    rdfs:label "ProfitCenter" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:ProfitabilitySegment a owl:DatatypeProperty ;
+    rdfs:label "ProfitabilitySegment" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:ProfitabilitySegment2 a owl:DatatypeProperty ;
+    rdfs:label "ProfitabilitySegment2" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:PurchaseConfirmationStatus a owl:DatatypeProperty ;
+    rdfs:label "PurchaseConfirmationStatus" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:PurchaseOrderByCustomer a owl:DatatypeProperty ;
+    rdfs:label "PurchaseOrderByCustomer" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:PurchaseOrderByShipToParty a owl:DatatypeProperty ;
+    rdfs:label "PurchaseOrderByShipToParty" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:PurchaseOrderCorrespondenceExter a owl:DatatypeProperty ;
+    rdfs:label "PurchaseOrderCorrespondenceExter" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:ReceivingPoint a owl:DatatypeProperty ;
+    rdfs:label "ReceivingPoint" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:ReferenceSDDocument a owl:DatatypeProperty ;
+    rdfs:label "ReferenceSDDocument" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:ReferenceSDDocumentCategory a owl:DatatypeProperty ;
+    rdfs:label "ReferenceSDDocumentCategory" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:ReferenceSDDocumentItem a owl:DatatypeProperty ;
+    rdfs:label "ReferenceSDDocumentItem" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:Region a owl:DatatypeProperty ;
+    rdfs:label "Region" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:RelatedSalesOrder a owl:DatatypeProperty ;
+    rdfs:label "RelatedSalesOrder" ;
+    rdfs:domain :CrmCase ;
+    rdfs:range xsd:string .
+
+:RenewalDate a owl:DatatypeProperty ;
+    rdfs:label "RenewalDate" ;
+    rdfs:domain :CrmAccount ;
+    rdfs:range xsd:string .
+
+:RequestedDeliveryDate a owl:DatatypeProperty ;
+    rdfs:label "RequestedDeliveryDate" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:RequestedQuantity a owl:DatatypeProperty ;
+    rdfs:label "RequestedQuantity" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:RequestedQuantityUnit a owl:DatatypeProperty ;
+    rdfs:label "RequestedQuantityUnit" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:RequestedQuantityinBaseUnit a owl:DatatypeProperty ;
+    rdfs:label "RequestedQuantityinBaseUnit" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:RequirementSegment a owl:DatatypeProperty ;
+    rdfs:label "RequirementSegment" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:ResponsibleEmployee a owl:DatatypeProperty ;
+    rdfs:label "ResponsibleEmployee" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:ResponsibleEmployeeWorkAgreement a owl:DatatypeProperty ;
+    rdfs:label "ResponsibleEmployeeWorkAgreement" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:ResponsibleType a owl:DatatypeProperty ;
+    rdfs:label "ResponsibleType" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:RetailPromotion a owl:DatatypeProperty ;
+    rdfs:label "RetailPromotion" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:Role a owl:DatatypeProperty ;
+    rdfs:label "Role" ;
+    rdfs:domain :CrmContact ;
+    rdfs:range xsd:string .
+
+:Route a owl:DatatypeProperty ;
+    rdfs:label "Route" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:SDDocumentReferenceStatus a owl:DatatypeProperty ;
+    rdfs:label "SDDocumentReferenceStatus" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:SDDocumentRejectionStatus a owl:DatatypeProperty ;
+    rdfs:label "SDDocumentRejectionStatus" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:SDProcessStatus a owl:DatatypeProperty ;
+    rdfs:label "SDProcessStatus" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:SafetyDataSheetStatus a owl:DatatypeProperty ;
+    rdfs:label "SafetyDataSheetStatus" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:SalesContractAutoAssignmentIDfor a owl:DatatypeProperty ;
+    rdfs:label "SalesContractAutoAssignmentIDfor" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:SalesDeal a owl:DatatypeProperty ;
+    rdfs:label "SalesDeal" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:SalesDistrict a owl:DatatypeProperty ;
+    rdfs:label "SalesDistrict" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:SalesDocumentItemProcessingCode a owl:DatatypeProperty ;
+    rdfs:label "SalesDocumentItemProcessingCode" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:SalesDocumentReason a owl:DatatypeProperty ;
+    rdfs:label "SalesDocumentReason" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:SalesDocumentRejectionReason a owl:DatatypeProperty ;
+    rdfs:label "SalesDocumentRejectionReason" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:SalesDocumentRelevantforProofofD a owl:DatatypeProperty ;
+    rdfs:label "SalesDocumentRelevantforProofofD" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:SalesEmployee a owl:DatatypeProperty ;
+    rdfs:label "SalesEmployee" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:SalesEmployeeWorkAgreement a owl:DatatypeProperty ;
+    rdfs:label "SalesEmployeeWorkAgreement" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:SalesGroup a owl:DatatypeProperty ;
+    rdfs:label "SalesGroup" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:SalesOffice a owl:DatatypeProperty ;
+    rdfs:label "SalesOffice" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:SalesOrder a owl:DatatypeProperty ;
+    rdfs:label "SalesOrder" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:SalesOrderCondition a owl:DatatypeProperty ;
+    rdfs:label "SalesOrderCondition" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:SalesOrderDate a owl:DatatypeProperty ;
+    rdfs:label "SalesOrderDate" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:SalesOrderItem a owl:DatatypeProperty ;
+    rdfs:label "SalesOrderItem" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:SalesOrderItemCategory a owl:DatatypeProperty ;
+    rdfs:label "SalesOrderItemCategory" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:SalesOrderItemDownPaymentStatus a owl:DatatypeProperty ;
+    rdfs:label "SalesOrderItemDownPaymentStatus" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:SalesOrderItemText a owl:DatatypeProperty ;
+    rdfs:label "SalesOrderItemText" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:SalesOrderItemType a owl:DatatypeProperty ;
+    rdfs:label "SalesOrderItemType" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:SalesOrderItemUUID a owl:DatatypeProperty ;
+    rdfs:label "SalesOrderItemUUID" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:SalesOrderType a owl:DatatypeProperty ;
+    rdfs:label "SalesOrderType" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:SalesOrganization a owl:DatatypeProperty ;
+    rdfs:label "SalesOrganization" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:SalesPromotion a owl:DatatypeProperty ;
+    rdfs:label "SalesPromotion" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:SalesProspectIndicator a owl:DatatypeProperty ;
+    rdfs:label "SalesProspectIndicator" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:SeasonCompletenessStatus a owl:DatatypeProperty ;
+    rdfs:label "SeasonCompletenessStatus" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:Segment a owl:DatatypeProperty ;
+    rdfs:label "Segment" ;
+    rdfs:domain :CrmAccount ;
+    rdfs:range xsd:string .
+
+:ServicesRenderedDate a owl:DatatypeProperty ;
+    rdfs:label "ServicesRenderedDate" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:ShipToParty a owl:DatatypeProperty ;
+    rdfs:label "ShipToParty" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:ShippingCondition a owl:DatatypeProperty ;
+    rdfs:label "ShippingCondition" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:ShippingGroupNumber a owl:DatatypeProperty ;
+    rdfs:label "ShippingGroupNumber" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:ShippingGroupRule a owl:DatatypeProperty ;
+    rdfs:label "ShippingGroupRule" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:ShippingPoint a owl:DatatypeProperty ;
+    rdfs:label "ShippingPoint" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:ShippingType a owl:DatatypeProperty ;
+    rdfs:label "ShippingType" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:ShortDeliveries a owl:DatatypeProperty ;
+    rdfs:label "ShortDeliveries" ;
+    rdfs:domain :VCustomerOtif ;
+    rdfs:range xsd:integer .
+
+:SoldToParty a owl:DatatypeProperty ;
+    rdfs:label "SoldToParty" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:SortField a owl:DatatypeProperty ;
+    rdfs:label "SortField" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:Stage a owl:DatatypeProperty ;
+    rdfs:label "Stage" ;
+    rdfs:domain :CrmOpportunity ;
+    rdfs:range xsd:string .
+
+:StatisticalValueControl a owl:DatatypeProperty ;
+    rdfs:label "StatisticalValueControl" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:Status a owl:DatatypeProperty ;
+    rdfs:label "Status" ;
+    rdfs:domain :CrmCase ;
+    rdfs:range xsd:string .
+
+:StorageLocation a owl:DatatypeProperty ;
+    rdfs:label "StorageLocation" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:StreetName a owl:DatatypeProperty ;
+    rdfs:label "StreetName" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:Subtotal1Amount a owl:DatatypeProperty ;
+    rdfs:label "Subtotal1Amount" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:Subtotal2Amount a owl:DatatypeProperty ;
+    rdfs:label "Subtotal2Amount" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:Subtotal3Amount a owl:DatatypeProperty ;
+    rdfs:label "Subtotal3Amount" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:Subtotal4Amount a owl:DatatypeProperty ;
+    rdfs:label "Subtotal4Amount" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:Subtotal5Amount a owl:DatatypeProperty ;
+    rdfs:label "Subtotal5Amount" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:Subtotal6Amount a owl:DatatypeProperty ;
+    rdfs:label "Subtotal6Amount" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:Supplier a owl:DatatypeProperty ;
+    rdfs:label "Supplier" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:TargetDeliveryQuantityinOrderUni a owl:DatatypeProperty ;
+    rdfs:label "TargetDeliveryQuantityinOrderUni" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:TargetQuantity a owl:DatatypeProperty ;
+    rdfs:label "TargetQuantity" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:TargetQuantityUnit a owl:DatatypeProperty ;
+    rdfs:label "TargetQuantityUnit" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:TargettoBaseQuantityDenominator a owl:DatatypeProperty ;
+    rdfs:label "TargettoBaseQuantityDenominator" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:TargettoBaseQuantityNumerator a owl:DatatypeProperty ;
+    rdfs:label "TargettoBaseQuantityNumerator" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:TaxAmount a owl:DatatypeProperty ;
+    rdfs:label "TaxAmount" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:TaxInvoiceRepresentativeName a owl:DatatypeProperty ;
+    rdfs:label "TaxInvoiceRepresentativeName" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:TaxJurisdiction a owl:DatatypeProperty ;
+    rdfs:label "TaxJurisdiction" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:TaxNumber1 a owl:DatatypeProperty ;
+    rdfs:label "TaxNumber1" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:TaxNumber2 a owl:DatatypeProperty ;
+    rdfs:label "TaxNumber2" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:TaxNumber3 a owl:DatatypeProperty ;
+    rdfs:label "TaxNumber3" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:TaxNumber4 a owl:DatatypeProperty ;
+    rdfs:label "TaxNumber4" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:TaxNumber5 a owl:DatatypeProperty ;
+    rdfs:label "TaxNumber5" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:TaxNumber6 a owl:DatatypeProperty ;
+    rdfs:label "TaxNumber6" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:TaxNumberType a owl:DatatypeProperty ;
+    rdfs:label "TaxNumberType" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:TelephoneNumber1 a owl:DatatypeProperty ;
+    rdfs:label "TelephoneNumber1" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:TelephoneNumber2 a owl:DatatypeProperty ;
+    rdfs:label "TelephoneNumber2" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:TotalDeliveryStatus a owl:DatatypeProperty ;
+    rdfs:label "TotalDeliveryStatus" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:TotalSDDocumentReferenceStatus a owl:DatatypeProperty ;
+    rdfs:label "TotalSDDocumentReferenceStatus" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:TotalStandaloneSellingPrice a owl:DatatypeProperty ;
+    rdfs:label "TotalStandaloneSellingPrice" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:TradeComplianceEmbargoStatus a owl:DatatypeProperty ;
+    rdfs:label "TradeComplianceEmbargoStatus" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:TradeComplianceSanctionedListChe a owl:DatatypeProperty ;
+    rdfs:label "TradeComplianceSanctionedListChe" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:TradingPartner a owl:DatatypeProperty ;
+    rdfs:label "TradingPartner" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:TrainStationName a owl:DatatypeProperty ;
+    rdfs:label "TrainStationName" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:TransactionCurrency a owl:DatatypeProperty ;
+    rdfs:label "TransactionCurrency" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:UnderdeliveryToleranceLimit a owl:DatatypeProperty ;
+    rdfs:label "UnderdeliveryToleranceLimit" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:UnderlyingPurchaseOrderItem a owl:DatatypeProperty ;
+    rdfs:label "UnderlyingPurchaseOrderItem" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:UnderlyingPurchaseOrderItemByShi a owl:DatatypeProperty ;
+    rdfs:label "UnderlyingPurchaseOrderItemByShi" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:UnlimitedOverdeliveryAllowed a owl:DatatypeProperty ;
+    rdfs:label "UnlimitedOverdeliveryAllowed" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:VATLiability a owl:DatatypeProperty ;
+    rdfs:label "VATLiability" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:VATRegistration a owl:DatatypeProperty ;
+    rdfs:label "VATRegistration" ;
+    rdfs:domain :Customers ;
+    rdfs:range xsd:string .
+
+:WBSElement a owl:DatatypeProperty ;
+    rdfs:label "WBSElement" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:WBSElementInternalID a owl:DatatypeProperty ;
+    rdfs:label "WBSElementInternalID" ;
+    rdfs:domain :Salesorderitems ;
+    rdfs:range xsd:string .
+
+:crm_account_id a owl:DatatypeProperty ;
+    rdfs:label "crm_account_id" ;
+    rdfs:domain :AccountResolution ;
+    rdfs:range xsd:string .
+
+:fuzzy_sap_id a owl:DatatypeProperty ;
+    rdfs:label "fuzzy_sap_id" ;
+    rdfs:domain :AccountResolution ;
+    rdfs:range xsd:string .
+
+:hasCase a owl:ObjectProperty ;
+    rdfs:label "hasCase" ;
+    rdfs:domain :CrmAccount ;
+    rdfs:range :CrmCase .
+
+:hasContact a owl:ObjectProperty ;
+    rdfs:label "hasContact" ;
+    rdfs:domain :CrmAccount ;
+    rdfs:range :CrmContact .
+
+:hasOpportunity a owl:ObjectProperty ;
+    rdfs:label "hasOpportunity" ;
+    rdfs:domain :CrmAccount ;
+    rdfs:range :CrmOpportunity .
+
+:hasOtif a owl:ObjectProperty ;
+    rdfs:label "hasOtif" ;
+    rdfs:domain :Customers ;
+    rdfs:range :VCustomerOtif .
+
+:match_method a owl:DatatypeProperty ;
+    rdfs:label "match_method" ;
+    rdfs:domain :AccountResolution ;
+    rdfs:range xsd:string .
+
+:name_match_difficulty a owl:DatatypeProperty ;
+    rdfs:label "name_match_difficulty" ;
+    rdfs:domain :AccountResolution ;
+    rdfs:range xsd:string .
+
+:placesOrder a owl:ObjectProperty ;
+    rdfs:label "placesOrder" ;
+    rdfs:domain :Customers ;
+    rdfs:range :Salesorderitems .
+
+:referencesOrder a owl:ObjectProperty ;
+    rdfs:label "referencesOrder" ;
+    rdfs:domain :CrmCase ;
+    rdfs:range :Salesorderitems .
+
+:resolvedBy a owl:ObjectProperty ;
+    rdfs:label "resolvedBy" ;
+    rdfs:domain :CrmAccount ;
+    rdfs:range :AccountResolution .
+
+:resolvesTo a owl:ObjectProperty ;
+    rdfs:label "resolvesTo" ;
+    rdfs:domain :AccountResolution ;
+    rdfs:range :Customers .
+
+:sap_customer_id a owl:DatatypeProperty ;
+    rdfs:label "sap_customer_id" ;
+    rdfs:domain :AccountResolution ;
+    rdfs:range xsd:string .
+
+:CrmContact a owl:Class ;
+    rdfs:label "CrmContact" ;
+    rdfs:comment "Represents a crmcontact entity" .
+
+:AccountResolution a owl:Class ;
+    rdfs:label "AccountResolution" ;
+    rdfs:comment "Represents a accountresolution entity" .
+
+:CrmOpportunity a owl:Class ;
+    rdfs:label "CrmOpportunity" ;
+    rdfs:comment "Represents a crmopportunity entity" .
+
+:CrmCase a owl:Class ;
+    rdfs:label "CrmCase" ;
+    rdfs:comment "Represents a crmcase entity" .
+
+:VCustomerOtif a owl:Class ;
+    rdfs:label "VCustomerOtif" ;
+    rdfs:comment "Represents a vcustomerotif entity" .
+
+:CrmAccount a owl:Class ;
+    rdfs:label "CrmAccount" ;
+    rdfs:comment "Represents a crmaccount entity" .
+
+:Customers a owl:Class ;
+    rdfs:label "Customers" ;
+    rdfs:comment "Represents a customers entity" .
+
+:Salesorderitems a owl:Class ;
+    rdfs:label "Salesorderitems" ;
+    rdfs:comment "Represents a salesorderitems entity" .
+

@@ -131,7 +131,7 @@ Fill in the ontology name and choose the data source type:
 
 | Field | Value |
 |---|---|
-| **Ontology Name** | `Customer_Churn_Ontology_XP001` (replace `001` with your station number) |
+| **Ontology Name** | Eg: `Customer_Churn_Ontology_XP001` (replace `001` with your station number) |
 | **Description** | *(optional)* |
 | **Data Source** | `Database` |
 
@@ -331,7 +331,7 @@ Congratulations! Your newly ceated ontology is now ready for Exercise 3 — the 
 
 ## Summary
 
-You connected SAP BDC Ontology Manager to Dremio, then built an 8-table, 8-concept, 8-relationship ontology that bridges SAP customer/order data with non-SAP CRM data via the `v_customer_otif` golden record from Exercise 1. The knowledge graph is now active and queryable — the semantic foundation Exercise 3's Joule agent will reason over.
+You connected SAP BDC Ontology Manager to Dremio, then built an ontology that bridges SAP customer/order data with non-SAP CRM data via the `v_customer_otif` golden record from Exercise 1. The knowledge graph is now active and queryable — the semantic foundation Exercise 3's Joule agent will reason over.
 
 
 Continue to - [Exercise 3 - Build a Joule Agent on the Golden Record](../ex3/)

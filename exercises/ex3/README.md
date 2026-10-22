@@ -114,7 +114,7 @@ customer-churn and delivery data.
 
 ## Exercise 3.2 Ask the skill churn & delivery questions
 
-Now test the skill in a conversation. These questions use the **`Customer_Churn_Ontology`** —
+Now test the skill in a conversation. These questions use the **`Customer_Churn_Ontology_<your station number> `** —
 the governed knowledge graph that links your CRM accounts (churn risk, renewals, NPS) to your
 real SAP delivery performance (OTIF), the churn ↔ delivery link you proved in Exercise 1.
 
@@ -138,10 +138,10 @@ my current configuration,"* answering from general knowledge instead.
 Start with a short message that points the skill at the ontology:
 
 ```text
-@ontology-manager-skill use the Customer_Churn_Ontology to answer my questions.
+@ontology-manager-skill use the Customer_Churn_Ontology_<your station number> to answer my questions.
 ```
 
-Joule should confirm it's connected to the **Customer_Churn_Ontology** (you may see the ontology
+Joule should confirm it's connected to the **Customer_Churn_Ontology_< your station number >** (you may see the ontology
 name and its class count). On this first turn the skill pins the ontology and caches its schema,
 then waits for your question.
 
@@ -156,7 +156,7 @@ then waits for your question.
 Confirm Joule looks up the ontology before it answers. Paste this question:
 
 ```text
-What data can you help me with? Use the Customer_Churn_Ontology — list it, then
+What data can you help me with? Use the Customer_Churn_Ontology_<your station number> — list it, then
 describe what entities and attributes are available.
 ```
 
