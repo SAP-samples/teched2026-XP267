@@ -25,12 +25,14 @@ For this exercise you work with two datasets, SAP and non-SAP:
 
 CRM owns the relationship (accounts, cases, renewals); SAP owns the transaction (actual delivery). Joining CRM churn signals to SAP delivery (OTIF) surfaces the link between them.
 
-Build two views, one per gap:
+Build two views, one per gap, and materialize each immediately after you create it:
 
 | View | What it is |
 |---|---|
 | `v_customer_otif` | Per-customer OTIF truth, rolled up from SAP sales-order lines (the SAP-side metric). |
 | `v_crm_account_resolved` | The **Account → Customer crosswalk** — the resolution/MDM step, with `match_method` recording *how* each account resolved. |
+
+These two views are the hand-off to Exercise 2 — everything you need to continue is in this section.
 
 ### Step 1 — Preview what you're connecting
 
@@ -86,6 +88,19 @@ GROUP BY SoldToParty;
 
 ![v_customer_otif created — per-customer OTIF rollup](images/v_customer_otif.png)
 
+Now **materialize it.** Dremio has no `CREATE MATERIALIZED VIEW` — you keep the view and enable a **Raw Reflection**, the physically stored, auto-maintained copy Dremio transparently substitutes to accelerate queries. Enable one on `v_customer_otif` (Exercise 2's required input):
+
+```sql
+ALTER DATASET "<your_space>".v_customer_otif
+CREATE RAW REFLECTION otif_raw USING DISPLAY (
+  "Customer", lines, committed_lines, pct_on_time, pct_in_full, otif_pct, late, short
+);
+```
+
+> **Dremio capability — Raw Reflection acceleration.** There's no `CREATE MATERIALIZED VIEW`; you enable a reflection and Dremio transparently substitutes the physically-stored copy to speed up queries. The view stays the single source of truth — change a threshold and every query reflects it immediately, no pipeline re-run.
+
+![Raw Reflection enabled on v_customer_otif](images/v_customer_otif_reflection.png)
+
 ---
 
 ### Step 3 — Build `v_crm_account_resolved`
@@ -129,11 +144,26 @@ LEFT JOIN fuzzy f ON f.crm_account_id = x.crm_account_id;
 
 ![v_crm_account_resolved created — the Account → Customer crosswalk with match_method](images/v_crm_account_resolved.png)
 
+Now **materialize it** — enable a Raw Reflection on `v_crm_account_resolved` (the Account → Customer crosswalk, Exercise 2's other required input):
+
+```sql
+ALTER DATASET "<your_space>".v_crm_account_resolved
+CREATE RAW REFLECTION resolved_raw USING DISPLAY (
+  crm_account_id, sap_customer_id, name_match_difficulty, fuzzy_sap_id, match_method
+);
+```
+
+![Raw Reflection enabled on v_crm_account_resolved](images/v_crm_account_resolved_reflection.png)
+
+With both views built and materialized, you have everything Exercise 2 needs. **You can continue to [Exercise 2](../ex2/README.md) now** — Section 1.2 below is optional.
+
 ---
 
-## Section 1.2 Build & materialize the CRM 360 golden record
+## Section 1.2 (Optional) Build & materialize the CRM 360 golden record
 
-Join CRM and SAP into one golden account record, materialize it, and confirm the link. This section stays within Exercise 1 — it demonstrates Dremio's semantic layer (views composed on views), the guarded cast, and reflection acceleration, then proves the churn ↔ delivery link on screen.
+> **Optional — not needed for Exercise 2.** Exercise 2 is built on `v_customer_otif` and `v_crm_account_resolved` from Section 1.1; this section is not consumed by later exercises. Do it to see Dremio's semantic layer end to end on screen.
+
+Join CRM and SAP into one golden account record, materialize it, and confirm the link. This section demonstrates Dremio's semantic layer (views composed on views), the guarded cast, and reflection acceleration, then proves the churn ↔ delivery link on screen.
 
 | View | What it is |
 |---|---|
@@ -181,20 +211,9 @@ WHERE a.churn_risk <> 'Unmanaged';
 
 ---
 
-### Step 2 — Materialize the hand-off views
+### Step 2 — Materialize `v_crm_account_360`
 
-Dremio has no `CREATE MATERIALIZED VIEW` — you keep the view and enable a **Raw Reflection**, the physically stored, auto-maintained copy Dremio transparently substitutes to accelerate queries. Enable one on **`v_customer_otif`** (Exercise 2's required input):
-
-```sql
-ALTER DATASET "<your_space>".v_customer_otif
-CREATE RAW REFLECTION otif_raw USING DISPLAY (
-  "Customer", lines, committed_lines, pct_on_time, pct_in_full, otif_pct, late, short
-);
-```
-
-![Raw Reflection enabled on v_customer_otif](images/v_customer_otif_reflection.png)
-
-Then enable one on **`v_crm_account_360`**:
+Enable a Raw Reflection on the golden record, the same way you did for the two Section 1.1 views:
 
 ```sql
 ALTER DATASET "<your_space>".v_crm_account_360
@@ -206,19 +225,6 @@ CREATE RAW REFLECTION crm360_raw USING DISPLAY (
 ```
 
 ![Raw Reflection enabled on v_crm_account_360](images/v_crm_account_360_reflection.png)
-
-Then enable one on **`v_crm_account_resolved`** (Account → Customer crosswalk):
-
-```sql
-ALTER DATASET "<your_space>".v_crm_account_resolved
-CREATE RAW REFLECTION resolved_raw USING DISPLAY (
-  crm_account_id, sap_customer_id, name_match_difficulty, fuzzy_sap_id, match_method
-);
-```
-
-![Raw Reflection enabled on v_crm_account_resolved](images/v_crm_account_resolved_reflection.png)
-
-> **Dremio capability — Raw Reflection acceleration.** There's no `CREATE MATERIALIZED VIEW`; you enable a reflection and Dremio transparently substitutes the physically-stored copy to speed up queries. The view stays the single source of truth — change a threshold and every query reflects it immediately, no pipeline re-run.
 
 ---
 
@@ -256,6 +262,8 @@ WHERE churn_risk='At Risk' ORDER BY otif_pct ASC LIMIT 10;
 
 ## Summary
 
-You resolved a non-SAP CRM to governed SAP customers and built a CRM 360 golden record that confirms the churn ↔ delivery link: `v_customer_otif`, `v_crm_account_resolved`, and `v_crm_account_360` — Dremio views accelerated by Raw Reflections, sourced from SAP BDC data products. `v_crm_account_360` demonstrates Dremio's semantic layer on screen (layered views, the guarded cast, reflection acceleration) and is the payoff of this exercise. The hand-off to Exercise 2 is `v_customer_otif` and `v_crm_account_resolved` — the two views its ontology is built on; Exercise 3's agent then reasons over that ontology. An optional [OTIF manufacturing medallion](optional/README.md) adds a deterministic shopfloor track for Exercise 3's secondary agent context.
+In Section 1.1 you resolved a non-SAP CRM to governed SAP customers and built the two views that hand off to Exercise 2 — `v_customer_otif` and `v_crm_account_resolved`, each materialized with a Raw Reflection, sourced from SAP BDC data products. These are the views Exercise 2's ontology is built on; Exercise 3's agent then reasons over that ontology.
+
+Section 1.2 is optional: it builds `v_crm_account_360`, the CRM 360 golden record that confirms the churn ↔ delivery link on screen and demonstrates Dremio's semantic layer (layered views, the guarded cast, reflection acceleration). It is not consumed by later exercises. An optional [OTIF manufacturing medallion](optional/README.md) adds a deterministic shopfloor track for Exercise 3's secondary agent context.
 
 Continue to - [Exercise 2 - Ontologies on the Golden Record](../ex2/README.md)
