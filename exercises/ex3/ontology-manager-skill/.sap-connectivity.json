@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0",
+  "connectors": [
+    {
+      "alias": "agent",
+      "connection-strategy": {
+        "type": "destination",
+        "protocol": "HTTP",
+        "destination": "ONTOLOGY_MANAGER_TECHED_HANDSON_1"
+      },
+      "guardrails": {
+        "GET": {
+          "allow": [".*"]
+        },
+        "POST": {
+          "allow": [".*"]
+        }
+      }
+    }
+  ]
+}

@@ -1,48 +1,46 @@
-# Containing Files
-
-1. The LICENSE file:
-In most cases, the license for SAP sample projects is `Apache 2.0`.
-
-2. The REUSE.toml file: 
-The [Reuse Tool](https://reuse.software/) must be used for your samples project. You can find the REUSE.toml in the project initial. Please replace the parts inside the single angle quotation marks < > by the specific information for your repository.
-
-3. The README.md file (this file):
-Please edit this file as it is the primary description file for your project. You can find some placeholder titles for sections below.
-
 # XP267 - Enrich your agents with context
 
 ## Description
 
-This repository contains the material for the SAP TechEd 2026 session called Session ID - Session Title.  
+This repository contains the material for the SAP TechEd 2026 session XP267 - Enrich your agents with context.
+
+In this hands-on session you build an end-to-end modern SAP data stack scenario: you take governed SAP S/4HANA data products from SAP Business Data Cloud (BDC) — sales orders, purchase orders, and customer master, plus a manufacturing track — refine them into golden records using layered SQL views in Dremio, and finally ground a Joule agent on those golden records.
 
 ## Overview
 
-This session introduces attendees to...
+The primary scenario resolves a non-SAP CRM to governed SAP customers and proves the churn ↔ delivery link: *"are our at-risk renewals driven by our own delivery performance?"* — built by resolving messy CRM account names to SAP customer numbers, rolling SAP sales lines up to a per-customer on-time-in-full (OTIF) truth, and joining CRM cases and renewals into one golden account record. An OTIF manufacturing production-risk record is kept as an optional advanced appendix. You unify everything with data-product-centric ELT — not classic extract-and-duplicate ETL — and put a trustworthy AI agent on top.
+
+The stack:
+
+| Layer | Product | Role |
+| --- | --- | --- |
+| SAP data | SAP Business Data Cloud (BDC) | Governed S/4HANA data products shared zero-copy |
+| Lakehouse + transformation | Dremio | ELT + semantic layer: medallion as layered SQL views, accelerated by reflections |
+| AI / agents | Joule | Agent grounded on the golden CRM 360 record (via the ontology) |
+| Open storage | Apache Iceberg on Amazon S3 | Non-SAP MES data, queried in place |
+
+> Terminology note: there is no new brand name for "ETL" here. The deliberate framing is data-product engineering on an open lakehouse (zero-copy ELT) — transformation as semantics (SQL views + reflections), not pipeline jobs. The movement primitives you will hear named in the tooling are replication flows and transformation flows.
+
+## The data
+
+All data you need is already provisioned in Dremio for the session — you query it there, you don't download or load anything. The SAP tables resolve under `"teched_labs_sandbox"."sap_dp".*` and the non-SAP CRM under `"teched_labs_sandbox"."non_sap".*`; each exercise tells you exactly which objects to use.
 
 ## Requirements
 
-The requirements to follow the exercises in this repository are...
+- Access to the lab tenant for SAP Business Data Cloud, Dremio, and Joule (credentials provided at the session).
+- A modern browser. No local installation required — all tools are browser-based.
+- Basic familiarity with SQL is helpful but not required; all queries are provided.
 
 ## Exercises
 
-Provide the exercise content here directly in README.md using [markdown](https://guides.github.com/features/mastering-markdown/) and linking to the specific exercise pages, below is an example.
-
-- [Getting Started](exercises/ex0/)
-- [Exercise 1 - First Exercise Description](exercises/ex1/)
-    - [Exercise 1.1 - Exercise 1 Sub Exercise 1 Description](exercises/ex1#exercise-11-sub-exercise-1-description)
-    - [Exercise 1.2 - Exercise 1 Sub Exercise 2 Description](exercises/ex1#exercise-12-sub-exercise-2-description)
-- [Exercise 2 - Second Exercise Description](exercises/ex2/)
-    - [Exercise 2.1 - Exercise 2 Sub Exercise 1 Description](exercises/ex2#exercise-21-sub-exercise-1-description)
-    - [Exercise 2.2 - Exercise 2 Sub Exercise 2 Description](exercises/ex2#exercise-22-sub-exercise-2-description)
-
-  
-**OR** Link to the Tutorial Navigator for example...
-
-Start the exercises [here](https://developers.sap.com/tutorials/abap-environment-trial-onboarding.html).
-
-**IMPORTANT**
-
-Your repo must contain the .reuse and LICENSES folder and the License section below. DO NOT REMOVE the section or folders/files. Also, remove all unused template assets(images, folders, etc) from the exercises folder. 
+- [Exercise 1 - Build the Golden Records in Dremio](exercises/ex1/)
+    - [Exercise 1.1 - Resolve a non-SAP CRM to SAP customers](exercises/ex1#exercise-11-resolve-a-non-sap-crm-to-sap-customers)
+    - [Exercise 1.2 - Build & materialize the CRM 360 golden record](exercises/ex1#exercise-12-build--materialize-the-crm-360-golden-record)
+    - [Optional (Advanced) - OTIF manufacturing medallion](exercises/ex1/optional/)
+- [Exercise 2 - Ontologies on the Golden Record (coming soon)](exercises/ex2/)
+- [Exercise 3 - Build a Joule Skill on the Golden Record](exercises/ex3/)
+    - [Exercise 3.1 - Import and enable the skill](exercises/ex3#exercise-31-import-and-enable-the-skill)
+    - [Exercise 3.2 - Ask the skill churn & delivery questions](exercises/ex3#exercise-32-ask-the-skill-churn--delivery-questions)
 
 ## Contributing
 Please read the [CONTRIBUTING.md](./CONTRIBUTING.md) to understand the contribution guidelines.

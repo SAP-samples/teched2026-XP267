@@ -1,0 +1,230 @@
+crm_account_id,account_name,billing_country,billing_region,segment,health_score,nps,churn_risk,annual_contract_value,renewal_date,csm_owner
+ACC-00001,US Large Cycles 10,US,OH,Strategic,39,-21,At Risk,5894000,2026-12-26,Marco Lentz
+ACC-00002,CA Specialty Cycles 4,CA,BC,Strategic,60,20,Watch,1764000,2027-07-12,Priya Nair
+ACC-00003,US Large Cycles 9,US,MI,Strategic,54,20,Watch,7205000,2027-03-19,Tom Becker
+ACC-00004,CA Specialty Cyales 5 Ltd.,CA,BC,Strategic,39,-11,At Risk,2424000,2027-08-14,Lars Jensen
+ACC-00005,Fit@Cycles,US,SC,Strategic,68,10,Healthy,2765000,2027-01-09,Priya Nair
+ACC-00006,Sintex Bikes,US,NC,Strategic,69,30,Healthy,1206000,2027-06-06,Priya Nair
+ACC-00007,US Large Cycles 2,US,DE,Strategic,45,20,Watch,7111000,2027-06-03,Lars Jensen
+ACC-00008,CA Specialty Cycleso2 Ltd.,CA,QC,Strategic,39,-11,At Risk,1434000,2026-12-07,Priya Nair
+ACC-00009,US Large Cycles 3,US,MD,Strategic,45,3,Watch,9372000,2026-11-15,Sofia Alvarez
+ACC-00010,CA Specialty Cycles 1,CA,QC,Strategic,48,-6,Watch,1787000,2027-02-03,Sofia Alvarez
+ACC-00011,US Large Cycles 1,US,NY,Strategic,35,-31,At Risk,5513000,2026-11-20,Sofia Alvarez
+ACC-00012,CA Specialty Cycles Group,CA,QC,Strategic,43,0,At Risk,2817000,2027-02-17,Tom Becker
+ACC-00013,LASPEC-392,CO,11,Strategic,24,-36,At Risk,311000,2026-12-01,Dana Whitfield
+ACC-00014,LA Specialty Cycles 1,CO,11,Strategic,25,-31,At Risk,230000,2026-12-04,Tom Becker
+ACC-00015,LA Specialty Cycles 5,MX,SON,Strategic,40,-13,At Risk,1146000,2027-08-28,Dana Whitfield
+ACC-00016,EAST BIKES,US,GA,Strategic,82,43,Healthy,471000,2027-04-30,Marco Lentz
+ACC-00017,LA Specialty Cycles 3,MX,MOR,Strategic,39,-17,At Risk,611000,2026-11-20,Lars Jensen
+ACC-00018,LA Specialty Cycles 4,MX,MOR,Strategic,43,-3,At Risk,1546000,2027-06-03,Dana Whitfield
+ACC-00019,south bikes,US,FL,Strategic,94,70,Watch,285000,2026-12-14,Dana Whitfield
+ACC-00020,WEST BIKES,US,WA,Strategic,70,22,Healthy,155000,2026-11-18,Lars Jensen
+ACC-00021,NOR. BIKES Co.,US,MI,Strategic,85,35,Healthy,479000,2027-01-23,Sofia Alvarez
+ACC-00022,CENTRAL BIKES,US,TX,Strategic,90,43,Healthy,406000,2027-03-24,Marco Lentz
+ACC-00023,US Specialty Cycles 16,US,WI,Strategic,49,7,Watch,988000,2027-04-12,Dana Whitfield
+ACC-00024,ABC. Inc. Co.,US,NY,Strategic,75,13,Healthy,3901000,2027-02-02,Marco Lentz
+ACC-00025,US Specialty Cyclee 17 Corp.,US,MN,Strategic,48,0,Watch,1604000,2027-07-27,Sofia Alvarez
+ACC-00026,Cycles4U Co.,US,DE,Strategic,66,10,Healthy,2602000,2027-01-03,Sofia Alvarez
+ACC-00027,US Specialty Cycles 15,US,IA,Strategic,55,-1,Watch,1788000,2027-09-06,Dana Whitfield
+ACC-00028,USC1 Inc.,US,IL,Strategic,38,-32,At Risk,781000,2026-12-05,Dana Whitfield
+ACC-00029,RR Bikes,US,MD,Strategic,70,16,Healthy,3837000,2027-01-21,Lars Jensen
+ACC-00030,US Large Cycles 6 Corp.,US,TN,Strategic,57,20,Watch,3566000,2027-08-18,Marco Lentz
+ACC-00031,USLARG-396,US,FL,Strategic,53,7,Watch,2418000,2026-11-27,Dana Whitfield
+ACC-00032,US Large Cycles 4,US,NC,Strategic,48,-11,At Risk,3935000,2027-08-02,Sofia Alvarez
+ACC-00033,US Large Cycles 8,US,GA,Strategic,52,8,Watch,3398000,2027-09-02,Marco Lentz
+ACC-00034,US Large Cycles 5,US,SC,Strategic,48,-11,At Risk,3425000,2027-08-14,Tom Becker
+ACC-00035,US Specialty Cycles 2,US,MA,Strategic,60,11,Watch,2128000,2027-02-21,Sofia Alvarez
+ACC-00036,US Specialty Cycles 3,US,PA,Strategic,34,-38,At Risk,981000,2027-06-23,Marco Lentz
+ACC-00037,US Specialty Cycles 5 Corp.,US,CT,Strategic,38,-34,At Risk,1413000,2027-09-14,Marco Lentz
+ACC-00038,US Specialty Cycles 1 Co.,US,PA,Strategic,50,-18,At Risk,2201000,2027-08-22,Marco Lentz
+ACC-00039,US Specialty Cycles 4,US,ME,Strategic,39,-39,At Risk,1817000,2026-11-12,Priya Nair
+ACC-00040,US Specialty Cycles 6,US,NY,Strategic,45,-27,At Risk,1340000,2027-03-30,Sofia Alvarez
+ACC-00041,Cycles & Cycles LLC,US,ME,Strategic,76,27,Healthy,1193000,2026-11-28,Sofia Alvarez
+ACC-00042,RACEBI-232,US,CT,Strategic,68,14,Healthy,1852000,2027-02-12,Dana Whitfield
+ACC-00043,Ketan Xikes Co.,US,PA,Strategic,81,39,Healthy,2210000,2027-08-23,Priya Nair
+ACC-00044,Southern Bikes LLC,US,PA,Strategic,70,23,Healthy,1888000,2026-11-14,Sofia Alvarez
+ACC-00045,US Specialty Cycles 9 Corp.,US,TN,Strategic,65,15,Watch,1474000,2027-09-30,Lars Jensen
+ACC-00046,US Specialty Cycles 10,US,FL,Strategic,37,-25,At Risk,1061000,2027-07-31,Sofia Alvarez
+ACC-00047,FRD Sports,US,MA,Strategic,81,25,Healthy,1308000,2027-01-08,Tom Becker
+ACC-00048,US Specialty Cycles 13,US,AL,Strategic,48,-28,At Risk,1524000,2026-12-22,Priya Nair
+ACC-00049,US Specialty Cycles Inc.,US,VA,Strategic,57,0,At Risk,976000,2027-05-14,Sofia Alvarez
+ACC-00050,US Specialty Cycles 8,US,SC,Strategic,49,-10,Watch,520000,2026-11-15,Tom Becker
+ACC-00051,Global BikeWorld,US,GA,Strategic,48,-26,At Risk,515000,2027-04-04,Lars Jensen
+ACC-00052,USC7 LLC,US,NC,Strategic,60,-1,Watch,731000,2026-12-14,Lars Jensen
+ACC-00053,ES Co.,US,GA,SMB,,,Unmanaged,5000,,
+ACC-00054,Bom Café Store,US,CA,SMB,,,Unmanaged,39000.0,,
+ACC-00055,CITYCE-611,US,CA,SMB,,,Unmanaged,63000.0,,
+ACC-00056,DOMEST-259,US,,SMB,,,Unmanaged,5000,,
+ACC-00057,MH KG,DE,09,SMB,,,Unmanaged,5000,,
+ACC-00058,Carsten Monzel,DE,09,SMB,,,Unmanaged,5000,,
+ACC-00059,Nico Xoeller KG,DE,09,SMB,,,Unmanaged,5000,,
+ACC-00060,Claudia Kruger GmbH,DE,09,SMB,,,Unmanaged,5000,,
+ACC-00061,Christian Neuland,DE,09,SMB,,,Unmanaged,5000,,
+ACC-00062,Claudia Klaufuss AG,DE,BY,SMB,,,Unmanaged,5000,,
+ACC-00063,IDES AG Frankfurt,DE,,SMB,,,Unmanaged,5000,,
+ACC-00064,Marcos Stores Co.,US,NY,SMB,,,Unmanaged,53000.0,,
+ACC-00065,Alice Breuer,DE,07,SMB,,,Unmanaged,5000,,
+ACC-00066,Doris Lanzer,DE,09,SMB,,,Unmanaged,5000,,
+ACC-00067,Thomas Klinski,DE,09,SMB,,,Unmanaged,5000,,
+ACC-00068,HeXen Sauber AG,DE,09,SMB,,,Unmanaged,5000,,
+ACC-00069,Kirsten Schaefer AG,DE,BW,SMB,,,Unmanaged,5000,,
+ACC-00070,Sabrina Zimmer,DE,09,SMB,,,Unmanaged,5000,,
+ACC-00071,Alchad Brakeo Group,EG,,SMB,,,Unmanaged,5000,,
+ACC-00072,AmZn Weis AG,DE,09,SMB,,,Unmanaged,5000,,
+ACC-00073,Elmar Caton,DE,BW,SMB,,,Unmanaged,5000,,
+ACC-00074,MAR. Trapp AG,DE,08,SMB,,,Unmanaged,5000,,
+ACC-00075,Customer 02 Corp.,US,CA,SMB,,,Unmanaged,82000.0,,
+ACC-00076,Juergen Lehmann,DE,09,SMB,,,Unmanaged,5000,,
+ACC-00077,Sebastian Weidmann KG,DE,08,SMB,,,Unmanaged,5000,,
+ACC-00078,Zeronica Griel AG,DE,09,SMB,,,Unmanaged,5000,,
+ACC-00079,ThorstenXBiwer AG,DE,05,SMB,,,Unmanaged,5000,,
+ACC-00080,Ulrich Krause GmbH,DE,09,SMB,,,Unmanaged,5000,,
+ACC-00081,PATRIC-583,DE,SN,SMB,,,Unmanaged,5000,,
+ACC-00082,BikeWorld Inc.,US,LA,SMB,,,Unmanaged,5000,,
+ACC-00083,aucia Shaefer KG,DE,11,SMB,,,Unmanaged,5000,,
+ACC-00084,Anne Mueller,DE,08,SMB,,,Unmanaged,5000,,
+ACC-00085,Klaus Herzog,DE,09,SMB,,,Unmanaged,5000,,
+ACC-00086,Regina Briel,DE,RP,SMB,,,Unmanaged,5000,,
+ACC-00087,Udo Beims,DE,08,SMB,,,Unmanaged,5000,,
+ACC-00088,Thea Fiedler KG,DE,NW,SMB,,,Unmanaged,5000,,
+ACC-00089,Eliza Keller KG,DE,NW,SMB,,,Unmanaged,5000,,
+ACC-00090,Guenter Niedrich,DE,08,SMB,,,Unmanaged,5000,,
+ACC-00091,JULIEG-396,DE,09,SMB,,,Unmanaged,5000,,
+ACC-00092,Uwe Hartmann,DE,11,SMB,,,Unmanaged,5000,,
+ACC-00093,Dominik Ohliger,DE,09,SMB,,,Unmanaged,5000,,
+ACC-00094,Rudolph Bruehl,DE,NW,SMB,,,Unmanaged,5000,,
+ACC-00095,Otto Scholl,DE,05,SMB,,,Unmanaged,5000,,
+ACC-00096,Kraftman Shops Co.,US,TX,SMB,,,Unmanaged,5000,,
+ACC-00097,Andre Leukert,DE,08,SMB,,,Unmanaged,5000,,
+ACC-00098,ROBERT-204,DE,NW,SMB,,,Unmanaged,5000,,
+ACC-00099,Olivia Rieder,DE,09,SMB,,,Unmanaged,5000,,
+ACC-00100,JUL. Speicher KG,DE,05,SMB,,,Unmanaged,5000,,
+ACC-00101,oillworks Inc Inc.,US,TX,SMB,,,Unmanaged,5000,,
+ACC-00102,Susan Koenig,DE,08,SMB,,,Unmanaged,5000,,
+ACC-00103,Madeleine Nazarenko AG,DE,NW,SMB,,,Unmanaged,5000,,
+ACC-00104,Domestic US Customer 2 Inc.,US,CA,SMB,,,Unmanaged,5000,,
+ACC-00105,Jennifer Kogt KG,DE,09,SMB,,,Unmanaged,5000,,
+ACC-00106,Markus Weigelt,DE,09,SMB,,,Unmanaged,5000,,
+ACC-00107,CUS. 03 Inc.,US,CA,SMB,,,Unmanaged,212000.0,,
+ACC-00108,Castomer 01 Inc.,US,CA,SMB,,,Unmanaged,86000.0,,
+ACC-00109,Joachim Kahn,DE,09,SMB,,,Unmanaged,5000,,
+ACC-00110,Florian Kaiser,DE,08,SMB,,,Unmanaged,5000,,
+ACC-00111,Amy Goethe GmbH,DE,08,SMB,,,Unmanaged,5000,,
+ACC-00112,Peter Brechtel GmbH,DE,09,SMB,,,Unmanaged,5000,,
+ACC-00113,HEIKEK-456,DE,08,SMB,,,Unmanaged,5000,,
+ACC-00114,Amrei Hern KG,DE,HH,SMB,,,Unmanaged,5000,,
+ACC-00115,MiriamiZimmermann GmbH,DE,09,SMB,,,Unmanaged,5000,,
+ACC-00116,DIE. Woelk GmbH,DE,RP,SMB,,,Unmanaged,5000,,
+ACC-00117,THORST-586,DE,SN,SMB,,,Unmanaged,5000,,
+ACC-00118,Maria Doenig,DE,11,SMB,,,Unmanaged,5000,,
+ACC-00119,Daniela Moras,DE,BE,SMB,,,Unmanaged,5000,,
+ACC-00120,Guido Haneke AG,DE,11,SMB,,,Unmanaged,5000,,
+ACC-00121,Hans Ruths AG,DE,08,SMB,,,Unmanaged,5000,,
+ACC-00122,IRINA NOGA,DE,11,SMB,,,Unmanaged,5000,,
+ACC-00123,UR GmbH,DE,NW,SMB,,,Unmanaged,5000,,
+ACC-00124,Emory Manufacturing,US,CA,SMB,,,Unmanaged,9000.0,,
+ACC-00125,Christoph Schwilk AG,DE,11,SMB,,,Unmanaged,5000,,
+ACC-00126,Joseph Vogt AG,DE,09,SMB,,,Unmanaged,5000,,
+ACC-00127,CC AG,DE,09,SMB,,,Unmanaged,5000,,
+ACC-00128,SOPHIE-788,DE,11,SMB,,,Unmanaged,5000,,
+ACC-00129,Lynda Seiler,DE,TH,SMB,,,Unmanaged,5000,,
+ACC-00130,Ignatz Dorner,DE,SN,SMB,,,Unmanaged,5000,,
+ACC-00131,Rudiger Kohler GmbH,DE,08,SMB,,,Unmanaged,5000,,
+ACC-00132,Domestic US TM Customer4,US,CA,SMB,,,Unmanaged,8000.0,,
+ACC-00133,LJB Farms,US,CA,SMB,,,Unmanaged,5000,,
+ACC-00134,Bruno Meisser,DE,11,SMB,,,Unmanaged,5000,,
+ACC-00135,Friedoich Bause KG,DE,TH,SMB,,,Unmanaged,5000,,
+ACC-00136,LARSZI-623,DE,09,SMB,,,Unmanaged,5000,,
+ACC-00137,STE. BIKES Inc.,US,,SMB,,,Unmanaged,5000,,
+ACC-00138,Power Bikes LLC,US,,SMB,,,Unmanaged,5000,,
+ACC-00139,Fashion Brand Inc.,US,NY,SMB,,,Unmanaged,205000.0,,
+ACC-00140,LARABR-719,US,CA,SMB,,,Unmanaged,5000,,
+ACC-00141,Domestic US TM Customer6 Inc.,US,CA,SMB,,,Unmanaged,9000.0,,
+ACC-00142,Johanna Ackermann,DE,SN,SMB,,,Unmanaged,5000,,
+ACC-00143,Wilhelm Duttenhoffer,DE,02,SMB,,,Unmanaged,5000,,
+ACC-00144,Polestar Inc.,US,,SMB,,,Unmanaged,5000,,
+ACC-00145,The Apoiheke Inc.,US,PA,SMB,,,Unmanaged,33000.0,,
+ACC-00146,Sanny Pharma GMBH GmbH,DE,,SMB,,,Unmanaged,5000,,
+ACC-00147,Helge Alder,DE,HE,SMB,,,Unmanaged,5000,,
+ACC-00148,Matthias Guenther,DE,NW,SMB,,,Unmanaged,5000,,
+ACC-00149,Sascha Giert KG,DE,09,SMB,,,Unmanaged,5000,,
+ACC-00150,Martin Hibbert,DE,SN,SMB,,,Unmanaged,5000,,
+ACC-00151,Lisa Dreyfuss,DE,NW,SMB,,,Unmanaged,5000,,
+ACC-00152,WERNER-792,DE,NW,SMB,,,Unmanaged,5000,,
+ACC-00153,SABINE-162,DE,11,SMB,,,Unmanaged,5000,,
+ACC-00154,Andreas Breuer,DE,07,SMB,,,Unmanaged,5000,,
+ACC-00155,Twist Bikes,US,GA,SMB,,,Unmanaged,6000.0,,
+ACC-00156,Market Media - EWM,US,MI,SMB,,,Unmanaged,5000,,
+ACC-00157,KIA Bikes LLC,US,,SMB,,,Unmanaged,5000,,
+ACC-00158,Sarah Fiedler KG,DE,11,SMB,,,Unmanaged,5000,,
+ACC-00159,Volker Brehmer GmbH,DE,05,SMB,,,Unmanaged,5000,,
+ACC-00160,Market Saturn - EWM,US,CA,SMB,,,Unmanaged,5000,,
+ACC-00161,Market Big - EWM,US,OH,SMB,,,Unmanaged,5000,,
+ACC-00162,Nicole Benzing,DE,BY,SMB,,,Unmanaged,5000,,
+ACC-00163,Jorg Breuer,DE,07,SMB,,,Unmanaged,5000,,
+ACC-00164,GINA KRAUS,DE,05,SMB,,,Unmanaged,5000,,
+ACC-00165,Lars Gaenismantel AG,DE,RP,SMB,,,Unmanaged,5000,,
+ACC-00166,Regina Henninger KG,DE,11,SMB,,,Unmanaged,5000,,
+ACC-00167,Neo Trading,US,GA,SMB,,,Unmanaged,5000,,
+ACC-00168,JENSSC-923,DE,NW,SMB,,,Unmanaged,5000,,
+ACC-00169,CIT. Of Amess Inc.,US,MA,SMB,,,Unmanaged,5000,,
+ACC-00170,Shirley Schemel,DE,NW,SMB,,,Unmanaged,5000,,
+ACC-00171,Quantum Bikes,US,GA,SMB,,,Unmanaged,9000.0,,
+ACC-00172,Berndt Wagner,DE,11,SMB,,,Unmanaged,5000,,
+ACC-00173,Domestic US Customer us customer 11,US,CA,SMB,,,Unmanaged,5000,,
+ACC-00174,Rise Bikes LLC,US,GA,SMB,,,Unmanaged,9000.0,,
+ACC-00175,Paint & Coatings Inc.,US,PA,SMB,,,Unmanaged,9000.0,,
+ACC-00176,Katharina Lauterbach,DE,SN,SMB,,,Unmanaged,5000,,
+ACC-00177,Beall's Inc.,US,FL,SMB,,,Unmanaged,374000.0,,
+ACC-00178,House Painting Inc.,US,PA,SMB,,,Unmanaged,9000.0,,
+ACC-00179,Brigitte Bucher,DE,11,SMB,,,Unmanaged,5000,,
+ACC-00180,MSB Corp.,US,MD,SMB,,,Unmanaged,226000.0,,
+ACC-00181,PEPPOLiXYZ KG,DE,,SMB,,,Unmanaged,5000,,
+ACC-00182,Gerald Steuer,DE,11,SMB,,,Unmanaged,5000,,
+ACC-00183,Space Bikes Inc.,US,,SMB,,,Unmanaged,5000,,
+ACC-00184,Gessner Inc,US,TX,SMB,,,Unmanaged,5000,,
+ACC-00185,MARCOS-762,US,CA,SMB,,,Unmanaged,211000.0,,
+ACC-00186,Disc Bikes Co.,US,GA,SMB,,,Unmanaged,5000,,
+ACC-00187,Xiane Loy Co.,US,NC,SMB,,,Unmanaged,5000,,
+ACC-00188,Cynthia Rockfeller,US,DE,SMB,,,Unmanaged,5000,,
+ACC-00189,AB Corp.,US,,SMB,,,Unmanaged,6000.0,,
+ACC-00190,Alba Paints Corp.,US,FL,SMB,,,Unmanaged,5000,,
+ACC-00191,Saint Peter Inc.,US,NJ,SMB,,,Unmanaged,5000,,
+ACC-00192,Customer Brazil,BR,SP,SMB,,,Unmanaged,5000,,
+ACC-00193,Mission Corp.,US,CA,SMB,,,Unmanaged,5000,,
+ACC-00194,Rex Paintings Inc.,US,PA,SMB,,,Unmanaged,5000,,
+ACC-00195,BUSINE-247,US,TX,SMB,,,Unmanaged,5000,,
+ACC-00196,A to Z Corp.,US,CA,SMB,,,Unmanaged,5000,,
+ACC-00197,City Cori. Inc.,US,CA,SMB,,,Unmanaged,5000,,
+ACC-00198,Rogers Inc,US,TX,SMB,,,Unmanaged,5000,,
+ACC-00199,PRIMEB-471,US,,SMB,,,Unmanaged,5000,,
+ACC-00200,Premium Bikes Co.,US,,SMB,,,Unmanaged,5000,,
+ACC-00201,WAN. Coatings Inc. Inc.,US,NY,SMB,,,Unmanaged,5000,,
+ACC-00202,München-ombH GmbH,DE,09,SMB,,,Unmanaged,5000,,
+ACC-00203,DSCCOR-931,US,CA,SMB,,,Unmanaged,5000,,
+ACC-00204,Cbont Industries,US,CA,SMB,,,Unmanaged,5000,,
+ACC-00205,ES Corp.,US,GA,SMB,,,Unmanaged,5000,,
+ACC-00206,TRIUMP-404,US,,SMB,,,Unmanaged,5000,,
+ACC-00207,VRI Corp.,US,CA,SMB,,,Unmanaged,5000,,
+ACC-00208,RIO. Bikes Inc Corp.,US,CA,SMB,,,Unmanaged,5000,,
+ACC-00209,Power Sports,US,CA,SMB,,,Unmanaged,5000,,
+ACC-00210,USCUST-834,US,TX,SMB,,,Unmanaged,5000,,
+ACC-00211,JohnrDoe Inc.,US,NY,SMB,,,Unmanaged,5000,,
+ACC-00212,Thomas Carter,US,NY,SMB,,,Unmanaged,5000,,
+ACC-00213,Alice Evane LLC,US,NY,SMB,,,Unmanaged,5000,,
+ACC-00214,DSC Corporation,US,CA,SMB,,,Unmanaged,5000,,
+ACC-00215,New Country Square Inc.,US,CA,SMB,,,Unmanaged,5000,,
+ACC-00216,Detroit cuotomer LLC,US,MI,SMB,,,Unmanaged,5000,,
+ACC-00217,Gracy PitZ Co.,US,NY,SMB,,,Unmanaged,5000,,
+ACC-00218,ADV CUSTOMER 2,US,GA,SMB,,,Unmanaged,5000,,
+ACC-00219,Rio Bikes Inc,US,GA,SMB,,,Unmanaged,5000,,
+ACC-00220,POWERS-191,US,GA,SMB,,,Unmanaged,5000,,
+ACC-00221,Arrow bikes LLC,US,GA,SMB,,,Unmanaged,5000,,
+ACC-00222,New Port  Inc. Co.,US,CA,SMB,,,Unmanaged,5000,,
+ACC-00223,Food Corp. Inc. Inc.,US,CA,SMB,,,Unmanaged,5000,,
+ACC-00224,Clara Lee,US,NY,SMB,,,Unmanaged,5000,,
+ACC-00225,Store GmbH,DE,,SMB,,,Unmanaged,5000,,
+ACC-00226,WSC Co.,US,AL,SMB,,,Unmanaged,5000,,
+ACC-00227,Annamarie Buckelew Corp.,US,LA,SMB,,,Unmanaged,5000,,
+ACC-00228,WEBSHO-844,US,GA,SMB,,,Unmanaged,6000.0,,
+ACC-00229,Newport Inc. Corp.,US,CA,SMB,,,Unmanaged,5000,,
