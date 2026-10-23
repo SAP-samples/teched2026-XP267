@@ -165,6 +165,7 @@ knowledge.
 
 ---
 
+
 ### Step 9 — Ask it to query the knowledge graph for real rows
 
 Ask a question that forces the skill to run a SPARQL query against the knowledge graph:
@@ -176,6 +177,13 @@ performance, renewal date, and NPS. Cite the account.
 
 The answer should cite specific accounts with their OTIF, renewal date, and NPS pulled from the
 graph.
+
+
+Some more questions to ask:
+
+- How many accounts are in each churn risk category?
+- Give me each sales opportunity with its current stage (e.g. Qualify, Propose), deal amount, and expected close date.
+- How many open support cases are there in each status? Show me the breakdown.
 
 ---
 
