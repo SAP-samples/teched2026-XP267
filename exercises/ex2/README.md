@@ -251,7 +251,7 @@ Use the table below as a reference when setting each concept's Primary Attribute
 | `CrmContact` | `non_sap.crm_contact` | `contact_id` |
 | `CrmOpportunity` | `non_sap.crm_opportunity` | `opportunity_id` |
 | `VCrmAccountResolved` | `v_crm_account_resolved` | `CRMAccountID` |
-| `VCustomerOrderFulfillment` | `v_customer_otif` | `Customer` |
+| `VCustomerOtif` | `v_customer_otif` | `Customer` |
 
 Click **Next** once all concepts have a Primary Attribute set.
 
@@ -270,7 +270,7 @@ Add the following relationships (visible in the summary screenshot):
 | `CrmAccount` | `hasOpportunity` | `CrmOpportunity` | `CRMAccountID` | `CRMAccountID` |
 | `CrmAccount` | `resolvedBy` | `VCrmAccountResolved` | `CRMAccountID` | `CRMAccountID` |
 | `VCrmAccountResolved` | `resolvesTo` | `Customers` | `SAPCustomerID` | `Customer` |
-| `Customers` | `hasOTIF` | `VCustomerOrderFulfillment` | `Customer` | `Customer` |
+| `Customers` | `hasOTIF` | `VCustomerOtif` | `Customer` | `Customer` |
 | `Customers` | `placesOrder` | `Salesorderitems` | `Customer` | `SoldToParty` |
 | `CrmCase` | `referencesOrder` | `Salesorderitems` | `related_sales_order` | `SalesOrder` |
 
