@@ -171,25 +171,37 @@ knowledge.
 Ask a question that forces the skill to run a SPARQL query against the knowledge graph:
 
 ```text
-Which accounts are rated "At Risk" for churn? For each, show its OTIF delivery
-performance, renewal date, and NPS. Cite the account.
+How many accounts are in each churn risk category?
 ```
-
-The answer should cite specific accounts with their OTIF, renewal date, and NPS pulled from the
-graph.
-
-
-Some more questions to ask:
-
-- How many accounts are in each churn risk category?
-- Give me each sales opportunity with its current stage (e.g. Qualify, Propose), deal amount, and expected close date.
-- How many open support cases are there in each status? Show me the breakdown.
+The answer should list number of accounts in each churn risk category. 
 
 ---
 
-### Step 10 — Ask the churn-risk question
 
-Finally, ask Joule to connect delivery performance to the money at stake:
+### Step 10 — Ask question about to get insights about open support cases.
+
+```text
+How many open support cases are there in each status? Show me the breakdown.
+```
+
+The answer should show list of support cases by Status, Priority, Category  etc   to  helps gain insights into support workload, identify potential bottlenecks, and understand where cases may require attention based on their current status.
+
+---
+
+
+Additional Insight questions ( Optional ) : 
+
+
+```text
+Give me each sales opportunity with its current stage (e.g. Qualify, Propose), deal amount, and expected close date.
+```
+
+```text
+Which accounts are rated "At Risk" for churn? For each, show its OTIF delivery
+performance, renewal date, and NPS. Cite the account.
+The answer should cite specific accounts with their OTIF, renewal date, and NPS pulled from the
+graph.
+```
 
 ```text
 Rank the "At Risk" renewals by worst delivery performance, and tell me what each
@@ -197,13 +209,13 @@ one is costing — ACV at stake, days to renewal, and the delivery failures driv
 the risk.
 ```
 
+
 > The skill answers only from the knowledge graph: it looks up the ontology, reads its schema,
 > and runs SPARQL, so every answer traces back to the governed data. The payoff is the churn ↔
-> delivery link made actionable — at-risk renewals ranked by the OTIF failures threatening them,
-> with the ACV on the line. When the data doesn't support an answer, the skill says so instead
+> delivery link made actionable . When the data doesn't support an answer, the skill says so instead
 > of guessing.
 
----
+
 
 ## What the skill does (for the curious)
 
