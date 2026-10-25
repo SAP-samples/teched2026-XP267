@@ -22,7 +22,7 @@ This connects the two halves of the session: Exercise 1 produces the trusted, ma
 
 You need a PAT from Dremio to authenticate the connection in the next step. Do this in the [Dremio UI](https://app.qaemea1.dremio.site/project/7448000a-bf81-48b0-a68b-df7dd74fbba2/) before switching to Ontology Manager.
 
-**1a.** In Dremio, click your **avatar / initials** at the bottom-left of the navigation bar. Select **Account settings** from the popup menu.
+**1a.** In Dremio, click your **avatar / initials** at the top right on the screen. Select **Manage Account** from the popup menu.
 
 ![Dremio navigation bar with Account settings menu open](images/02_01_0000.jpg)
 
