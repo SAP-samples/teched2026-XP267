@@ -23,7 +23,7 @@ For this exercise you work with two datasets, SAP and non-SAP:
 
 > *"Do our delivery delays explain our churn risk?"*
 
-CRM owns the relationship (accounts, cases, renewals); SAP owns the transaction (actual delivery). Joining CRM churn signals to SAP delivery (OTIF) surfaces the link between them.
+CRM owns the relationship (accounts, cases, renewals); SAP owns the transaction (actual delivery). Joining CRM churn signals to SAP delivery (On-Time, In-Full) surfaces the link between them.
 
 Build two views, one per gap, and materialize each immediately after you create it:
 
@@ -97,7 +97,7 @@ CREATE RAW REFLECTION otif_raw USING DISPLAY (
 );
 ```
 
-> **Dremio capability — Raw Reflection acceleration.** There's no `CREATE MATERIALIZED VIEW`; you enable a reflection and Dremio transparently substitutes the physically-stored copy to speed up queries. The view stays the single source of truth — change a threshold and every query reflects it immediately, no pipeline re-run.
+> **Dremio capability — Raw Reflection acceleration.** There's no `CREATE MATERIALIZED VIEW`; you enable a reflection and Dremio transparently substitutes the physically-stored copy to speed up queries. The view stays the single source of truth — change a threshold and every query reflects it immediately, no pipeline re-run required.
 
 ![Raw Reflection enabled on v_customer_otif](images/v_customer_otif_reflection.png)
 
@@ -140,7 +140,7 @@ FROM "teched_labs_sandbox"."non_sap".crm_account_resolution_xref x
 LEFT JOIN fuzzy f ON f.crm_account_id = x.crm_account_id;
 ```
 
-> `match_method` is the MDM boundary. The regex is a proxy: it resolves clean names on its own (`fuzzy_auto`) and lets you *see* where fuzzy matching breaks down. Everything harder (`mdm_resolved`, `ambiguous_needs_mdm`) is what only a real master-data management (MDM) solution could settle — entity resolution, survivorship, stewardship, a maintained golden crosswalk. Here `crm_account_resolution_xref` stands in for that MDM output.
+> `match_method` is the MDM boundary. The regex is a proxy: it resolves clean names on its own (`fuzzy_auto`) and lets you *see* where fuzzy matching breaks down. Everything harder (`mdm_resolved`, `ambiguous_needs_mdm`) is what only a real master-data management solution, like SAP Reltio, could settle — entity resolution, survivorship, stewardship, a maintained golden crosswalk. Here `crm_account_resolution_xref` stands in for that MDM output.
 
 ![v_crm_account_resolved created — the Account → Customer crosswalk with match_method](images/v_crm_account_resolved.png)
 
